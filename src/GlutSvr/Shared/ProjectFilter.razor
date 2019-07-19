@@ -1,0 +1,15 @@
+@inject IDataStoreSvr DataStore
+
+<div>
+    <InputSelect bind-Value="@projects" T="IEnumerable<string>"/>
+</div>
+
+@functions
+{
+    IEnumerable<string> projects;
+
+    protected override async Task OnInitAsync()
+    {
+        projects = await DataStore.GetProjectString();
+    }
+}

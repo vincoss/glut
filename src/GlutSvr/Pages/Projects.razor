@@ -1,0 +1,39 @@
+﻿@page "/projects"
+@inject IDataStoreSvr DataStore
+
+<h4>@AppResources.Projects</h4>
+
+<p>This component display test projects.</p>
+
+@if (projects == null)
+{
+    <p><em>@AppResources.Loading</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in projects)
+            {
+                <tr>
+                    <td>@project.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@functions
+{
+    IEnumerable<ProjectDto> projects;
+
+    protected override async Task OnInitAsync()
+    {
+        projects = await DataStore.GetProjects();
+    }
+}

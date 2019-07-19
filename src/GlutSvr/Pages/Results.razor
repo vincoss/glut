@@ -1,0 +1,53 @@
+﻿@page "/results"
+@inject IDataStoreSvr DataStore
+@inject IAppState AppState
+
+
+<h4>@AppResources.Results</h4>
+
+<p>This component display test result for selected project and run.</p>
+
+@if (results == null)
+{
+    <p><em>@AppResources.Loading</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Url</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Is Success</th>
+                <th>Status Code</th>
+                <th>Total KB</th>
+                <th>Total Milliseconds</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in results)
+            {
+            <tr>
+                <td>@project.Url</td>
+                <td>@project.StartDateTime</td>
+                <td>@project.EndDateTime</td>
+                <td>@project.IsSuccessStatusCode</td>
+                <td>@project.StatusCode</td>
+                <td>@project.TotalLength</td>
+                <td>@project.TotalTicks</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@functions
+{
+    IEnumerable<ResultItemDto> results;
+
+    protected override async Task OnInitAsync()
+    {
+        results = await DataStore.GetResultItems(AppState.SelectedProject, AppState.SelectedRunId);
+    }
+}
