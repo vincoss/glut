@@ -61,8 +61,14 @@ add-migration InitialCreate -verbose
 PieChart by status code
 
 
+# UI examples
 
+Data tables
+	https://adminlte.io/themes/AdminLTE/pages/tables/data.html
 
+Icon
+https://www.compart.com/en/unicode/U+2305
+https://en.wikipedia.org/wiki/List_of_Unicode_characters
 
 
 
