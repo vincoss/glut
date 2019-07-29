@@ -64,7 +64,7 @@ namespace Glut.Services
                 {
                     requestSentTicks = sw.ElapsedTicks;
                     statusCode = (int)response.StatusCode;
-                    isSuccessStatusCode = response.IsSuccessStatusCode;
+                    isSuccessStatusCode = response.IsSuccessStatusCode; // 200-299
                     responseHeaders = response.ToString();
                     headerLength = responseHeaders.Length;
                     sw.Restart();

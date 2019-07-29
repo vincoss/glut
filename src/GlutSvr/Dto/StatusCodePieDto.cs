@@ -3,7 +3,7 @@
 
 namespace GlutSvr.Dto
 {
-    public class PieDto
+    public class StatusCodePieDto
     {
         public int StatusCode { get; set; }
         public int StatusCodeItems { get; set; }

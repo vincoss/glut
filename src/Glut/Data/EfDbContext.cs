@@ -19,6 +19,7 @@ namespace Glut.Data
         public DbSet<GlutProject> Projects { get; set; }
 
         public DbSet<GlutResultItem> Results { get; set; }
+        public DbSet<GlutRunAttribute> RunAttributes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,6 +30,7 @@ namespace Glut.Data
         {
             modelBuilder.Entity<GlutProject>().ToTable(nameof(GlutProject));
             modelBuilder.Entity<GlutResultItem>().ToTable(nameof(GlutResultItem));
+            modelBuilder.Entity<GlutRunAttribute>().ToTable(nameof(GlutRunAttribute)).HasKey(x => new { x.GlutProjectName, x.GlutProjectRunId, x.AttributeName });
         }
     }
 }

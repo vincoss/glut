@@ -5,6 +5,8 @@ namespace GlutSvr.Dto
 {
     public class ProjectDto
     {
-        public string Name { get; set; }
+        public string ProjectName { get; set; }
+        public int Runs { get; set; }
+        public DateTime? LastChangeDateTime { get; set; }
     }
 }

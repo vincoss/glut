@@ -24,22 +24,96 @@ namespace GlutSvr.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<ProjectDto>> GetProjects()
+        public async Task<IEnumerable<string>> GetProjectString()
         {
             return await (from x in _context.Projects.AsNoTracking()
-                   select new ProjectDto
-                   {
-                       Name = x.GlutProjectName
-                   }).ToListAsync();
+                          orderby x.GlutProjectName ascending
+                          select x.GlutProjectName).ToListAsync();
+        }
+
+        public async Task<IEnumerable<int>> GetProjectRuns(string projectName)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+
+            var query = _context.RunAttributes.AsNoTracking().Where(x => x.GlutProjectName == projectName);
+
+            return await (from x in query
+                          group x by x.GlutProjectRunId into g
+                          orderby g.Key descending
+                          select g.Key).ToListAsync();
+
+        }
+
+        public async Task<IEnumerable<ProjectDto>> GetProjects()
+        {
+            var results = await (from x in _context.Projects.AsNoTracking()
+                          let last = _context.RunAttributes.AsNoTracking()
+                                                        .Where(a => a.GlutProjectName == x.GlutProjectName)
+                                                        .OrderByDescending(o => o.GlutProjectRunId)
+                                                        .FirstOrDefault()
+                          let count = _context.RunAttributes.AsNoTracking()
+                                                            .Where(a => a.GlutProjectName == x.GlutProjectName)
+                                                            .GroupBy(g => g.GlutProjectRunId)
+                                                            .Count()
+                          select new ProjectDto
+                          {
+                              ProjectName = x.GlutProjectName,
+                              Runs = count,
+                              LastChangeDateTime = GetDate(last)
+                          }).OrderByDescending(o => o.LastChangeDateTime).ToListAsync();
+
+            return results;
+        }
+
+        public async Task<IEnumerable<ResultItemDto>> GetResultItems(string projectName, int runId)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            var query = from x in _context.Results.AsNoTracking()
+                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId
+                        orderby x.GlutResultId
+                        select x;
+
+            var results = await (from x in query
+                          select new ResultItemDto
+                          {
+                              StartDateTime = x.StartDateTimeUtc.ToLocalTime(),
+                              EndDateTime = x.EndDateTimeUtc.ToLocalTime(),
+                              Url = x.RequestUri,
+                              IsSuccessStatusCode = x.IsSuccessStatusCode,
+                              StatusCode = x.StatusCode,
+                              HeaderLength = ConvertToKb(x.HeaderLength),
+                              ResponseLength = ConvertToKb(x.ResponseLength),
+                              TotalLength = ConvertToKb(x.TotalLegth),
+                              RequestTicks = ConvertToMillisecond(x.RequestSentTicks),
+                              ResponseTicks = ConvertToMillisecond(x.ResponseTicks),
+                              TotalTicks = ConvertToMillisecond(x.TotalTicks),
+                              ResponseHeaders = x.ResponseHeaders,
+                              Exception = x.Exception,
+                              CreatedDateTime = x.CreatedDateTimeUtc.ToLocalTime(),
+                              CreatedByUser = x.CreatedByUserName
+                          }).ToListAsync();
+
+            return results;
         }
 
         public Task<IDictionary<string, decimal>> GetResponseDetails(string projectName, int runId)
         {
-            if(string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrEmpty(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
-            if(runId <= 0)
+            if (runId <= 0)
             {
                 throw new ArgumentException(nameof(runId));
             }
@@ -64,7 +138,7 @@ namespace GlutSvr.Services
             return Task.FromResult<IDictionary<string, decimal>>(results);
         }
 
-        public async Task<IEnumerable<PieDto>> GetStatusCodePieData(string projectName, int runId)
+        public async Task<IEnumerable<StatusCodePieDto>> GetStatusCodePieData(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
             {
@@ -79,12 +153,12 @@ namespace GlutSvr.Services
                         where x.GlutProjectName == projectName && x.GlutProjectRunId == runId
                         select x;
 
-            var total = query.Count();
+            var total = await query.CountAsync();
 
             var results = await (from x in query
                                  orderby x.StatusCode
                                  group x by x.StatusCode into g
-                                 select new PieDto
+                                 select new StatusCodePieDto
                                  {
                                      StatusCode = g.Key,
                                      StatusCodeItems = g.Count(),
@@ -96,7 +170,49 @@ namespace GlutSvr.Services
             return results;
         }
 
-        public async Task<IEnumerable<ResultItemDto>> GetResultItems(string projectName, int runId)
+        public async Task<IEnumerable<TopSuccessOrErrorResquestDto>> GetTopSuccessRequests(string projectName, int runId)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            var query = from x in _context.Results.AsNoTracking()
+                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
+                              x.StatusCode >= 200 && x.StatusCode < 300
+                        select x;
+
+            var total = await query.CountAsync();
+
+            var results = await (from x in query
+                                 orderby x.RequestUri
+                                 group x by x.RequestUri into g
+                                 select new TopSuccessOrErrorResquestDto
+                                 {
+                                     Url = g.Key,
+                                     Count = g.Count(),
+                                     Frequency = (g.Count() * 100) / total,
+                                     TotalItems = total
+
+                                 }).OrderByDescending(o => o.Count).ToListAsync();
+
+            return results;
+        }
+
+        public async Task<IEnumerable<TopSuccessOrErrorResquestDto>> GetTopErrorRequests(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
             {
@@ -108,27 +224,160 @@ namespace GlutSvr.Services
             }
 
             var query = from x in _context.Results.AsNoTracking()
-                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId
+                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
+                              x.StatusCode >= 400
                         select x;
 
+            var total = await query.CountAsync();
+
+            var results = await (from x in query
+                                 orderby x.StatusCode
+                                 group x by x.RequestUri into g
+                                 select new TopSuccessOrErrorResquestDto
+                                 {
+                                     Url = g.Key,
+                                     Count = g.Count(),
+                                     Frequency = (g.Count() * 100) / total,
+                                     TotalItems = total
+
+                                 }).OrderByDescending(o => o.Count).ToListAsync();
+
+            return results;
+        }
+
+        public async Task<IEnumerable<KeyValueData<decimal>>> GetFastestSuccessRequests(string projectName, int runId)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            var query = from x in _context.Results.AsNoTracking()
+                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
+                              x.StatusCode >= 200 && x.StatusCode < 300
+                        select x;
+
+            var results = await (from x in query
+                                 group x by x.RequestUri into g
+                                 select new KeyValueData<decimal>
+                                 {
+                                     Key = g.Key,
+                                     Value = g.Min(x => x.TotalTicks)
+
+                                 }).OrderBy(x => x.Value).Take(10).ToListAsync();
+
+            return results;
+        }
+
+        public async Task<IEnumerable<KeyValueData<decimal>>> GetSlowestSuccessRequests(string projectName, int runId)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            var query = from x in _context.Results.AsNoTracking()
+                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
+                              x.StatusCode >= 200 && x.StatusCode < 300
+                        select x;
+
+            var results = await (from x in query
+                                 group x by x.RequestUri into g
+                                 select new KeyValueData<decimal>
+                                 {
+                                     Key = g.Key,
+                                     Value = g.Max(x => x.TotalTicks)
+
+                                 }).OrderByDescending(x => x.Value).Take(10).ToListAsync();
+
+            return results;
+        }
+
+        public async Task<IEnumerable<KeyValueData<decimal>>> GetLargestSuccessRequests(string projectName, int runId)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            var query = from x in _context.Results.AsNoTracking()
+                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
+                              x.StatusCode >= 200 && x.StatusCode < 300
+                        select x;
+
+            var results = await (from x in query
+                                 group x by x.RequestUri into g
+                                 select new KeyValueData<decimal>
+                                 {
+                                     Key = g.Key,
+                                     Value = g.Max(x => x.TotalLegth)
+
+                                 }).OrderByDescending(x => x.Value).Take(10).ToListAsync();
+
+            return results;
+        }
+
+        public async Task<IEnumerable<LineChartDto>> GetLineChartRequests(string projectName, int runId)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            var query = _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
+
+            var groups = await (from x in query
+                                where x.StatusCode >= 200 && x.StatusCode < 300 || x.StatusCode >= 400
+                                orderby x.EndDateTimeUtc
+                                group x by new { x.IsSuccessStatusCode, Ticks = (x.EndDateTimeUtc.Ticks / TimeSpan.FromSeconds(1).Ticks) } into g
+                                select g).ToListAsync();
+
+            var results = (from x in groups
+                           select new LineChartDto
+                           {
+                               SeriesString = x.Key.IsSuccessStatusCode ? "Success" : "Error",
+                               TimeSeries = new DateTime(x.Key.Ticks * TimeSpan.FromSeconds(1).Ticks),
+                               Value = x.Count()
+                           }).ToList();
+
+            return results.OrderBy(x => x.TimeSeries);
+        }
+
+        public async Task<IEnumerable<KeyValueData<string>>> GetRunInfo(string projectName, int runId)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            var query = _context.RunAttributes.AsNoTracking().Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
+
             return await (from x in query
-                          select new ResultItemDto
+                          orderby x.AttributeName
+                          select new KeyValueData<string>
                           {
-                              StartDateTime = x.StartDateTimeUtc.ToLocalTime(),
-                              EndDateTime = x.EndDateTimeUtc.ToLocalTime(),
-                              Url = x.RequestUri,
-                              IsSuccessStatusCode = x.IsSuccessStatusCode,
-                              StatusCode = x.StatusCode,
-                              HeaderLength = ConvertToKb(x.HeaderLength),
-                              ResponseLength = ConvertToKb(x.ResponseLength),
-                              TotalLength = ConvertToKb(x.TotalLegth),
-                              RequestTicks = ConvertToMillisecond(x.RequestSentTicks),
-                              ResponseTicks = ConvertToMillisecond(x.ResponseTicks),
-                              TotalTicks = ConvertToMillisecond(x.TotalTicks),
-                              ResponseHeaders = x.ResponseHeaders,
-                              Exception = x.Exception,
-                              CreatedDateTime = x.CreatedDateTimeUtc.ToLocalTime(),
-                              CreatedByUser = x.CreatedByUserName
+                              Key = x.AttributeName,
+                              Value = x.AttributeValue
                           }).ToListAsync();
         }
 
@@ -142,13 +391,13 @@ namespace GlutSvr.Services
             return ((decimal)length) / 1024M;
         }
 
-        public async Task<IEnumerable<string>> GetProjectString()
+        private static DateTime? GetDate(GlutRunAttribute a)
         {
-            return await (from x in _context.Projects.AsNoTracking()
-                         select x.GlutProjectName).ToListAsync();
+            if (a == null)
+            {
+                return null;
+            }
+            return a.CreatedDateTimeUtc;
         }
-
-        // Top Requests total
-        // 
     }
 }

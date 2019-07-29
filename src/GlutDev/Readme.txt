@@ -1,4 +1,7 @@
 ﻿
+# Cleaning 
+F:\_VincoHome\Business-Job\Bills-Receipts\2013
+
 # Tasks
 +ApplicationName is composite including versin number Glut 1.0.0.0
 +length value form response ensure that that is with headers and content. ThreadResult does that
@@ -6,6 +9,15 @@
 +add sn key
 Ensure that request contains 'User-Agent' glut if missing, possible other also
 Totals, Add Max,Min,Arg
+Store the Run setting into the database
+
+#ProjectRun
+	ProjectName
+	RunId
+	Threads
+	Count
+	Duraction
+
 
 # Nice to have
 Request timeout not implemented
@@ -65,6 +77,8 @@ PieChart by status code
 
 Data tables
 	https://adminlte.io/themes/AdminLTE/pages/tables/data.html
+	https://adminlte.io/
+	https://startbootstrap.com/themes/clean-blog/
 
 Icon
 https://www.compart.com/en/unicode/U+2305
