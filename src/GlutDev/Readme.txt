@@ -10,6 +10,7 @@ F:\_VincoHome\Business-Job\Bills-Receipts\2013
 Ensure that request contains 'User-Agent' glut if missing, possible other also
 Totals, Add Max,Min,Arg
 Store the Run setting into the database
+favicon icon create and add into the project
 
 #ProjectRun
 	ProjectName
@@ -84,9 +85,13 @@ Icon
 https://www.compart.com/en/unicode/U+2305
 https://en.wikipedia.org/wiki/List_of_Unicode_characters
 
-
-
-
+# UI Order
+ top header status codes
+https://adminlte.io/themes/AdminLTE/pages/UI/general.html
+drop down list
+https://adminlte.io/themes/AdminLTE/pages/forms/advanced.html
+pie chart
+https://adminlte.io/themes/AdminLTE/pages/charts/chartjs.html
 
 
 	 

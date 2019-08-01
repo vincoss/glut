@@ -1,12 +1,12 @@
 @inject IDataStoreSvr DataStore
 
 <div>
-    <InputSelect bind-Value="@projects" T="IEnumerable<string>"/>
+    @*<InputSelect bind-Value="@projects" T="IEnumerable<string>"/>*@
 </div>
 
 @functions
 {
-    IEnumerable<string> projects;
+    [CascadingParameter] private IEnumerable<string> projects { get; set; }
 
     protected override async Task OnInitAsync()
     {

@@ -21,9 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutDev", "src\GlutDev\Glut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Glut.IntegrationTest", "test\Glut.IntegrationTest\Glut.IntegrationTest.csproj", "{57FDBD74-ED46-4A08-9417-B61BFF6D0A3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlutSvr", "src\GlutSvr\GlutSvr.csproj", "{64E18983-4223-4D77-9B5B-AB2D9AB9AFDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutSvr", "src\GlutSvr\GlutSvr.csproj", "{64E18983-4223-4D77-9B5B-AB2D9AB9AFDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlutSvr.Test", "test\GlutSvr.Test\GlutSvr.Test.csproj", "{688894E6-A38D-416D-A9B9-0AB77D8B7090}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutSvr.Test", "test\GlutSvr.Test\GlutSvr.Test.csproj", "{688894E6-A38D-416D-A9B9-0AB77D8B7090}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutWebAdminLteTemplate", "src\GlutWebAdminLteTemplate\GlutWebAdminLteTemplate.csproj", "{75DA067E-9E9E-4BFF-9363-BED03BB64B97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlutSvrWeb", "src\GlutSvrWeb\GlutSvrWeb.csproj", "{FC126678-E721-4DEE-BD0E-66B88A59C03E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +71,14 @@ Global
 		{688894E6-A38D-416D-A9B9-0AB77D8B7090}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{688894E6-A38D-416D-A9B9-0AB77D8B7090}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{688894E6-A38D-416D-A9B9-0AB77D8B7090}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75DA067E-9E9E-4BFF-9363-BED03BB64B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75DA067E-9E9E-4BFF-9363-BED03BB64B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75DA067E-9E9E-4BFF-9363-BED03BB64B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75DA067E-9E9E-4BFF-9363-BED03BB64B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC126678-E721-4DEE-BD0E-66B88A59C03E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC126678-E721-4DEE-BD0E-66B88A59C03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC126678-E721-4DEE-BD0E-66B88A59C03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC126678-E721-4DEE-BD0E-66B88A59C03E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

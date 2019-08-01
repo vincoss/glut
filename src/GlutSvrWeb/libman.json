@@ -1,0 +1,126 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "admin-lte@2.4.15",
+      "destination": "wwwroot/lib/admin-lte/"
+    },
+//    {
+//      "library": "twitter-bootstrap@3.4.1",
+//      "destination": "wwwroot/lib/bootstrap/"
+//    },
+//    {
+//      "library": "bootstrap-colorpicker@2.5.3",
+//      "destination": "wwwroot/lib/bootstrap-colorpicker"
+//    },
+//    {
+//      "library": "bootstrap-datepicker@1.8.0",
+//      "destination": "wwwroot/lib/bootstrap-datepicker"
+//    },
+//    {
+//      "library": "bootstrap-daterangepicker@2.1.27",
+//      "destination": "wwwroot/lib/bootstrap-daterangepicker"
+//    },
+//    {
+//      "library": "bootstrap-slider@10.6.2",
+//      "destination": "wwwroot/lib/bootstrap-slider"
+//    },
+//    {
+//      "library": "bootstrap-timepicker@0.5.2",
+//      "destination": "wwwroot/lib/bootstrap-timepicker"
+//    },
+//    {
+//      "library": "Chart.js@1.0.2",
+//      "destination": "wwwroot/lib/Chart.js"
+//    },
+//    {
+//      "library": "ckeditor@4.11.2",
+//      "destination": "wwwroot/lib/ckeditor"
+//    },
+//    {
+//      "library": "datatables@1.10.19",
+//      "destination": "wwwroot/lib/datatables.net"
+//    },
+//    {
+//      "library": "eve.js@0.8.4",
+//      "destination": "wwwroot/lib/eve-raphael"
+//    },
+//    {
+//      "library": "fastclick@1.0.6",
+//      "destination": "wwwroot/lib/fastclick/"
+//    },
+//    //{
+//    //  "library": "flot@0.8.3",
+//    //  "destination": "wwwroot/lib/Flot"
+//    //},
+    {
+      "library": "font-awesome@4.7.0",
+      "destination": "wwwroot/lib/font-awesome/"
+    }
+//    {
+//      "library": "fullcalendar@3.10.0",
+//      "destination": "wwwroot/lib/fullcalendar"
+//    },
+//    {
+//      "library": "inputmask@3.3.11",
+//      "destination": "wwwroot/lib/inputmask"
+//    },
+//    {
+//      "library": "ion-rangeslider@2.3.0",
+//      "destination": "wwwroot/lib/ion.rangeSlider"
+//    },
+//    {
+//      "library": "ionicons@2.0.1",
+//      "destination": "wwwroot/lib/ionicons/"
+//    },
+//    {
+//      "library": "jquery@3.3.1",
+//      "destination": "wwwroot/lib/jquery/"
+//    },
+//    //{
+//    //  "library": "jQuery-Knob@1.2.13",
+//    //  "destination": "wwwroot/lib/jquery-knob"
+//    //},
+//    {
+//      "library": "jQuery-slimScroll@1.3.8",
+//      "destination": "wwwroot/lib/jQuery-slimScroll/"
+//    },
+//    {
+//      "library": "jquery-sparklines@2.1.2",
+//      "destination": "wwwroot/lib/jquery-sparkline"
+//    },
+//    {
+//      "library": "jqueryui@1.11.4",
+//      "destination": "wwwroot/lib/jquery-ui"
+//    },
+//    {
+//      "library": "jvectormap@1.2.2",
+//      "destination": "wwwroot/lib/jvectormap"
+//    },
+//    {
+//      "library": "mocha@1.17.1",
+//      "destination": "wwwroot/lib/mocha"
+//    },
+//    {
+//      "library": "moment.js@2.24.0",
+//      "destination": "wwwroot/lib/moment"
+//    },
+//    {
+//      "library": "morris.js@0.5.1",
+//      "destination": "wwwroot/lib/morris.js"
+//    },
+//    //{
+//    //  "library": "pace@1.0.2",
+//    //  "destination": "wwwroot/lib/PACE"
+//    //},
+//    {
+//      "library": "raphael@2.2.7",
+//      "destination": "wwwroot/lib/raphael"
+//    },
+//    {
+//      "library": "select2@4.0.7",
+//      "destination": "wwwroot/lib/select2"
+//    }
+  ]
+}
