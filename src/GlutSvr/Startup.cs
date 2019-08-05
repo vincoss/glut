@@ -33,11 +33,6 @@ namespace GlutSvr
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddTransient<IDataStoreSvr, EfDataStoreSvr>();
-            services.AddSingleton<IAppState, MemoryAppState>();
-
-            services.AddDbContext<EfDbContext>(options =>
-                   options.UseSqlite(Configuration.GetConnectionString("EfDbContext")), ServiceLifetime.Transient);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

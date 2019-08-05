@@ -123,6 +123,9 @@
   <data name="AllRights" xml:space="preserve">
     <value>All rights reserved.</value>
   </data>
+  <data name="ClientError" xml:space="preserve">
+    <value>Client Error</value>
+  </data>
   <data name="Copyright" xml:space="preserve">
     <value>Copyright</value>
   </data>
@@ -132,17 +135,35 @@
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
   <data name="MainNavigation" xml:space="preserve">
     <value>MAIN NAVIGATION</value>
   </data>
   <data name="Projects" xml:space="preserve">
     <value>Projects</value>
   </data>
+  <data name="Redirection" xml:space="preserve">
+    <value>Redirection</value>
+  </data>
   <data name="Results" xml:space="preserve">
     <value>Results</value>
   </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Server Error</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>Successful</value>
+  </data>
   <data name="ToggleNavigation" xml:space="preserve">
     <value>Toggle navigation</value>
+  </data>
+  <data name="TotalRequests" xml:space="preserve">
+    <value>Total Requests</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>

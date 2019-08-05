@@ -25,11 +25,22 @@ namespace GlutSvr
                 return this;   // DB has been seeded
             }
 
+            var createdDate = DateTime.UtcNow;
+
             context.Projects.AddRange(new GlutProject
             {
                 GlutProjectName = "Test",
-                CreatedDateTimeUtc = DateTime.UtcNow,
-                CreatedByUserName = Environment.UserName
+                CreatedDateTimeUtc = createdDate,
+                CreatedByUserName = Environment.UserName,
+                ModifiedDateTimeUtc = createdDate.AddDays(1)
+            });
+
+            context.Projects.AddRange(new GlutProject
+            {
+                GlutProjectName = "Gabo",
+                CreatedDateTimeUtc = createdDate,
+                CreatedByUserName = Environment.UserName,
+                ModifiedDateTimeUtc = createdDate.AddDays(2)
             });
 
             context.SaveChanges();

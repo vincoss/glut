@@ -20,6 +20,9 @@
 <!-- Main content -->
 <section class="content">
 
+    @*@await Html.PartialAsync("_projectFilter")*@
+    <partial name="_projectFilter" model="Model.Projects" />
+
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">

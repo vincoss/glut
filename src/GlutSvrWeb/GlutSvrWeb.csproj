@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>GlutSvr</RootNamespace>
+    <RootNamespace>GlutSvrWeb</RootNamespace>
     <AssemblyName>GlutSvr</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Glut.snk</AssemblyOriginatorKeyFile>
@@ -12,6 +12,16 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="hostsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="hostsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Glut\Glut.csproj" />

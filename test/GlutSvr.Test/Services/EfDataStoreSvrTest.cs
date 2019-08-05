@@ -1,5 +1,6 @@
 ﻿using Glut.Data;
-using GlutSvr.Properties;
+using GlutSvrWeb.Properties;
+using GlutSvrWeb.Services;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -34,8 +35,8 @@ namespace GlutSvr.Services
 
                     var r = await service.GetProjectString();
 
-                    Assert.Single(r);
-                    Assert.Equal("Test", r.ElementAt(0));
+                    Assert.Equal(2, r.Count());
+                    Assert.Equal("Gabo", r.ElementAt(0));
                 }
             }
             finally
@@ -417,8 +418,9 @@ namespace GlutSvr.Services
 
                     var results = await service.GetProjects();
 
-                    Assert.Equal(1, results.Count());
-                    Assert.Equal(2, results.ElementAt(0).Runs);
+                    Assert.Equal(2, results.Count());
+                    Assert.Equal("Gabo", results.ElementAt(0).ProjectName);
+                    Assert.Equal(0, results.ElementAt(0).Runs);
                     Assert.NotNull(results.ElementAt(0).LastChangeDateTime);
                 }
             }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GlutSvr.Properties {
+namespace GlutSvrWeb.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GlutSvr.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GlutSvr.Properties.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GlutSvrWeb.Properties.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -79,6 +79,15 @@ namespace GlutSvr.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client Error.
+        /// </summary>
+        public static string ClientError {
+            get {
+                return ResourceManager.GetString("ClientError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copyright.
         /// </summary>
         public static string Copyright {
@@ -106,6 +115,24 @@ namespace GlutSvr.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading....
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MAIN NAVIGATION.
         /// </summary>
         public static string MainNavigation {
@@ -124,6 +151,15 @@ namespace GlutSvr.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Redirection.
+        /// </summary>
+        public static string Redirection {
+            get {
+                return ResourceManager.GetString("Redirection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results.
         /// </summary>
         public static string Results {
@@ -133,11 +169,38 @@ namespace GlutSvr.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Server Error.
+        /// </summary>
+        public static string ServerError {
+            get {
+                return ResourceManager.GetString("ServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successful.
+        /// </summary>
+        public static string Successful {
+            get {
+                return ResourceManager.GetString("Successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle navigation.
         /// </summary>
         public static string ToggleNavigation {
             get {
                 return ResourceManager.GetString("ToggleNavigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Requests.
+        /// </summary>
+        public static string TotalRequests {
+            get {
+                return ResourceManager.GetString("TotalRequests", resourceCulture);
             }
         }
         

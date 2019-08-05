@@ -2,18 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GlutSvr.Properties;
+using GlutSvrWeb.Interfaces;
+using GlutSvrWeb.Properties;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GlutSvr.Pages
+namespace GlutSvrWeb.Pages
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
-        {
+        private readonly IDataStoreSvr _dataStoreSvr;
 
+        public IndexModel(IDataStoreSvr dataStoreSvr)
+        {
+            if(dataStoreSvr == null)
+            {
+                throw new ArgumentNullException(nameof(dataStoreSvr));
+            }
+            _dataStoreSvr = dataStoreSvr;
         }
+
+        public async void OnGet()
+        {
+            Projects = await _dataStoreSvr.GetProjectString();
+        }
+
+        public IEnumerable<string> Projects { get; private set; }
 
         public string Title
         {

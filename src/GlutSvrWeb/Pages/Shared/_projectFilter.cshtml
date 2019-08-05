@@ -1,0 +1,39 @@
+﻿@model IEnumerable<string>
+
+
+<div class="box-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>@AppResources.Projects</label>
+                @Html.DropDownList("Project", Model.Select(g => new SelectListItem() { Text = g, Value = g }))
+                <select class="form-control select2" style="width: 100%;" onchange="onProjectChange">
+                    @foreach (var p in Model)
+                    {
+                        <option>@p</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>@AppResources.Projects</label>
+                <select class="form-control select2" style="width: 100%;" onchange="onProjectChange">
+                    @foreach (var p in Model)
+                    {
+                        <option>@p</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>
+
+<script>
+
+    function onProjectChange(e)
+    {
+
+    }
+
+</script>

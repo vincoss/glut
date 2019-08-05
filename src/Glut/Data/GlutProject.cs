@@ -9,6 +9,8 @@ namespace Glut.Data
         public int GlutProjectId { get; set; }
         public string GlutProjectName { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
+        public DateTime ModifiedDateTimeUtc { get; set; }
+
         public string CreatedByUserName { get; set; }
 
         public override string ToString()

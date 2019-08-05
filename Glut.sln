@@ -23,11 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Glut.IntegrationTest", "tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutSvr", "src\GlutSvr\GlutSvr.csproj", "{64E18983-4223-4D77-9B5B-AB2D9AB9AFDE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutSvr.Test", "test\GlutSvr.Test\GlutSvr.Test.csproj", "{688894E6-A38D-416D-A9B9-0AB77D8B7090}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutSvrWeb.Test", "test\GlutSvr.Test\GlutSvrWeb.Test.csproj", "{688894E6-A38D-416D-A9B9-0AB77D8B7090}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutWebAdminLteTemplate", "src\GlutWebAdminLteTemplate\GlutWebAdminLteTemplate.csproj", "{75DA067E-9E9E-4BFF-9363-BED03BB64B97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlutSvrWeb", "src\GlutSvrWeb\GlutSvrWeb.csproj", "{FC126678-E721-4DEE-BD0E-66B88A59C03E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutSvrWeb", "src\GlutSvrWeb\GlutSvrWeb.csproj", "{FC126678-E721-4DEE-BD0E-66B88A59C03E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
