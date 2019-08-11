@@ -80,5 +80,17 @@ namespace GlutSample.Server.Controllers
             System.Threading.Thread.Sleep(10000000);
             return Ok();
         }
+
+        #region StatusCode 100-199
+
+        /// <summary>
+        /// 408
+        /// </summary>
+        public IActionResult Continue()
+        {
+            return StatusCode((int)HttpStatusCode.Continue);
+        }
+
+        #endregion
     }
 }

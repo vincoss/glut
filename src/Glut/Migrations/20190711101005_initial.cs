@@ -15,6 +15,7 @@ namespace Glut.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     GlutProjectName = table.Column<string>(nullable: true),
                     CreatedDateTimeUtc = table.Column<DateTime>(nullable: false),
+                    ModifiedDateTimeUtc = table.Column<DateTime>(nullable: false),
                     CreatedByUserName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

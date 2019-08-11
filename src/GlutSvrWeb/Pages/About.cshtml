@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/about"
 @model AboutModel
 @{
     ViewData["Title"] = "About";
@@ -24,11 +24,11 @@
             <h3 class="box-title">@GlutConstants.ApplicationName</h3>
         </div>
         <div class="box-body">
-            @AppResources.Version @GlutConstants.Version
+            @AppResources.Version @GlutConstants.GlutVersion
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-            @AppResources.AllRights
+            &copy; @DateTime.Now.Year - @AppResources.AllRights
         </div>
         <!-- /.box-footer-->
     </div>

@@ -22,9 +22,10 @@ namespace Glut
                 throw new ArgumentException(nameof(statusCode));
             }
 
+            // TODO: make sure that the call is thread safe
             Action<ThreadResultItem> action = (info) =>
             {
-                lock(_lock)
+                lock (_lock)
                 {
                     info.StartDateTimes.Add(startDateTimeUtc);
                     info.EndDateTimes.Add(endDateTimeUtc);
@@ -34,8 +35,14 @@ namespace Glut
                     info.ResponseLengths.Add(responseLength);
                     info.RequestSentTicks.Add(requestSentTicks);
                     info.ResponseTicks.Add(responseTicks);
-                    info.ResponseHeaders.Add(responseHeaders);
-                    info.Exceptions.Add(exception);
+                    if (string.IsNullOrWhiteSpace(responseHeaders) == false)
+                    {
+                        info.ResponseHeaders.Add(responseHeaders);
+                    }
+                    if (exception != null)
+                    {
+                        info.Exceptions.Add(exception);
+                    }
                 }
             };
 

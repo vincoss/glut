@@ -27,7 +27,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @*TODO: <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">*@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <!-- Site wrapper -->
@@ -101,7 +101,7 @@
 
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
-                <b>@AppResources.Version</b> @GlutConstants.Version
+                <b>@AppResources.Version</b> @GlutConstants.GlutVersion
             </div>
             <strong>@AppResources.Copyright &copy; @DateTime.Now.Year <a href="https://github.com/vincoss/glut">@GlutConstants.ApplicationName</a>.</strong> @AppResources.AllRights
         </footer>
@@ -114,6 +114,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="~/lib/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/lib/chart.js/Chart.min.js"></script>
     <!-- FastClick -->
     <script src="~/lib/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
