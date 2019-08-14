@@ -6,7 +6,6 @@ namespace Glut.Data
     public class GlutProject
     {
         [Key]
-        public int GlutProjectId { get; set; }
         public string GlutProjectName { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
         public DateTime ModifiedDateTimeUtc { get; set; }

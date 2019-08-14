@@ -11,16 +11,14 @@ namespace Glut.Migrations
                 name: "GlutProject",
                 columns: table => new
                 {
-                    GlutProjectId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    GlutProjectName = table.Column<string>(nullable: true),
+                    GlutProjectName = table.Column<string>(nullable: false),
                     CreatedDateTimeUtc = table.Column<DateTime>(nullable: false),
                     ModifiedDateTimeUtc = table.Column<DateTime>(nullable: false),
                     CreatedByUserName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GlutProject", x => x.GlutProjectId);
+                    table.PrimaryKey("PK_GlutProject", x => x.GlutProjectName);
                 });
 
             migrationBuilder.CreateTable(

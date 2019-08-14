@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GlutSvrWeb.Dto;
 using GlutSvrWeb.Interfaces;
 using GlutSvrWeb.Properties;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GlutSvrWeb.Pages
 {
-    public class RequestsModel : PageModel
+    public class ResultsModel : PageModel
     {
         private readonly IDataStoreSvr _dataStoreSvr;
 
-        public RequestsModel(IDataStoreSvr dataStoreSvr)
+        public ResultsModel(IDataStoreSvr dataStoreSvr)
         {
             if(dataStoreSvr == null)
             {
@@ -24,14 +25,20 @@ namespace GlutSvrWeb.Pages
 
         public async void OnGet()
         {
-            Projects = await _dataStoreSvr.GetProjectString();
+            Results = await _dataStoreSvr.GetResultItems(Project, RunId);
         }
 
-        public IEnumerable<string> Projects { get; private set; }
+        [BindProperty]
+        public string Project { get; set; }
+
+        [BindProperty]
+        public int RunId { get; set; }
+
+        public IEnumerable<ResultItemDto> Results { get; private set; }
 
         public string Title
         {
-            get { return $"{AppResources.Home}"; }
+            get { return $"{AppResources.Results}"; }
         }
     }
 }

@@ -24,6 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DataTables.Queryable" Version="1.7.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Glut\Glut.csproj" />
   </ItemGroup>
 

@@ -11,6 +11,7 @@ Ensure that request contains 'User-Agent' glut if missing, possible other also
 Totals, Add Max,Min,Arg
 Store the Run setting into the database
 favicon icon create and add into the project
+navigation the item is not selected see CSS or JS script
 
 #ProjectRun
 	ProjectName

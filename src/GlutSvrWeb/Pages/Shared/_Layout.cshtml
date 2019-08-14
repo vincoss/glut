@@ -83,10 +83,10 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">@AppResources.MainNavigation</li>
-                    <li><a href="#"><i class="fa fa-dashboard"></i> <span>@AppResources.Dashboard</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>@AppResources.Projects</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>@AppResources.Results</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>@AppResources.About</span></a></li>
+                    <li><a asp-page="/"><i class="fa fa-dashboard text-red"></i> <span>@AppResources.Dashboard</span></a></li>
+                    <li><a asp-page="/Projects"><i class="fa fa-navicon text-yellow"></i> <span>@AppResources.Projects</span></a></li>
+                    <li><a asp-page="/Results"><i class="fa fa-cubes text-aqua"></i> <span>@AppResources.Results</span></a></li>
+                    <li><a asp-page="/About"><i class="fa fa-info text-green"></i> <span>@AppResources.About</span></a></li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -103,7 +103,7 @@
             <div class="pull-right hidden-xs">
                 <b>@AppResources.Version</b> @GlutConstants.GlutVersion
             </div>
-            <strong>@AppResources.Copyright &copy; @DateTime.Now.Year <a href="https://github.com/vincoss/glut">@GlutConstants.ApplicationName</a>.</strong> @AppResources.AllRights
+            <strong>@AppResources.Copyright &copy; @DateTime.Now.Year <a href="https://github.com/vincoss/glut">@GlutConstants.ApplicationName</a></strong> @AppResources.AllRights
         </footer>
 
     </div>
@@ -112,6 +112,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables.net-bs//js/dataTables.bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="~/lib/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- ChartJS -->

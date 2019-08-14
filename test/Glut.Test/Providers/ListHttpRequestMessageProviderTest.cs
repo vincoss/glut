@@ -24,7 +24,7 @@ namespace Glut.Providers
 
             var messages = provider.Get();
 
-            Assert.Equal(8, messages.Count());
+            Assert.Equal(9, messages.Count());
             Assert.True(messages.All(x => x.Method == HttpMethod.Get));
 
             Assert.Equal("/", messages.ElementAt(0).RequestUri.ToString());

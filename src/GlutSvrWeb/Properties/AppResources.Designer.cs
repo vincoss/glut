@@ -97,11 +97,56 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created By User.
+        /// </summary>
+        public static string CreatedByUser {
+            get {
+                return ResourceManager.GetString("CreatedByUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created Date Time.
+        /// </summary>
+        public static string CreatedDateTime {
+            get {
+                return ResourceManager.GetString("CreatedDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dashboard.
         /// </summary>
         public static string Dashboard {
             get {
                 return ResourceManager.GetString("Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End.
+        /// </summary>
+        public static string End {
+            get {
+                return ResourceManager.GetString("End", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception.
+        /// </summary>
+        public static string Exception {
+            get {
+                return ResourceManager.GetString("Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Header Length.
+        /// </summary>
+        public static string HeaderLength {
+            get {
+                return ResourceManager.GetString("HeaderLength", resourceCulture);
             }
         }
         
@@ -124,6 +169,15 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Change Date Time.
+        /// </summary>
+        public static string LastChangeDateTime {
+            get {
+                return ResourceManager.GetString("LastChangeDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         public static string Loading {
@@ -142,11 +196,29 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project Name.
+        /// </summary>
+        public static string ProjectName {
+            get {
+                return ResourceManager.GetString("ProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projects.
         /// </summary>
         public static string Projects {
             get {
                 return ResourceManager.GetString("Projects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available projects.
+        /// </summary>
+        public static string ProjectsDescription {
+            get {
+                return ResourceManager.GetString("ProjectsDescription", resourceCulture);
             }
         }
         
@@ -160,6 +232,42 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request (ms).
+        /// </summary>
+        public static string RequestMs {
+            get {
+                return ResourceManager.GetString("RequestMs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response Headers.
+        /// </summary>
+        public static string ResponseHeaders {
+            get {
+                return ResourceManager.GetString("ResponseHeaders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response Length.
+        /// </summary>
+        public static string ResponseLength {
+            get {
+                return ResourceManager.GetString("ResponseLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response (ms).
+        /// </summary>
+        public static string ResponseMs {
+            get {
+                return ResourceManager.GetString("ResponseMs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results.
         /// </summary>
         public static string Results {
@@ -169,11 +277,56 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project run results.
+        /// </summary>
+        public static string ResultsDescription {
+            get {
+                return ResourceManager.GetString("ResultsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Runs.
+        /// </summary>
+        public static string Runs {
+            get {
+                return ResourceManager.GetString("Runs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server Error.
         /// </summary>
         public static string ServerError {
             get {
                 return ResourceManager.GetString("ServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status Code.
+        /// </summary>
+        public static string StatusCode {
+            get {
+                return ResourceManager.GetString("StatusCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
             }
         }
         
@@ -196,11 +349,38 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Length.
+        /// </summary>
+        public static string TotalLength {
+            get {
+                return ResourceManager.GetString("TotalLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total (ms).
+        /// </summary>
+        public static string TotalMs {
+            get {
+                return ResourceManager.GetString("TotalMs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total Requests.
         /// </summary>
         public static string TotalRequests {
             get {
                 return ResourceManager.GetString("TotalRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Url.
+        /// </summary>
+        public static string Url {
+            get {
+                return ResourceManager.GetString("Url", resourceCulture);
             }
         }
         
