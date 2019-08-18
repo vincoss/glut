@@ -6,7 +6,7 @@ namespace Glut.Interface
 {
     public interface IEnvironment
     {
-        DateTime SytemDateTimeUtc { get; }
+        DateTime SystemDateTimeUtc { get; }
 
         string UserName { get; }
     }

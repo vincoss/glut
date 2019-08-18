@@ -6,7 +6,7 @@ namespace Glut.Services
 {
     public class EnvironmentService : IEnvironment
     {
-        public DateTime SytemDateTimeUtc
+        public DateTime SystemDateTimeUtc
         {
             get { return DateTime.UtcNow; }
         }

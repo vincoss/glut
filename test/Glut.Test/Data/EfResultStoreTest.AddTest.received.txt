@@ -1,3 +1,0 @@
-﻿[]
-{"projectName":"TestProject"}
-[{"GlutResultId":1,"GlutProjectName":"TestProject","GlutProjectRunId":1,"StartDateTimeUtc":"2019-08-01T00:00:00","EndDateTimeUtc":"2019-08-01T00:00:01","RequestUri":"/","IsSuccessStatusCode":true,"StatusCode":200,"HeaderLength":100,"ResponseLength":200,"TotalLegth":300,"RequestSentTicks":300,"ResponseTicks":400,"TotalTicks":700,"ResponseHeaders":"Headers","Exception":"System.Exception: Test","CreatedDateTimeUtc":"2019-08-01T00:00:00","CreatedByUserName":"TestUser"}]

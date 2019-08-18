@@ -2,10 +2,8 @@
 using Glut.Interface;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Glut.Services
 {
@@ -45,6 +43,7 @@ namespace Glut.Services
 
             var items = new List<GlutResultItem>();
 
+            SaveProject(projectName);
             SaveRunAttributes(projectName, runId, attributes);
 
             foreach (var pair in result.Results)
@@ -68,7 +67,7 @@ namespace Glut.Services
                         TotalTicks = pair.Value.RequestSentTicks[i] + pair.Value.ResponseTicks[i],
                         ResponseHeaders = (pair.Value.ResponseHeaders.Count > i) ? pair.Value.ResponseHeaders[i] : null,
                         Exception = (pair.Value.Exceptions.Count > i) ? pair.Value.Exceptions[i].ToString() : null,
-                        CreatedDateTimeUtc = _environment.SytemDateTimeUtc,
+                        CreatedDateTimeUtc = _environment.SystemDateTimeUtc,
                         CreatedByUserName = _environment.UserName
                     };
                     items.Add(item);
@@ -77,8 +76,6 @@ namespace Glut.Services
 
             _context.AddRange(items);
             _context.SaveChanges();
-
-
         }
 
         public int GetProjectLastRunId(string projectName)
@@ -99,11 +96,26 @@ namespace Glut.Services
                             GlutProjectRunId = runId,
                             AttributeName = x.Key,
                             AttributeValue = x.Value,
-                            CreatedDateTimeUtc = _environment.SytemDateTimeUtc,
+                            CreatedDateTimeUtc = _environment.SystemDateTimeUtc,
                             CreatedByUserName = _environment.UserName
                         };
 
             _context.AddRange(items);
+        }
+
+        private void SaveProject(string projectName)
+        {
+            if(_context.Projects.Any(x => x.GlutProjectName == projectName) == false)
+            {
+                var project = new GlutProject
+                {
+                    GlutProjectName = projectName,
+                    CreatedDateTimeUtc = _environment.SystemDateTimeUtc,
+                    ModifiedDateTimeUtc = _environment.SystemDateTimeUtc,
+                    CreatedByUserName = _environment.UserName
+                };
+                _context.Add(project);
+            }
         }
     }
 }

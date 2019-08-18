@@ -68,7 +68,7 @@ namespace Glut.Data
                 using (var context = new EfDbContext(options))
                 {
                     var environment = new Mock<IEnvironment>();
-                    environment.Setup(x => x.SytemDateTimeUtc).Returns(new DateTime(2019, 8, 1));
+                    environment.Setup(x => x.SystemDateTimeUtc).Returns(new DateTime(2019, 8, 1));
                     environment.Setup(x => x.UserName).Returns("TestUser");
 
                     context.Database.EnsureCreated();
@@ -85,13 +85,13 @@ namespace Glut.Data
                     service.Add(projectName, -1, attributes, result);
 
                     var projects = context.Projects.ToArray();
-                    var results = context.Results.ToArray();
                     var runAttributes = context.RunAttributes.ToArray();
+                    var results = context.Results.ToArray();
 
                     var sb = new StringBuilder();
                     sb.Append(JsonConvert.SerializeObject(projects));
                     sb.AppendLine();
-                    sb.Append(JsonConvert.SerializeObject(attributes));
+                    sb.Append(JsonConvert.SerializeObject(runAttributes));
                     sb.AppendLine();
                     sb.Append(JsonConvert.SerializeObject(results));
 

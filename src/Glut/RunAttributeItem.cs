@@ -13,7 +13,7 @@ namespace Glut
 
         public override string ToString()
         {
-            if (string.IsNullOrWhiteSpace(GlutProjectName))
+            if (string.IsNullOrWhiteSpace(AttributeName))
             {
                 return base.ToString();
             }

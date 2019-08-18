@@ -17,7 +17,7 @@ namespace Glut
         public long IntervalMilliseconds { get; set; } // Milliseconds (between requests) used with duration property.
 
         public string ProjectName { get; set; } = GlutConstants.ApplicationName;
-        public int ProjectRunId { get; set; } = -1;
+        public int ProjectRunId { get; set; } = 0;
 
         public override string ToString()
         {
