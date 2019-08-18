@@ -8,7 +8,6 @@ namespace Glut
 {
     public class ThreadResult
     {
-        private static object _lock = new object();
         private readonly ConcurrentDictionary<string, ThreadResultItem> _cache = new ConcurrentDictionary<string, ThreadResultItem>(StringComparer.InvariantCultureIgnoreCase);
 
         public void Add(string requestUri, DateTime startDateTimeUtc, DateTime endDateTimeUtc, bool isSuccessStatusCode, int statusCode, long headerLength, long responseLength, long requestSentTicks, long responseTicks, string responseHeaders, Exception exception)
@@ -22,40 +21,10 @@ namespace Glut
                 throw new ArgumentException(nameof(statusCode));
             }
 
-            // TODO: make sure that the call is thread safe
             Action<ThreadResultItem> action = (info) =>
             {
-                lock (_lock)
-                {
-                    info.StartDateTimes.Add(startDateTimeUtc);
-                    info.EndDateTimes.Add(endDateTimeUtc);
-                    info.IsSuccessStatusCodes.Add(isSuccessStatusCode);
-                    info.StatusCodes.Add(statusCode);
-                    info.HeaderLengths.Add(headerLength);
-                    info.ResponseLengths.Add(responseLength);
-                    info.RequestSentTicks.Add(requestSentTicks);
-                    info.ResponseTicks.Add(responseTicks);
-                    if (string.IsNullOrWhiteSpace(responseHeaders) == false)
-                    {
-                        info.ResponseHeaders.Add(responseHeaders);
-                    }
-                    if (exception != null)
-                    {
-                        info.Exceptions.Add(exception);
-                    }
-                }
+                info.Add(startDateTimeUtc, endDateTimeUtc, isSuccessStatusCode, statusCode, headerLength, responseLength, requestSentTicks, responseTicks, responseHeaders, exception);
             };
-
-            //_cache.AddOrUpdate(requestUri, (key) =>
-            //{
-            //    var insert = new ThreadResultItem();
-            //    insert.Add(startDateTimeUtc, endDateTimeUtc, isSuccessStatusCode, statusCode, headerLength, responseLength, requestSentTicks, responseTicks, responseHeaders, exception);
-            //    return insert;
-            //}, (key, update) =>
-            //{
-            //    update.Add(startDateTimeUtc, endDateTimeUtc, isSuccessStatusCode, statusCode, headerLength, responseLength, requestSentTicks, responseTicks, responseHeaders, exception);
-            //    return update;
-            //});
 
             _cache.AddOrUpdate(requestUri, (key) =>
             {

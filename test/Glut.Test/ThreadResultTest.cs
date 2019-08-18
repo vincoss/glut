@@ -10,7 +10,9 @@ namespace Glut
         public void Test()
         {
             var result = new ThreadResult();
-            result.Add("/",  DateTime.UtcNow, DateTime.UtcNow.AddSeconds(1), true, 200, 100, 200, 2000, 3000, "Some headers", new Exception());
+
+            var start = DateTime.UtcNow;
+            result.Add("/",  start, start.AddSeconds(1), true, 200, 100, 200, 2000, 3000, "Headers", new Exception("Error"));
 
             Assert.Equal(1, result.Results.Count);
             Assert.Equal(1, result.TotalResults);

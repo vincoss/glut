@@ -10,15 +10,11 @@ namespace Glut
         public void Test()
         {
             var item = new ThreadResultItem();
-            item.StartDateTimes.Add(DateTime.UtcNow);
-            item.IsSuccessStatusCodes.Add(true);
-            item.StatusCodes.Add(200);
-            item.RequestSentTicks.Add(2000);
-            item.ResponseTicks.Add(3000);
-            item.HeaderLengths.Add(100);
-            item.ResponseLengths.Add(200);
-            item.Exceptions.Add(new Exception());
 
+            var start = DateTime.UtcNow;
+            item.Add(start, start.AddSeconds(1), true, 200, 100, 200, 2000, 3000, "Headers", new Exception("Error"));
+
+            Assert.Equal(1, item.StartDateTimes.Count);
             Assert.Equal(1, item.StartDateTimes.Count);
             Assert.Equal(1, item.IsSuccessStatusCodes.Count);
             Assert.Equal(1, item.StatusCodes.Count);
@@ -26,6 +22,7 @@ namespace Glut
             Assert.Equal(1, item.ResponseLengths.Count);
             Assert.Equal(1, item.RequestSentTicks.Count);
             Assert.Equal(1, item.ResponseTicks.Count);
+            Assert.Equal(1, item.ResponseHeaders.Count);
             Assert.Equal(1, item.Exceptions.Count);
 
             Assert.Equal(1, item.TotalResults);

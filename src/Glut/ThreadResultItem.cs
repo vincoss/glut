@@ -25,18 +25,25 @@ namespace Glut
 
         public void Add(DateTime startDateTimeUtc, DateTime endDateTimeUtc, bool isSuccessStatusCode, int statusCode, long headerLength, long responseLength, long requestSentTicks, long responseTicks, string responseHeaders, Exception exception)
         {
-            lock (_lock)
+            lock (_lock) // TODO
             {
-                this.StartDateTimes.Add(startDateTimeUtc);
-                this.EndDateTimes.Add(endDateTimeUtc);
-                this.IsSuccessStatusCodes.Add(isSuccessStatusCode);
-                this.StatusCodes.Add(statusCode);
-                this.HeaderLengths.Add(headerLength);
-                this.ResponseLengths.Add(responseLength);
-                this.RequestSentTicks.Add(requestSentTicks);
-                this.ResponseTicks.Add(responseTicks);
-                this.ResponseHeaders.Add(responseHeaders);
-                this.Exceptions.Add(exception);
+                StartDateTimes.Add(startDateTimeUtc);
+                EndDateTimes.Add(endDateTimeUtc);
+                IsSuccessStatusCodes.Add(isSuccessStatusCode);
+                StatusCodes.Add(statusCode);
+                HeaderLengths.Add(headerLength);
+                ResponseLengths.Add(responseLength);
+                RequestSentTicks.Add(requestSentTicks);
+                ResponseTicks.Add(responseTicks);
+
+                if (string.IsNullOrWhiteSpace(responseHeaders) == false)
+                {
+                    ResponseHeaders.Add(responseHeaders);
+                }
+                if (exception != null)
+                {
+                    Exceptions.Add(exception);
+                }
             }
         }
 

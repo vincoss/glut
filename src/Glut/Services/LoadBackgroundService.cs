@@ -56,7 +56,7 @@ namespace Glut.Services
             DisplayInfoTemp();
 
             // TODO: Persist if asked for
-            _resultStore.Add(_threadResult);
+            _resultStore.Add(_appConfig.ProjectName, _appConfig.ProjectRunId, GetConfigToDictionary(_appConfig), _threadResult);
 
             _logger.LogDebug($"End {nameof(ExecuteAsync)}");
 
@@ -65,6 +65,22 @@ namespace Glut.Services
             _applicationLifetime.StopApplication();
 
            return Task.CompletedTask;
+        }
+
+        public IDictionary<string, string> GetConfigToDictionary(AppConfig config)
+        {
+            var dict = new Dictionary<string, string>();
+            dict.Add(nameof(config.BaseAddress), config.BaseAddress);
+            dict.Add(nameof(config.ContentRootPath), config.ContentRootPath);
+            dict.Add(nameof(config.ListSubpath), config.ListSubpath);
+            dict.Add(nameof(config.SingleSubpath), config.SingleSubpath);
+            dict.Add(nameof(config.Threads), config.Threads.ToString());
+            dict.Add(nameof(config.DurationMilliseconds), config.DurationMilliseconds.ToString());
+            dict.Add(nameof(config.IntervalMilliseconds), config.IntervalMilliseconds.ToString());
+            dict.Add(nameof(config.ProjectName), config.ProjectName);
+            dict.Add(nameof(config.ProjectRunId), config.ProjectRunId.ToString());
+
+            return dict;
         }
 
         private void DisplayInfoTemp()

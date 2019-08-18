@@ -10,7 +10,7 @@ namespace Glut.Services
 {
     public class MemoryResultStore : IResultStore
     {
-        public void Add(ThreadResult result)
+        public void Add(string projectName, int runId, IDictionary<string, string> attributes, ThreadResult result)
         {
             throw new NotImplementedException();
         }

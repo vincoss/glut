@@ -59,6 +59,7 @@ namespace GlutCli
                     services.AddSingleton<IWorker, HttpClientService>();
                     services.AddSingleton(CompositeRequestMessageProviderFactory);
                     services.AddTransient<IResultStore, EfResultStore>();
+                    services.AddSingleton<IEnvironment, EnvironmentService>();
                     services.AddDbContext<EfDbContext>(options => 
                     options.UseSqlite(hostContext.Configuration.GetConnectionString("EfDbContext")), ServiceLifetime.Transient);
                 })
