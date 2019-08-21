@@ -22,11 +22,26 @@ namespace Glut.Migrations
                 });
 
             migrationBuilder.CreateTable(
+              name: "GlutRunAttribute",
+              columns: table => new
+              {
+                  GlutProjectName = table.Column<string>(nullable: false),
+                  GlutProjectRunId = table.Column<int>(nullable: false),
+                  AttributeName = table.Column<string>(nullable: false),
+                  AttributeValue = table.Column<string>(nullable: false),
+                  CreatedDateTimeUtc = table.Column<DateTime>(nullable: false),
+                  CreatedByUserName = table.Column<string>(nullable: true)
+              },
+              constraints: table =>
+              {
+                  table.PrimaryKey("PK_GlutProject", x => new { x.GlutProjectName, x.GlutProjectRunId, x.AttributeName });
+              });
+
+            migrationBuilder.CreateTable(
                 name: "GlutResultItem",
                 columns: table => new
                 {
-                    GlutResultId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    GlutResultId = table.Column<int>(nullable: false).Annotation("Sqlite:Autoincrement", true),
                     GlutProjectName = table.Column<string>(nullable: false),
                     GlutProjectRunId = table.Column<int>(nullable: false),
                     StartDateTimeUtc = table.Column<DateTime>(nullable: false),
@@ -47,17 +62,15 @@ namespace Glut.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GlutResultItem", x => x.GlutResultId);
+                    table.PrimaryKey("PK_GlutResultItem", x => x.GlutResultId);         
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "GlutProject");
-
-            migrationBuilder.DropTable(
-                name: "GlutResultItem");
+            migrationBuilder.DropTable(name: "GlutProject");
+            migrationBuilder.DropTable(name: "GlutRunAttribute");
+            migrationBuilder.DropTable(name: "GlutResultItem");
         }
     }
 }

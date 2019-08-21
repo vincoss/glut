@@ -22,6 +22,7 @@ namespace Glut
             Assert.Equal(0, config.IntervalMilliseconds);
             Assert.Equal("Glut", config.ProjectName);
             Assert.Equal(0, config.ProjectRunId);
+            Assert.True(config.PersistResults);
             Assert.Equal("http://localhost/", config.ToString());
         }
     }

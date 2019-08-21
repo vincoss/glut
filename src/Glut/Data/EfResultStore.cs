@@ -18,6 +18,10 @@ namespace Glut.Services
             {
                 throw new ArgumentNullException(nameof(context));
             }
+            if (environment == null)
+            {
+                throw new ArgumentNullException(nameof(environment));
+            }
             _context = context;
             _environment = environment;
         }

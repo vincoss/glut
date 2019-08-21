@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+
 
 namespace Glut.Data
 {
@@ -13,5 +11,14 @@ namespace Glut.Data
         public string AttributeValue { get; set; }
         public DateTime CreatedDateTimeUtc { get; set; }
         public string CreatedByUserName { get; set; }
+
+        public override string ToString()
+        {
+            if (string.IsNullOrWhiteSpace(AttributeName))
+            {
+                return base.ToString();
+            }
+            return $"Name: {AttributeName}, Value: {AttributeValue}";
+        }
     }
 }

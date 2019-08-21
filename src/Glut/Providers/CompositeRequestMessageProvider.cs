@@ -15,7 +15,6 @@ namespace Glut.Providers
         public CompositeRequestMessageProvider(params IRequestMessageProvider[] messageProviders)
         {
             _messageProviders = messageProviders ?? new IRequestMessageProvider[0];
-
         }
 
         public CompositeRequestMessageProvider(IEnumerable<IRequestMessageProvider> messageProviders)

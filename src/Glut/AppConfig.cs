@@ -19,6 +19,8 @@ namespace Glut
         public string ProjectName { get; set; } = GlutConstants.ApplicationName;
         public int ProjectRunId { get; set; } = 0;
 
+        public bool PersistResults { get; set; } = true;
+
         public override string ToString()
         {
             if (string.IsNullOrWhiteSpace(BaseAddress))

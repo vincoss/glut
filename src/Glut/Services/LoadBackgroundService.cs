@@ -38,33 +38,35 @@ namespace Glut.Services
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogDebug(nameof(StartAsync));
+            _logger.LogDebug($"Begin { nameof(StartAsync)}");
 
             _messages = _compositeMessageProvider.Get().ToArray();
 
-            _logger.LogDebug($"Loaded: {_messages.Count()} messages.");
+            _logger.LogDebug($"End {nameof(StartAsync)}, messages {_messages.Count()}.");
 
             return base.StartAsync(cancellationToken);
         }
 
         protected override Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            _logger.LogDebug(nameof(ExecuteAsync));
+            _logger.LogDebug($"Begin {nameof(ExecuteAsync)}");
 
             _runner.CreateWorkerThreads(_appConfig.Threads, TimeSpan.FromMilliseconds(_appConfig.DurationMilliseconds), _appConfig.Count, _appConfig.IntervalMilliseconds, _messages, cancellationToken);
 
-            DisplayInfoTemp();
+            DisplayResultInformation();
 
-            // TODO: Persist if asked for
-            _resultStore.Add(_appConfig.ProjectName, _appConfig.ProjectRunId, GetConfigToDictionary(_appConfig), _threadResult);
-
-            _logger.LogDebug($"End {nameof(ExecuteAsync)}");
-
+            if (_appConfig.PersistResults)
+            {
+                _resultStore.Add(_appConfig.ProjectName, _appConfig.ProjectRunId, GetConfigToDictionary(_appConfig), _threadResult);
+            }
+            
             Environment.ExitCode = (int)ExitCode.Success;
 
             _applicationLifetime.StopApplication();
 
-           return Task.CompletedTask;
+            _logger.LogDebug($"End {nameof(ExecuteAsync)}");
+
+            return Task.CompletedTask;
         }
 
         public IDictionary<string, string> GetConfigToDictionary(AppConfig config)
@@ -79,13 +81,16 @@ namespace Glut.Services
             dict.Add(nameof(config.IntervalMilliseconds), config.IntervalMilliseconds.ToString());
             dict.Add(nameof(config.ProjectName), config.ProjectName);
             dict.Add(nameof(config.ProjectRunId), config.ProjectRunId.ToString());
+            dict.Add(nameof(config.PersistResults), config.PersistResults.ToString());
 
             return dict;
         }
 
-        private void DisplayInfoTemp()
+        private void DisplayResultInformation()
         {
-            Console.WriteLine(_threadResult.ToString());
+            var str = _threadResult.ToString();
+            _logger.LogDebug(str);
+            Console.WriteLine(str);
         }
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Glut
 {
+    // TODO: Refactor this
     public class Runner : IDisposable
     {
         private readonly IWorker _worker;

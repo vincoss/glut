@@ -174,7 +174,7 @@ namespace Glut.Services
                 await Task.Factory.StartNew
                       (() =>
                       {
-                          Task.Delay(SleepDurationMilliseconds, cancellationToken).Wait();
+                          Task.Delay(SleepDurationMilliseconds).Wait();
                           result.Add(request.RequestUri.ToString(), DateTime.UtcNow, DateTime.UtcNow.AddSeconds(1), true, 200, 0, 0, 0, 0, null, null);
                       }, cancellationToken);
             }
