@@ -48,20 +48,20 @@ namespace GlutSvrWeb.Services
 
         }
 
-        public async Task<IEnumerable<ProjectDto>> GetProjects()
+        public IQueryable<ProjectDto> GetProjects()
         {
-            var results = await (from x in _context.Projects.AsNoTracking()
-                          let count = _context.RunAttributes.AsNoTracking()
-                                                            .Where(a => a.GlutProjectName == x.GlutProjectName)
-                                                            .GroupBy(g => g.GlutProjectRunId)
-                                                            .Count()
-                          orderby x.ModifiedDateTimeUtc descending
-                          select new ProjectDto
-                          {
-                              ProjectName = x.GlutProjectName,
-                              Runs = count,
-                              LastChangeDateTime = x.ModifiedDateTimeUtc
-                          }).ToListAsync();
+            var results = from x in _context.Projects.AsNoTracking()
+                                let count = _context.RunAttributes.AsNoTracking()
+                                                                  .Where(a => a.GlutProjectName == x.GlutProjectName)
+                                                                  .GroupBy(g => g.GlutProjectRunId)
+                                                                  .Count()
+                                orderby x.ModifiedDateTimeUtc descending
+                                select new ProjectDto
+                                {
+                                    ProjectName = x.GlutProjectName,
+                                    Runs = count,
+                                    LastChangeDateTime = x.ModifiedDateTimeUtc
+                                };
 
             return results;
         }

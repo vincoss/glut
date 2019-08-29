@@ -1,6 +1,7 @@
 ﻿using GlutSvrWeb.Dto;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GlutSvrWeb.Interfaces
@@ -11,7 +12,7 @@ namespace GlutSvrWeb.Interfaces
 
         Task<IEnumerable<int>> GetProjectRuns(string projectName);
 
-        Task<IEnumerable<ProjectDto>> GetProjects();
+        IQueryable<ProjectDto> GetProjects();
 
         Task<IEnumerable<ResultItemDto>> GetResultItems(string projectName, int runId);
 

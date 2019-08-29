@@ -28,12 +28,17 @@ namespace GlutSvr
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
             services.AddTransient<IDataStoreSvr, EfDataStoreSvr>();
             services.AddSingleton<IAppState, MemoryAppState>();
-
             services.AddDbContext<EfDbContext>(options =>
                    options.UseSqlite(Configuration.GetConnectionString("EfDbContext")), ServiceLifetime.Transient);
+
+            // Razor pages
+            services.AddRazorPages();
+            // MVC views
+            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNameCaseInsensitive = false);
+            // Web API
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +50,7 @@ namespace GlutSvr
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -59,7 +64,16 @@ namespace GlutSvr
 
             app.UseEndpoints(endpoints =>
             {
+                // Razor pages
                 endpoints.MapRazorPages();
+
+                // Mvc views
+                endpoints.MapControllerRoute(
+                  name: "default",
+                  pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                // Web API
+                endpoints.MapControllers();
             });
         }
     }

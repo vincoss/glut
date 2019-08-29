@@ -1,0 +1,99 @@
+﻿@page "/projectFilter"
+@model GlutSvrWeb.Pages.Shared.ProjectFilterModel
+@{
+    ViewData["Title"] = "ProjectFilter";
+
+    Layout = "_dashboardLayout";
+}
+
+
+@await Html.PartialAsync("_projectFilter")
+
+@section Scripts
+{
+
+    <script>
+
+    //https://www.mikesdotnetting.com/article/318/working-with-json-in-razor-pages
+    //https://dzone.com/articles/populate-a-jquery-dropdown-from-ajax
+    //https://www.thereformedprogrammer.net/asp-net-core-razor-pages-how-to-implement-ajax-requests/
+    $(function ()
+    {
+        $.post("/project/projectNames", null, function (data, textStatus)
+        {
+            $("#projects").empty();
+            $("#runs").empty();
+
+            $.each(data, function ()
+            {
+                $("#projects").append($("<option></option>").val(this).html(this));
+            });
+            // $('#keywords option[value="Glut"]').attr("selected", true);
+            $('#keywords');
+        }, "json");
+
+        $("#projects").change(function ()
+        {
+            onFetchRuns();
+        });
+
+        function onFetchRuns()
+        {
+            $.post('@Url.Action("runIds", "project")' + '/' + $("#projects").val(), function (data, textStatus)
+            {
+                $.each(data, function ()
+                {
+                    $("#runs").append($("<option></option>").val(this).html(this));
+                });
+            }, "json");
+        }   
+    });
+
+   
+        @*
+            @*$.getJSON("/project/projectNames", function (data)
+            {
+                $("#projects").empty();
+                $("#runs").empty();
+
+                $.each(data, function ()
+                {
+                    $("#projects").append($("<option></option>").val(this).html(this));
+                });
+                $('#keywords').val(@ViewBag.LatestProject);
+            });
+    function Fetch()
+    {
+
+    }
+
+    $(document).ready(function()
+    {
+    $("#sel_depart").change(function(){
+        var deptid = $(this).val();
+
+        $.ajax({
+            url: '/',
+            type: 'post',
+            data: {depart:deptid},
+            dataType: 'json',
+            success:function(response){
+
+                var len = response.length;
+
+                $("#sel_user").empty();
+                for( var i = 0; i<len; i++){
+                    var id = response[i]['id'];
+                    var name = response[i]['name'];
+
+                    $("#sel_user").append("<option value='"+id+"'>"+name+"</option>");
+
+                }
+            }
+        });
+    });
+
+//});*@
+
+    </script>
+}

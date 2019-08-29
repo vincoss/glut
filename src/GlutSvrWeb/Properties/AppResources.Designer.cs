@@ -169,7 +169,7 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last Change Date Time.
+        ///   Looks up a localized string similar to Last Change.
         /// </summary>
         public static string LastChangeDateTime {
             get {

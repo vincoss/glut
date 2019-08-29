@@ -396,39 +396,39 @@ namespace GlutSvr.Services
             }
         }
 
-        [Fact]
-        public async Task GetProjects()
-        {
-            // In-memory database only exists while the connection is open
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
+        //[Fact] TODO:
+        //public async Task GetProjects()
+        //{
+        //    // In-memory database only exists while the connection is open
+        //    var connection = new SqliteConnection("DataSource=:memory:");
+        //    connection.Open();
 
-            try
-            {
-                var options = new DbContextOptionsBuilder<EfDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
+        //    try
+        //    {
+        //        var options = new DbContextOptionsBuilder<EfDbContext>()
+        //            .UseSqlite(connection)
+        //            .Options;
 
-                // Create the schema in the database
-                using (var context = new EfDbContext(options))
-                {
-                    context.Database.EnsureCreated();
-                    new SeedData().WithProjects(context).WithRunAttributes(context);
-                    var service = new EfDataStoreSvr(context);
+        //        // Create the schema in the database
+        //        using (var context = new EfDbContext(options))
+        //        {
+        //            context.Database.EnsureCreated();
+        //            new SeedData().WithProjects(context).WithRunAttributes(context);
+        //            var service = new EfDataStoreSvr(context);
 
-                    var results = await service.GetProjects();
+        //            var results = await service.GetProjects();
 
-                    Assert.Equal(2, results.Count());
-                    Assert.Equal("Gabo", results.ElementAt(0).ProjectName);
-                    Assert.Equal(0, results.ElementAt(0).Runs);
-                    Assert.NotNull(results.ElementAt(0).LastChangeDateTime);
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //            Assert.Equal(2, results.Count());
+        //            Assert.Equal("Gabo", results.ElementAt(0).ProjectName);
+        //            Assert.Equal(0, results.ElementAt(0).Runs);
+        //            Assert.NotNull(results.ElementAt(0).LastChangeDateTime);
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
+        //}
 
         [Fact]
         public async Task GetRunInfo()

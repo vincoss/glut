@@ -1,76 +1,16 @@
-﻿@model IEnumerable<string>
-
-
-<div class="box-body">
+﻿<div class="box-body">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label>@AppResources.Projects</label>
-                @Html.DropDownList("Project", Model.Select(g => new SelectListItem() { Text = g, Value = g }))
-                <select id="projects" class="form-control select2" style="width: 100%;" onchange="onProjectChange">
-                    @foreach (var p in Model)
-                    {
-                        <option>@p</option>
-                    }
-                </select>
+                <label for="projects">@AppResources.Projects</label>
+                <select id="projects" class="form-control select2" style="width: 100%;"></select>
             </div>
             <div class="form-group">
-                <label>@AppResources.Runs</label>
-                <select id="runs" class="form-control select2" style="width: 100%;" onchange="onProjectChange">
-                    @foreach (var p in Model)
-                    {
-                        <option>@p</option>
-                    }
-                </select>
+                <label for="runs">@AppResources.Runs</label>
+                <select id="runs" class="form-control select2" style="width: 100%;"></select>
             </div>
         </div>
         <!-- /.col -->
     </div>
     <!-- /.row -->
 </div>
-
-<script>
-
-    //https://www.mikesdotnetting.com/article/318/working-with-json-in-razor-pages
-    //https://dzone.com/articles/populate-a-jquery-dropdown-from-ajax
-    //https://www.thereformedprogrammer.net/asp-net-core-razor-pages-how-to-implement-ajax-requests/
-
-    function onProjectChange(e)
-    {
-
-    }
-
-    function Fetch()
-    {
-
-    }
-
-    $(document).ready(function()
-    {
-    $("#sel_depart").change(function(){
-        var deptid = $(this).val();
-
-        $.ajax({
-            url: '/',
-            type: 'post',
-            data: {depart:deptid},
-            dataType: 'json',
-            success:function(response){
-
-                var len = response.length;
-
-                $("#sel_user").empty();
-                for( var i = 0; i<len; i++){
-                    var id = response[i]['id'];
-                    var name = response[i]['name'];
-                    
-                    $("#sel_user").append("<option value='"+id+"'>"+name+"</option>");
-
-                }
-            }
-        });
-    });
-
-});
-
-</script>

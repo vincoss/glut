@@ -7,7 +7,6 @@ using GlutSvrWeb.Interfaces;
 using GlutSvrWeb.Properties;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using DataTables.Queryable;
 
 namespace GlutSvrWeb.Pages
 {
@@ -24,9 +23,8 @@ namespace GlutSvrWeb.Pages
             _dataStoreSvr = dataStoreSvr;
         }
 
-        public async Task OnGet()
+        public void OnGet()
         {
-            Projects = await _dataStoreSvr.GetProjects();
         }
 
         public IEnumerable<ProjectDto> Projects { get; private set; }
@@ -34,13 +32,6 @@ namespace GlutSvrWeb.Pages
         public string Title
         {
             get { return $"{AppResources.Projects}"; }
-        }
-
-      
-        public async Task<IActionResult> OnPostGeoLocation()
-        {
-            var request = await _dataStoreSvr.GetProjects();
-            return new JsonResult(request);
         }
     }
 }

@@ -4,6 +4,8 @@
     ViewData[ViewConstants.Title] = Model.Title;
 }
 
+@Html.AntiForgeryToken() <!-- TODO: Move to master page and check if can have one per whole app -->
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -26,28 +28,28 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="table" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>@AppResources.ProjectName</th>
-                                <th>@AppResources.Runs</th>
-                                <th>@AppResources.LastChangeDateTime</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tfoot>
-                            <tr>
-                                <th>@AppResources.ProjectName</th>
-                                <th>@AppResources.Runs</th>
-                                <th>@AppResources.LastChangeDateTime</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <table id="table" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>@AppResources.ProjectName</th>
+                                    <th>@AppResources.Runs</th>
+                                    <th>@AppResources.LastChangeDateTime</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>@AppResources.ProjectName</th>
+                                    <th>@AppResources.Runs</th>
+                                    <th>@AppResources.LastChangeDateTime</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
                 </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-        </div>
         <!-- /.col -->
     </div>
     <!-- /.row -->
@@ -57,57 +59,51 @@
 
 @section Scripts
 {
-    <script type="text/javascript">
-        $(function () {
-            $('#table tfoot th').each(function () {
-                var title = $(this).text();
-                $(this).html('<input type="text" class="form-control" style="width: 100%" placeholder="Search ' + title + '" />');
-            });
-            var table = $('#table').DataTable({
-                autoWidth: false,
+    <script>
+       $(document).ready(function ()
+        {
+           var token = $('input[name="__RequestVerificationToken"]').val();
+
+            $('#table').DataTable({
                 processing: true,
                 serverSide: true,
-                order: [[2, "desc"]],
+                searching: true,
+                filter: true,
+                orderMulti: false,
+                ordering: true,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 pageLength: 10,
-                ajax: {
-                    url: '/Projects?handler=GeoLocation',
+                paging: true,
+                ajax:
+                {
+                   url: 'project',
                     type: 'POST',
-                    beforeSend: function (xhr) {
-                    xhr.setRequestHeader("XSRF-TOKEN",
-                    $('input:hidden[name="__RequestVerificationToken"]').val());
-                    },
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                columnDefs: [
-                    { targets: 0, data: 'Name' },
-                    { targets: 1, data: 'Position' },
-                    { targets: 2, data: 'Office.Name' },
-                    {
-                        targets: 3, data: 'Office.Address.Street',
-                        render: function (street, type, person, meta) { return person.Office.Address.Street + ", " + person.Office.Address.Building; }
-                    },
-                    { targets: 4, data: 'Extn' },
-                    {
-                        targets: 5, data: 'StartDate',
-                        render: function (data) { return Date.parse(data).toString('MMMM dd, yyyy'); }
-                    },
-                    {
-                        targets: 6, data: 'Salary'
-                    },
+                    dataSrc: 'data',
+                    datatype: 'json',
+                    data: { __RequestVerificationToken: token }
+                },
+                 "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": true,
+                    "searchable": true
+                },
+                {
+                    "targets": [1],
+                    "searchable": false,
+                    "orderable": true
+                },
+                {
+                    "targets": [2],
+                    "searchable": false,
+                    "orderable": false
+                }],
+                columns: [
+                    { data: "projectName", name: "Project Name", autoWidth: true },
+                    { data: "runs" },
+                    { data: "lastChangeDateTime" }
                 ]
             });
-            // Apply the search
-            table.columns().every(function () {
-                var that = this;
-                $('input', this.footer()).on('keyup change', function () {
-                    if (that.search() !== this.value) {
-                        that
-                            .search(this.value)
-                            .draw();
-                    }
-                });
-            });
-            //hljs.initHighlightingOnLoad();
         });
     </script>
 }
