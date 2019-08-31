@@ -23,9 +23,9 @@ namespace GlutSvrWeb.Pages
             _dataStoreSvr = dataStoreSvr;
         }
 
-        public async void OnGet()
+        public void OnGet()
         {
-            Results = await _dataStoreSvr.GetResultItems(Project, RunId);
+            
         }
 
         [BindProperty]

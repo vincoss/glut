@@ -355,8 +355,8 @@ namespace GlutSvr.Services
             }
         }
 
-        [Fact]
-        public async Task GetResultItems()
+        [Fact] // TODO: async?
+        public void GetResultItems()
         {
             // In-memory database only exists while the connection is open
             var connection = new SqliteConnection("DataSource=:memory:");
@@ -375,7 +375,7 @@ namespace GlutSvr.Services
                     new SeedData().WithResults(context);
                     var service = new EfDataStoreSvr(context);
 
-                    var results = await service.GetResultItems("Test", 1);
+                    var results = service.GetResultItems("Test", 1);
 
                     Assert.Equal(6, results.Count());
                     Assert.Equal("/information", results.ElementAt(0).Url);

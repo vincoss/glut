@@ -26,7 +26,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="resultsTable" class="table table-bordered table-striped">
+                    <table id="table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>@AppResources.Start</th>
@@ -42,18 +42,24 @@
                                 <th>@AppResources.TotalLength</th>
                                 <th>@AppResources.ResponseHeaders</th>
                                 <th>@AppResources.Exception</th>
-                                <th>@AppResources.CreatedDateTime</th>
-                                <th>@AppResources.CreatedByUser</th>
                             </tr>
                         </thead>
                         <tbody>
                         <tfoot>
                             <tr>
-                                <th>Rendering engine</th>
-                                <th>Browser</th>
-                                <th>Platform(s)</th>
-                                <th>Engine version</th>
-                                <th>CSS grade</th>
+                                <th>@AppResources.Start</th>
+                                <th>@AppResources.End</th>
+                                <th>@AppResources.Url</th>
+                                <th>@AppResources.Success</th>
+                                <th>@AppResources.StatusCode</th>
+                                <th>@AppResources.HeaderLength</th>
+                                <th>@AppResources.ResponseLength</th>
+                                <th>@AppResources.TotalLength</th>
+                                <th>@AppResources.RequestMs</th>
+                                <th>@AppResources.ResponseMs</>
+                                <th>@AppResources.TotalLength</th>
+                                <th>@AppResources.ResponseHeaders</th>
+                                <th>@AppResources.Exception</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -72,9 +78,66 @@
 @section Scripts
 {
     <script>
-        $(function ()
-        {
-            $('#resultsTable').DataTable();
+      $(document).ready(function ()
+      {
+          // var token = $('input[name="__RequestVerificationToken"]').val();
+
+            $('#table').DataTable({
+                processing: true,
+                serverSide: true,
+                searching: true,
+                filter: true,
+                orderMulti: false,
+                ordering: true,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                pageLength: 10,
+                paging: true,
+                autoWidth: true,
+                fixedColumns: true,
+                ajax:
+                {
+                    url: 'result/glut/1',
+                    type: 'POST',
+                    dataSrc: 'data',
+                    datatype: 'json',
+                    //data: { __RequestVerificationToken: token }
+                },
+                "columnDefs":
+                    [{
+                        "targets": [0], width: 100,
+                        render: function (data) { return moment(data).format('DD MM YYYY, h:mm:ss.SSS');}       
+                    },
+                    {
+                        "targets": [2],
+                        "visible": true,
+                        "searchable": true
+                    },
+                    {
+                        "targets": [4],
+                        "searchable": true,
+                        "orderable": true
+                    },
+                    {
+                        "targets": [11],
+                        "searchable": true,
+                        "orderable": false
+                    }],
+                columns: [
+                    { data: "startDateTime", },
+                    { data: "endDateTime" },
+                    { data: "url" },
+                    { data: "isSuccessStatusCode" },
+                    { data: "statusCode" },
+                    { data: "headerLength" },
+                    { data: "responseLength" },
+                    { data: "totalLength" },
+                    { data: "requestTicks" },
+                    { data: "responseTicks" },
+                    { data: "totalTicks" },
+                    { data: "responseHeaders" },
+                    { data: "exception" }
+                ]
+            });
         });
     </script>
 }

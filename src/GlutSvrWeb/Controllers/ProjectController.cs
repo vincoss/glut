@@ -38,7 +38,7 @@ namespace Default_WebApplication_API_V3.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ProjectDataGridDto Get()
+        public DataTableDto<ProjectDto> Get()
         {
             var form = this.Request.Form;
 
@@ -74,7 +74,7 @@ namespace Default_WebApplication_API_V3.Controllers
             recordsFilteredTotal = query.Count();
             var model = query.Skip(skip).Take(pageSize).ToList();
 
-            var response = new ProjectDataGridDto
+            var response = new DataTableDto<ProjectDto>
             {
                 Draw = draw,
                 RecordsFiltered = recordsFilteredTotal,

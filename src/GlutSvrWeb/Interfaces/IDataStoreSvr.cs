@@ -14,7 +14,7 @@ namespace GlutSvrWeb.Interfaces
 
         IQueryable<ProjectDto> GetProjects();
 
-        Task<IEnumerable<ResultItemDto>> GetResultItems(string projectName, int runId);
+        IQueryable<ResultItemDto> GetResultItems(string projectName, int runId);
 
         Task<IDictionary<string, decimal>> GetResponseDetails(string projectName, int runId);
 

@@ -66,7 +66,7 @@ namespace GlutSvrWeb.Services
             return results;
         }
 
-        public async Task<IEnumerable<ResultItemDto>> GetResultItems(string projectName, int runId)
+        public IQueryable<ResultItemDto> GetResultItems(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
             {
@@ -78,29 +78,30 @@ namespace GlutSvrWeb.Services
             }
 
             var query = from x in _context.Results.AsNoTracking()
-                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId
+                        where x.GlutProjectName.Equals(projectName, StringComparison.CurrentCultureIgnoreCase) && 
+                              x.GlutProjectRunId == runId
                         orderby x.GlutResultId
                         select x;
 
-            var results = await (from x in query
-                          select new ResultItemDto
-                          {
-                              StartDateTime = x.StartDateTimeUtc.ToLocalTime(),
-                              EndDateTime = x.EndDateTimeUtc.ToLocalTime(),
-                              Url = x.RequestUri,
-                              IsSuccessStatusCode = x.IsSuccessStatusCode,
-                              StatusCode = x.StatusCode,
-                              HeaderLength = ConvertToKb(x.HeaderLength),
-                              ResponseLength = ConvertToKb(x.ResponseLength),
-                              TotalLength = ConvertToKb(x.TotalLegth),
-                              RequestTicks = ConvertToMillisecond(x.RequestSentTicks),
-                              ResponseTicks = ConvertToMillisecond(x.ResponseTicks),
-                              TotalTicks = ConvertToMillisecond(x.TotalTicks),
-                              ResponseHeaders = x.ResponseHeaders,
-                              Exception = x.Exception,
-                              CreatedDateTime = x.CreatedDateTimeUtc.ToLocalTime(),
-                              CreatedByUser = x.CreatedByUserName
-                          }).ToListAsync();
+            var results = from x in query
+                           select new ResultItemDto
+                           {
+                               StartDateTime = x.StartDateTimeUtc.ToLocalTime(),
+                               EndDateTime = x.EndDateTimeUtc.ToLocalTime(),
+                               Url = x.RequestUri,
+                               IsSuccessStatusCode = x.IsSuccessStatusCode,
+                               StatusCode = x.StatusCode,
+                               HeaderLength = ConvertToKb(x.HeaderLength),
+                               ResponseLength = ConvertToKb(x.ResponseLength),
+                               TotalLength = ConvertToKb(x.TotalLegth),
+                               RequestTicks = ConvertToMillisecond(x.RequestSentTicks),
+                               ResponseTicks = ConvertToMillisecond(x.ResponseTicks),
+                               TotalTicks = ConvertToMillisecond(x.TotalTicks),
+                               ResponseHeaders = x.ResponseHeaders,
+                               Exception = x.Exception,
+                               CreatedDateTime = x.CreatedDateTimeUtc.ToLocalTime(),
+                               CreatedByUser = x.CreatedByUserName
+                           };
 
             return results;
         }
