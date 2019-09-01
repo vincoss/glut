@@ -25,7 +25,7 @@ namespace Default_WebApplication_API_V3.Controllers
 
         [HttpPost]
         [Route("{id}/{run?}")]
-       // [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public DataTableDto<ResultItemDto> Get(string id, int run)
         {
             if (string.IsNullOrWhiteSpace(id) || run <= 0)

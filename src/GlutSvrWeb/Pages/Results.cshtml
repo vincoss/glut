@@ -2,7 +2,10 @@
 @model ResultsModel
 @{
     ViewData[ViewConstants.Title] = Model.Title;
+    var DateFormat = @GlutWebConstants.LongDateTimeFormat;
 }
+
+@Html.AntiForgeryToken() <!-- TODO: Move to master page and check if can have one per whole app -->
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -39,7 +42,7 @@
                                 <th>@AppResources.TotalLength</th>
                                 <th>@AppResources.RequestMs</th>
                                 <th>@AppResources.ResponseMs</>
-                                <th>@AppResources.TotalLength</th>
+                                <th>@AppResources.TotalMs</th>
                                 <th>@AppResources.ResponseHeaders</th>
                                 <th>@AppResources.Exception</th>
                             </tr>
@@ -57,7 +60,7 @@
                                 <th>@AppResources.TotalLength</th>
                                 <th>@AppResources.RequestMs</th>
                                 <th>@AppResources.ResponseMs</>
-                                <th>@AppResources.TotalLength</th>
+                                <th>@AppResources.TotalMs</th>
                                 <th>@AppResources.ResponseHeaders</th>
                                 <th>@AppResources.Exception</th>
                             </tr>
@@ -80,7 +83,7 @@
     <script>
       $(document).ready(function ()
       {
-          // var token = $('input[name="__RequestVerificationToken"]').val();
+            var token = $('input[name="__RequestVerificationToken"]').val();
 
             $('#table').DataTable({
                 processing: true,
@@ -92,20 +95,29 @@
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 pageLength: 10,
                 paging: true,
-                autoWidth: true,
-                fixedColumns: true,
+                scrollX: true,
+                fnCreatedRow: function (nRow, aData, iDataIndex)
+                {
+                    $(nRow).children("td").css("overflow", "hidden");
+                    $(nRow).children("td").css("white-space", "nowrap");
+                    $(nRow).children("td").css("text-overflow", "ellipsis");
+                },
                 ajax:
                 {
                     url: 'result/glut/1',
                     type: 'POST',
                     dataSrc: 'data',
                     datatype: 'json',
-                    //data: { __RequestVerificationToken: token }
+                    data: { __RequestVerificationToken: token }
                 },
-                "columnDefs":
-                    [{
-                        "targets": [0], width: 100,
-                        render: function (data) { return moment(data).format('DD MM YYYY, h:mm:ss.SSS');}       
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        render: function (data) { return moment(data).format('@DateFormat');}
+                    },
+                    {
+                        "targets": [1],
+                        render: function (data) { return moment(data).format('@DateFormat');}
                     },
                     {
                         "targets": [2],
@@ -138,6 +150,20 @@
                     { data: "exception" }
                 ]
             });
-        });
+      });
     </script>
+
+    <style>
+        th {
+            white-space: nowrap;
+        }
+        /*table{
+  margin: 0 auto;
+  width: 100%;
+  clear: both;
+  border-collapse: collapse;
+  table-layout: fixed; 
+  word-wrap:break-word; 
+}*/
+    </style>
 }

@@ -145,7 +145,7 @@
     <value>Exception</value>
   </data>
   <data name="HeaderLength" xml:space="preserve">
-    <value>Header Length</value>
+    <value>Header Length (kb)</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -181,7 +181,7 @@
     <value>Response Headers</value>
   </data>
   <data name="ResponseLength" xml:space="preserve">
-    <value>Response Length</value>
+    <value>Response Length (kb)</value>
   </data>
   <data name="ResponseMs" xml:space="preserve">
     <value>Response (ms)</value>
@@ -214,7 +214,7 @@
     <value>Toggle navigation</value>
   </data>
   <data name="TotalLength" xml:space="preserve">
-    <value>Total Length</value>
+    <value>Total Length (kb)</value>
   </data>
   <data name="TotalMs" xml:space="preserve">
     <value>Total (ms)</value>

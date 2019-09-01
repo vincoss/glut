@@ -142,7 +142,7 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Header Length.
+        ///   Looks up a localized string similar to Header Length (kb).
         /// </summary>
         public static string HeaderLength {
             get {
@@ -250,7 +250,7 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Response Length.
+        ///   Looks up a localized string similar to Response Length (kb).
         /// </summary>
         public static string ResponseLength {
             get {
@@ -349,7 +349,7 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Length.
+        ///   Looks up a localized string similar to Total Length (kb).
         /// </summary>
         public static string TotalLength {
             get {
