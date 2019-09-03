@@ -428,8 +428,8 @@ namespace GlutSvr.Services
             //}
         }
 
-        [Fact] TODO:
-        public async Task GetProjects()
+        [Fact] 
+        public void GetProjects()
         {
             // In-memory database only exists while the connection is open
             var connection = new SqliteConnection("DataSource=:memory:");
@@ -448,12 +448,12 @@ namespace GlutSvr.Services
                     new SeedData().WithProjects(context).WithRunAttributes(context);
                     var service = new EfDataStoreSvr(context);
 
-                    var results = await service.GetProjects();
+                    var results = service.GetProjects(null);
 
-                    Assert.Equal(2, results.Count());
-                    Assert.Equal("Gabo", results.ElementAt(0).ProjectName);
-                    Assert.Equal(0, results.ElementAt(0).Runs);
-                    Assert.NotNull(results.ElementAt(0).LastChangeDateTime);
+                    Assert.Equal(2, results.Data.Count());
+                    Assert.Equal("Gabo", results.Data.ElementAt(0).ProjectName);
+                    Assert.Equal(0, results.Data.ElementAt(0).Runs);
+                    Assert.NotNull(results.Data.ElementAt(0).LastChangeDateTime);
                 }
             }
             finally

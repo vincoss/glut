@@ -6,7 +6,7 @@ namespace Glut.Data
 {
     public class EfDbContext : DbContext
     {
-        //public EfDbContext() { }
+        ///public EfDbContext() { }
 
         public EfDbContext(DbContextOptions<EfDbContext> options) : base(options)
         {

@@ -88,7 +88,14 @@ namespace Glut.Services
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
-            return _context.Results.Where(x => x.GlutProjectName == projectName).DefaultIfEmpty().Max(x => x.GlutProjectRunId);
+
+            var query = _context.Results.Where(x => x.GlutProjectName == projectName);
+
+            if(query.Any())
+            {
+                return query.Max(x => x.GlutProjectRunId);
+            }
+            return 0;
         }
 
         private void SaveRunAttributes(string projectName, int runId, IDictionary<string, string> attributes)

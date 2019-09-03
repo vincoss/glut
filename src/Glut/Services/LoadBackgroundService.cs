@@ -20,12 +20,12 @@ namespace Glut.Services
         private readonly AppConfig _appConfig;
         private readonly CompositeRequestMessageProvider _compositeMessageProvider;
         private readonly ILogger<LoadBackgroundService> _logger;
-        private readonly IApplicationLifetime _applicationLifetime;
+        private readonly IHostApplicationLifetime _applicationLifetime;
         private readonly Runner _runner;
         private readonly ThreadResult _threadResult;
         private readonly IResultStore _resultStore;
 
-        public LoadBackgroundService(ThreadResult result, Runner runner, IApplicationLifetime applicationLifetime, IOptions<AppConfig> appConfig, ILogger<LoadBackgroundService> logger, CompositeRequestMessageProvider compositeMessageProvider, IResultStore resultStore)
+        public LoadBackgroundService(ThreadResult result, Runner runner, IHostApplicationLifetime applicationLifetime, IOptions<AppConfig> appConfig, ILogger<LoadBackgroundService> logger, CompositeRequestMessageProvider compositeMessageProvider, IResultStore resultStore)
         {
             _runner = runner;
             _applicationLifetime = applicationLifetime;
