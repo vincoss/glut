@@ -74,17 +74,17 @@ namespace GlutSvrWeb.Services
             }
 
             var query = from x in _context.Projects.AsNoTracking()
-                                let count = _context.RunAttributes.AsNoTracking()
-                                                                  .Where(a => a.GlutProjectName == x.GlutProjectName)
-                                                                  .GroupBy(g => g.GlutProjectRunId)
-                                                                  .Count()
-                                orderby x.ModifiedDateTimeUtc descending
-                                select new ProjectDto
-                                {
-                                    ProjectName = x.GlutProjectName,
-                                    Runs = count,
-                                    LastChangeDateTime = x.ModifiedDateTimeUtc
-                                };
+                        let count = _context.RunAttributes.AsNoTracking()
+                                                          .Where(a => a.GlutProjectName == x.GlutProjectName)
+                                                          .GroupBy(g => g.GlutProjectRunId)
+                                                          .Count()
+                        orderby x.ModifiedDateTimeUtc descending
+                        select new ProjectDto
+                        {
+                            ProjectName = x.GlutProjectName,
+                            Runs = count,
+                            LastChangeDateTime = x.ModifiedDateTimeUtc
+                        };
 
 
             int recordsTotal = 0;
@@ -92,17 +92,17 @@ namespace GlutSvrWeb.Services
 
             recordsTotal = query.Count();
 
+            // Search
+            if (!string.IsNullOrWhiteSpace(args.Search))
+            {
+                query = query.Where(x => x.ProjectName != null && EF.Functions.Like(x.ProjectName, $"%{args.Search}%"));
+            }
+
             // Sort
             if (string.IsNullOrWhiteSpace(args.SortColumn) == false)
             {
                 var sortColumn = LinqExtensions.GetPropertyName(typeof(ProjectDto), args.SortColumn);
                 query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
-            }
-
-            // Search
-            if (!string.IsNullOrWhiteSpace(args.Search))
-            {
-                query = query.Where(m => m.ProjectName != null && m.ProjectName.StartsWith(args.Search, StringComparison.CurrentCultureIgnoreCase));
             }
 
             recordsFilteredTotal = query.Count();
@@ -135,8 +135,7 @@ namespace GlutSvrWeb.Services
             }
 
             var query = from x in _context.Results.AsNoTracking()
-                        where x.GlutProjectName.Equals(projectName, StringComparison.CurrentCultureIgnoreCase) &&
-                              x.GlutProjectRunId == runId
+                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId
                         select x;
 
             int recordsTotal = 0;
@@ -144,23 +143,24 @@ namespace GlutSvrWeb.Services
 
             recordsTotal = query.Count();
 
-            // Sort
-            if (string.IsNullOrWhiteSpace(args.SortColumn) == false)
-            {
-                var sortColumn = LinqExtensions.GetPropertyName(typeof(ProjectDto), args.SortColumn);
-                query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
-            }
-
             // Search
             if (!string.IsNullOrWhiteSpace(args.Search))
             {
                 query = query.Where(m =>
-                (m.RequestUri != null && m.RequestUri.Contains(args.Search, StringComparison.CurrentCultureIgnoreCase)) ||
-                (m.StatusCode.ToString().Contains(args.Search)) ||
-                (m.ResponseHeaders != null && m.ResponseHeaders.Contains(args.Search, StringComparison.CurrentCultureIgnoreCase)));
+                (m.RequestUri != null && EF.Functions.Like(m.RequestUri, $"%{args.Search}%")) ||
+              //  (m.StatusCode.ToString().Contains(args.Search)) ||
+                (m.ResponseHeaders != null && EF.Functions.Like(m.ResponseHeaders, $"%{args.Search}%")));
+            }
+
+            // Sort
+            if (string.IsNullOrWhiteSpace(args.SortColumn) == false)
+            {
+                var sortColumn = LinqExtensions.GetPropertyName(typeof(GlutResultItem), args.SortColumn);
+                query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
             }
 
             recordsFilteredTotal = query.Count();
+
             var model = (from x in query.Skip(args.Skip).Take(args.Take)
                          select new ResultItemDto
                          {
@@ -191,6 +191,8 @@ namespace GlutSvrWeb.Services
 
             return response;
         }
+
+        #region Dashboard
 
         public Task<IDictionary<string, decimal>> GetResponseDetails(string projectName, int runId)
         {
@@ -465,6 +467,8 @@ namespace GlutSvrWeb.Services
                               Value = x.AttributeValue
                           }).ToListAsync();
         }
+
+        #endregion
 
         public static long ConvertToMillisecond(long ticks)
         {

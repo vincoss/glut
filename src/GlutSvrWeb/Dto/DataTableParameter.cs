@@ -14,7 +14,7 @@ namespace GlutSvrWeb.Dto
         public string Search { get; set; }
 
         public int Skip { get; set; }
-        public int Take { get; set; }
+        public int Take { get; set; } = 10;
 
     }
 }

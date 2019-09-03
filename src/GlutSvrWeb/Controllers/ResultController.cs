@@ -40,21 +40,5 @@ namespace Default_WebApplication_API_V3.Controllers
 
             return response;
         }
-
-        [HttpPost("projectNames")]
-        public async Task<IEnumerable<string>> GetProjects()
-        {
-            return await _dataStoreSvr.GetProjectString();
-        }
-
-        [HttpPost("runIds/{id}")]
-        public async Task<IEnumerable<int>> GetRuns(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
-            return await _dataStoreSvr.GetProjectRuns(id);
-        }
     }
 }

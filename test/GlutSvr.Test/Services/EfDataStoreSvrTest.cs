@@ -1,4 +1,5 @@
 ﻿using Glut.Data;
+using GlutSvrWeb.Dto;
 using GlutSvrWeb.Properties;
 using GlutSvrWeb.Services;
 using Microsoft.Data.Sqlite;
@@ -62,7 +63,7 @@ namespace GlutSvr.Services
                 using (var context = new EfDbContext(options))
                 {
                     context.Database.EnsureCreated();
-                    new SeedData().Initialize(context);
+                    new SeedData().WithProjects(context);
                     var service = new EfDataStoreSvr(context);
 
                     var r = await service.GetProjectString();
@@ -102,6 +103,81 @@ namespace GlutSvr.Services
                     Assert.Equal(2, r.Count());
                     Assert.Equal(2, r.ElementAt(0));
                     Assert.Equal(1, r.ElementAt(1));
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        [Fact]
+        public void GetProjects()
+        {
+            // In-memory database only exists while the connection is open
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<EfDbContext>()
+                    .UseSqlite(connection)
+                    .Options;
+
+                // Create the schema in the database
+                using (var context = new EfDbContext(options))
+                {
+                    context.Database.EnsureCreated();
+                    new SeedData().WithProjects(context).WithRunAttributes(context);
+                    var service = new EfDataStoreSvr(context);
+
+                    var results = service.GetProjects(new DataTableParameter());
+
+                    Assert.Equal(2, results.Data.Count());
+                    Assert.Equal("Gabo", results.Data.ElementAt(0).ProjectName);
+                    Assert.Equal(0, results.Data.ElementAt(0).Runs);
+                    Assert.NotNull(results.Data.ElementAt(0).LastChangeDateTime);
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        [Fact]
+        public void GetResultItems()
+        {
+            // In-memory database only exists while the connection is open
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<EfDbContext>()
+                    .UseSqlite(connection)
+                    .Options;
+
+                // Create the schema in the database
+                using (var context = new EfDbContext(options))
+                {
+                    context.Database.EnsureCreated();
+                    new SeedData().WithResults(context);
+                    var service = new EfDataStoreSvr(context);
+
+                    var results = service.GetResultItems("Test", 1, new DataTableParameter());
+
+                    Assert.Equal(6, results.Data.Count());
+                    Assert.Equal("/information", results.Data.ElementAt(0).Url);
+                    Assert.True(results.Data.ElementAt(0).IsSuccessStatusCode);
+                    Assert.Equal(100, results.Data.ElementAt(0).StatusCode);
+                    Assert.Equal(0.9765625M, results.Data.ElementAt(0).HeaderLength);
+                    Assert.Equal(1.953125M, results.Data.ElementAt(0).ResponseLength);
+                    Assert.Equal(2.9296875M, results.Data.ElementAt(0).TotalLength);
+                    Assert.Equal(1, results.Data.ElementAt(0).RequestTicks);
+                    Assert.Equal(2, results.Data.ElementAt(0).ResponseTicks);
+                    Assert.Equal(3, results.Data.ElementAt(0).TotalTicks);
+                    Assert.Equal("StatusCode: 200", results.Data.ElementAt(0).ResponseHeaders);
                 }
             }
             finally
@@ -379,81 +455,6 @@ namespace GlutSvr.Services
                     Assert.Equal("Success", results.ElementAt(1).SeriesString);
                     Assert.Equal("Error", results.ElementAt(2).SeriesString);
                     Assert.Equal("Success", results.ElementAt(3).SeriesString);
-                }
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        [Fact] // TODO: async?
-        public void GetResultItems()
-        {
-            //// In-memory database only exists while the connection is open
-            //var connection = new SqliteConnection("DataSource=:memory:");
-            //connection.Open();
-
-            //try
-            //{
-            //    var options = new DbContextOptionsBuilder<EfDbContext>()
-            //        .UseSqlite(connection)
-            //        .Options;
-
-            //    // Create the schema in the database
-            //    using (var context = new EfDbContext(options))
-            //    {
-            //        context.Database.EnsureCreated();
-            //        new SeedData().WithResults(context);
-            //        var service = new EfDataStoreSvr(context);
-
-            //        var results = service.GetResultItems("Test", 1);
-
-            //        Assert.Equal(6, results.Count());
-            //        Assert.Equal("/information", results.ElementAt(0).Url);
-            //        Assert.True(results.ElementAt(0).IsSuccessStatusCode);
-            //        Assert.Equal(100, results.ElementAt(0).StatusCode);
-            //        Assert.Equal(0.9765625M, results.ElementAt(0).HeaderLength);
-            //        Assert.Equal(1.953125M, results.ElementAt(0).ResponseLength);
-            //        Assert.Equal(2.9296875M, results.ElementAt(0).TotalLength);
-            //        Assert.Equal(1, results.ElementAt(0).RequestTicks);
-            //        Assert.Equal(2, results.ElementAt(0).ResponseTicks);
-            //        Assert.Equal(3, results.ElementAt(0).TotalTicks);
-            //        Assert.Equal("StatusCode: 200", results.ElementAt(0).ResponseHeaders);
-            //    }
-            //}
-            //finally
-            //{
-            //    connection.Close();
-            //}
-        }
-
-        [Fact] 
-        public void GetProjects()
-        {
-            // In-memory database only exists while the connection is open
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-
-            try
-            {
-                var options = new DbContextOptionsBuilder<EfDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
-
-                // Create the schema in the database
-                using (var context = new EfDbContext(options))
-                {
-                    context.Database.EnsureCreated();
-                    new SeedData().WithProjects(context).WithRunAttributes(context);
-                    var service = new EfDataStoreSvr(context);
-
-                    var results = service.GetProjects(null);
-
-                    Assert.Equal(2, results.Data.Count());
-                    Assert.Equal("Gabo", results.Data.ElementAt(0).ProjectName);
-                    Assert.Equal(0, results.Data.ElementAt(0).Runs);
-                    Assert.NotNull(results.Data.ElementAt(0).LastChangeDateTime);
                 }
             }
             finally

@@ -74,7 +74,7 @@ namespace GlutSvr
                      RequestSentTicks = 10000,
                      ResponseTicks = 20000,
                      TotalTicks = 30000,
-                     ResponseHeaders = "StatusCode: 200",
+                    ResponseHeaders = "StatusCode: 200",
                      CreatedDateTimeUtc = now.AddSeconds(1),
                      CreatedByUserName = Environment.UserName
                  },
@@ -89,6 +89,7 @@ namespace GlutSvr
                     StatusCode = 200,
                     TotalTicks = 10000,
                     TotalLegth = 1000,
+                    ResponseHeaders = "Headers",
                     CreatedDateTimeUtc = now.AddSeconds(2),
                     CreatedByUserName = Environment.UserName
                 },
@@ -103,7 +104,8 @@ namespace GlutSvr
                      StatusCode = 200,
                      TotalTicks = 20000,
                      TotalLegth = 2000,
-                     CreatedDateTimeUtc = now.AddSeconds(3),
+                    ResponseHeaders = "Headers",
+                    CreatedDateTimeUtc = now.AddSeconds(3),
                      CreatedByUserName = Environment.UserName
                  },
                 new GlutResultItem
@@ -115,6 +117,7 @@ namespace GlutSvr
                     RequestUri = "/redirection",
                     IsSuccessStatusCode = true,
                     StatusCode = 300,
+                    ResponseHeaders = "Headers",
                     CreatedDateTimeUtc = now.AddSeconds(4),
                     CreatedByUserName = Environment.UserName
                 },
@@ -127,6 +130,7 @@ namespace GlutSvr
                     RequestUri = "/clientError",
                     IsSuccessStatusCode = true,
                     StatusCode = 400,
+                    ResponseHeaders = "Headers",
                     CreatedDateTimeUtc = now.AddSeconds(5),
                     CreatedByUserName = Environment.UserName
                 },
@@ -139,6 +143,7 @@ namespace GlutSvr
                     RequestUri = "/serverError",
                     IsSuccessStatusCode = true,
                     StatusCode = 500,
+                    ResponseHeaders = null,
                     Exception = new Exception("some error").ToString(),
                     CreatedDateTimeUtc = now.AddSeconds(6),
                     CreatedByUserName = Environment.UserName

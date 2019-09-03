@@ -79,7 +79,6 @@ namespace Glut.Data.Configuration
                .HasColumnType("BIGINT");
 
             builder.Property(t => t.ResponseHeaders)
-                  .IsRequired()
                   .HasColumnType("TEXT COLLATE NOCASE");
 
             builder.Property(t => t.Exception)

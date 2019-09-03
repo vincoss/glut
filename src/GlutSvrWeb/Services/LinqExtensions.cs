@@ -42,7 +42,7 @@ namespace GlutSvrWeb.Services
 
         public static string GetPropertyName(Type type, string propertyName)
         {
-            var info = type.GetProperties().Single(pi => string.Equals(pi.Name, propertyName, StringComparison.OrdinalIgnoreCase));
+            var info = type.GetProperties().Single(pi => pi.Name.Contains(propertyName, StringComparison.OrdinalIgnoreCase));
 
             if (info == null)
             {
