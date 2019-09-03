@@ -56,13 +56,15 @@ namespace GlutSvr
                 return this;   // DB has been seeded
             }
 
+            var now = DateTime.UtcNow;
+
             context.Results.AddRange(
-                 new GlutResultItem
+                new GlutResultItem
                  {
                      GlutProjectName = "Test",
                      GlutProjectRunId = 1,
-                     StartDateTimeUtc = DateTime.UtcNow,
-                     EndDateTimeUtc = DateTime.UtcNow.AddSeconds(1),
+                     StartDateTimeUtc = now,
+                     EndDateTimeUtc = now.AddSeconds(1),
                      RequestUri = "/information",
                      IsSuccessStatusCode = true,
                      StatusCode = 100,
@@ -73,72 +75,72 @@ namespace GlutSvr
                      ResponseTicks = 20000,
                      TotalTicks = 30000,
                      ResponseHeaders = "StatusCode: 200",
-                     CreatedDateTimeUtc = DateTime.UtcNow,
+                     CreatedDateTimeUtc = now.AddSeconds(1),
                      CreatedByUserName = Environment.UserName
                  },
                 new GlutResultItem
                 {
                     GlutProjectName = "Test",
                     GlutProjectRunId = 1,
-                    StartDateTimeUtc = DateTime.UtcNow,
-                    EndDateTimeUtc = DateTime.UtcNow.AddSeconds(1),
+                    StartDateTimeUtc = now,
+                    EndDateTimeUtc = now.AddSeconds(1),
                     RequestUri = "/successful",
                     IsSuccessStatusCode = true,
                     StatusCode = 200,
                     TotalTicks = 10000,
                     TotalLegth = 1000,
-                    CreatedDateTimeUtc = DateTime.UtcNow,
+                    CreatedDateTimeUtc = now.AddSeconds(2),
                     CreatedByUserName = Environment.UserName
                 },
-                 new GlutResultItem
+                new GlutResultItem
                  {
                      GlutProjectName = "Test",
                      GlutProjectRunId = 1,
-                     StartDateTimeUtc = DateTime.UtcNow,
-                     EndDateTimeUtc = DateTime.UtcNow.AddSeconds(1),
+                     StartDateTimeUtc = now,
+                     EndDateTimeUtc = now.AddSeconds(1),
                      RequestUri = "/successful0001",
                      IsSuccessStatusCode = true,
                      StatusCode = 200,
                      TotalTicks = 20000,
                      TotalLegth = 2000,
-                     CreatedDateTimeUtc = DateTime.UtcNow,
+                     CreatedDateTimeUtc = now.AddSeconds(3),
                      CreatedByUserName = Environment.UserName
                  },
                 new GlutResultItem
                 {
                     GlutProjectName = "Test",
                     GlutProjectRunId = 1,
-                    StartDateTimeUtc = DateTime.UtcNow,
-                    EndDateTimeUtc = DateTime.UtcNow.AddSeconds(1),
+                    StartDateTimeUtc = now,
+                    EndDateTimeUtc = now.AddSeconds(1),
                     RequestUri = "/redirection",
                     IsSuccessStatusCode = true,
                     StatusCode = 300,
-                    CreatedDateTimeUtc = DateTime.UtcNow,
+                    CreatedDateTimeUtc = now.AddSeconds(4),
                     CreatedByUserName = Environment.UserName
                 },
                 new GlutResultItem
                 {
                     GlutProjectName = "Test",
                     GlutProjectRunId = 1,
-                    StartDateTimeUtc = DateTime.UtcNow,
-                    EndDateTimeUtc = DateTime.UtcNow.AddSeconds(1),
+                    StartDateTimeUtc = now,
+                    EndDateTimeUtc = now.AddSeconds(1),
                     RequestUri = "/clientError",
                     IsSuccessStatusCode = true,
                     StatusCode = 400,
-                    CreatedDateTimeUtc = DateTime.UtcNow,
+                    CreatedDateTimeUtc = now.AddSeconds(5),
                     CreatedByUserName = Environment.UserName
                 },
                 new GlutResultItem
                 {
                     GlutProjectName = "Test",
                     GlutProjectRunId = 1,
-                    StartDateTimeUtc = DateTime.UtcNow,
-                    EndDateTimeUtc = DateTime.UtcNow.AddSeconds(1),
+                    StartDateTimeUtc = now,
+                    EndDateTimeUtc = now.AddSeconds(1),
                     RequestUri = "/serverError",
                     IsSuccessStatusCode = true,
                     StatusCode = 500,
                     Exception = new Exception("some error").ToString(),
-                    CreatedDateTimeUtc = DateTime.UtcNow,
+                    CreatedDateTimeUtc = now.AddSeconds(6),
                     CreatedByUserName = Environment.UserName
                 }
             );

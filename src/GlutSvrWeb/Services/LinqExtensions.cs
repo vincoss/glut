@@ -10,7 +10,7 @@ namespace GlutSvrWeb.Services
 {
     public static class LinqExtensions
     {
-        public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty, bool desc)
+        public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty, bool desc) where TEntity: class
         {
             string command = desc ? "OrderByDescending" : "OrderBy";
             var type = typeof(TEntity);

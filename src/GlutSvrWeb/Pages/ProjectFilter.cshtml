@@ -4,6 +4,7 @@
     ViewData["Title"] = "ProjectFilter";
     Layout = "_dashboardLayout";
 }
+@inject  IDataStoreSvr DataStore;
 
 @await Html.PartialAsync("_projectFilter")
 
@@ -22,7 +23,7 @@
                 {
                     $("#projects").append($("<option></option>").val(this).html(this));
                 });
-                
+                $("#projects").val('@DataStore.GetLastProject().ProjectName');
                 $("#projects").trigger("change");
 
             }, "json");

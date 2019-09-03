@@ -109,7 +109,8 @@ namespace Glut.Services
 
         private void SaveProject(string projectName)
         {
-            if(_context.Projects.Any(x => x.GlutProjectName == projectName) == false)
+            var existing = _context.Projects.SingleOrDefault(x => x.GlutProjectName == projectName);
+            if(existing == null)
             {
                 var project = new GlutProject
                 {
@@ -119,6 +120,11 @@ namespace Glut.Services
                     CreatedByUserName = _environment.UserName
                 };
                 _context.Add(project);
+            }
+            else
+            {
+                existing.ModifiedDateTimeUtc = _environment.SystemDateTimeUtc;
+                _context.Update(existing); // TODO: test for update
             }
         }
     }

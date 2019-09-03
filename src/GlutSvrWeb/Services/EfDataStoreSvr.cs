@@ -24,6 +24,23 @@ namespace GlutSvrWeb.Services
             _context = context;
         }
 
+        public LastRunDto GetLastProject()
+        {
+            var project = (from x in _context.Results.AsNoTracking()
+                           orderby x.CreatedDateTimeUtc descending
+                           select x).FirstOrDefault();
+
+            var result = new LastRunDto();
+
+            if(project != null)
+            {
+                result.ProjectName = project.GlutProjectName;
+                result.RunId = project.GlutProjectRunId;
+            }
+
+            return result;
+        }
+
         public async Task<IEnumerable<string>> GetProjectString()
         {
             return await (from x in _context.Projects.AsNoTracking()
@@ -39,7 +56,8 @@ namespace GlutSvrWeb.Services
                 throw new ArgumentNullException(nameof(projectName));
             }
 
-            var query = _context.RunAttributes.AsNoTracking().Where(x => x.GlutProjectName == projectName);
+            var query = _context.RunAttributes.AsNoTracking()
+                                              .Where(x => x.GlutProjectName == projectName);
 
             return await (from x in query
                           group x by x.GlutProjectRunId into g
@@ -48,9 +66,14 @@ namespace GlutSvrWeb.Services
 
         }
 
-        public IQueryable<ProjectDto> GetProjects()
+        public DataTableDto<ProjectDto> GetProjects(DataTableParameter args)
         {
-            var results = from x in _context.Projects.AsNoTracking()
+            if (args == null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
+            var query = from x in _context.Projects.AsNoTracking()
                                 let count = _context.RunAttributes.AsNoTracking()
                                                                   .Where(a => a.GlutProjectName == x.GlutProjectName)
                                                                   .GroupBy(g => g.GlutProjectRunId)
@@ -63,12 +86,42 @@ namespace GlutSvrWeb.Services
                                     LastChangeDateTime = x.ModifiedDateTimeUtc
                                 };
 
-            return results;
+
+            int recordsTotal = 0;
+            int recordsFilteredTotal = 0;
+
+            recordsTotal = query.Count();
+
+            // Sort
+            if (string.IsNullOrWhiteSpace(args.SortColumn) == false)
+            {
+                var sortColumn = LinqExtensions.GetPropertyName(typeof(ProjectDto), args.SortColumn);
+                query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            // Search
+            if (!string.IsNullOrWhiteSpace(args.Search))
+            {
+                query = query.Where(m => m.ProjectName != null && m.ProjectName.StartsWith(args.Search, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            recordsFilteredTotal = query.Count();
+            var model = query.Skip(args.Skip).Take(args.Take).ToList();
+
+            var response = new DataTableDto<ProjectDto>
+            {
+                Draw = args.Draw,
+                RecordsFiltered = recordsFilteredTotal,
+                RecordsTotal = recordsTotal,
+                Data = model
+            };
+
+            return response;
         }
 
-        public IQueryable<ResultItemDto> GetResultItems(string projectName, int runId)
+        public DataTableDto<ResultItemDto> GetResultItems(string projectName, int runId, DataTableParameter args)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -76,34 +129,67 @@ namespace GlutSvrWeb.Services
             {
                 throw new ArgumentException(nameof(runId));
             }
+            if (args == null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
 
             var query = from x in _context.Results.AsNoTracking()
-                        where x.GlutProjectName.Equals(projectName, StringComparison.CurrentCultureIgnoreCase) && 
+                        where x.GlutProjectName.Equals(projectName, StringComparison.CurrentCultureIgnoreCase) &&
                               x.GlutProjectRunId == runId
-                        orderby x.GlutResultId
                         select x;
 
-            var results = from x in query
-                           select new ResultItemDto
-                           {
-                               StartDateTime = x.StartDateTimeUtc.ToLocalTime(),
-                               EndDateTime = x.EndDateTimeUtc.ToLocalTime(),
-                               Url = x.RequestUri,
-                               IsSuccessStatusCode = x.IsSuccessStatusCode,
-                               StatusCode = x.StatusCode,
-                               HeaderLength = ConvertToKb(x.HeaderLength),
-                               ResponseLength = ConvertToKb(x.ResponseLength),
-                               TotalLength = ConvertToKb(x.TotalLegth),
-                               RequestTicks = ConvertToMillisecond(x.RequestSentTicks),
-                               ResponseTicks = ConvertToMillisecond(x.ResponseTicks),
-                               TotalTicks = ConvertToMillisecond(x.TotalTicks),
-                               ResponseHeaders = x.ResponseHeaders,
-                               Exception = x.Exception,
-                               CreatedDateTime = x.CreatedDateTimeUtc.ToLocalTime(),
-                               CreatedByUser = x.CreatedByUserName
-                           };
+            int recordsTotal = 0;
+            int recordsFilteredTotal = 0;
 
-            return results;
+            recordsTotal = query.Count();
+
+            // Sort
+            if (string.IsNullOrWhiteSpace(args.SortColumn) == false)
+            {
+                var sortColumn = LinqExtensions.GetPropertyName(typeof(ProjectDto), args.SortColumn);
+                query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            // Search
+            if (!string.IsNullOrWhiteSpace(args.Search))
+            {
+                query = query.Where(m =>
+                (m.RequestUri != null && m.RequestUri.Contains(args.Search, StringComparison.CurrentCultureIgnoreCase)) ||
+                (m.StatusCode.ToString().Contains(args.Search)) ||
+                (m.ResponseHeaders != null && m.ResponseHeaders.Contains(args.Search, StringComparison.CurrentCultureIgnoreCase)));
+            }
+
+            recordsFilteredTotal = query.Count();
+            var model = (from x in query.Skip(args.Skip).Take(args.Take)
+                         select new ResultItemDto
+                         {
+                             StartDateTime = x.StartDateTimeUtc.ToLocalTime(),
+                             EndDateTime = x.EndDateTimeUtc.ToLocalTime(),
+                             Url = x.RequestUri,
+                             IsSuccessStatusCode = x.IsSuccessStatusCode,
+                             StatusCode = x.StatusCode,
+                             HeaderLength = ConvertToKb(x.HeaderLength),
+                             ResponseLength = ConvertToKb(x.ResponseLength),
+                             TotalLength = ConvertToKb(x.TotalLegth),
+                             RequestTicks = ConvertToMillisecond(x.RequestSentTicks),
+                             ResponseTicks = ConvertToMillisecond(x.ResponseTicks),
+                             TotalTicks = ConvertToMillisecond(x.TotalTicks),
+                             ResponseHeaders = x.ResponseHeaders,
+                             Exception = x.Exception,
+                             CreatedDateTime = x.CreatedDateTimeUtc.ToLocalTime(),
+                             CreatedByUser = x.CreatedByUserName
+                         }).ToArray();
+
+            var response = new DataTableDto<ResultItemDto>
+            {
+                Draw = args.Draw,
+                RecordsFiltered = recordsFilteredTotal,
+                RecordsTotal = recordsTotal,
+                Data = model
+            };
+
+            return response;
         }
 
         public Task<IDictionary<string, decimal>> GetResponseDetails(string projectName, int runId)
@@ -390,13 +476,5 @@ namespace GlutSvrWeb.Services
             return ((decimal)length) / 1024M;
         }
 
-        private static DateTime? GetDate(GlutRunAttribute a)
-        {
-            if (a == null)
-            {
-                return null;
-            }
-            return a.CreatedDateTimeUtc;
-        }
     }
 }

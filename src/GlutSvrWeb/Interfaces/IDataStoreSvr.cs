@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace GlutSvrWeb.Interfaces
 {
     public interface IDataStoreSvr
     {
+        LastRunDto GetLastProject();
+
         Task<IEnumerable<string>> GetProjectString();
 
         Task<IEnumerable<int>> GetProjectRuns(string projectName);
 
-        IQueryable<ProjectDto> GetProjects();
+        DataTableDto<ProjectDto> GetProjects(DataTableParameter args);
 
-        IQueryable<ResultItemDto> GetResultItems(string projectName, int runId);
+        DataTableDto<ResultItemDto> GetResultItems(string projectName, int runId, DataTableParameter args);
 
         Task<IDictionary<string, decimal>> GetResponseDetails(string projectName, int runId);
 

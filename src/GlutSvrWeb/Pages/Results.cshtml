@@ -5,8 +5,6 @@
     var DateFormat = @GlutWebConstants.LongDateTimeFormat;
 }
 
-@Html.AntiForgeryToken() <!-- TODO: Move to master page and check if can have one per whole app -->
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -25,11 +23,11 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Project: Glut - Run: 1</h3>
+                    <h3 class="box-title">Project: @Model.Project - Run: @Model.RunId</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="table" class="table table-bordered table-striped">
+                    <table id="table" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>@AppResources.Start</th>
@@ -104,7 +102,7 @@
                 },
                 ajax:
                 {
-                    url: 'result/glut/1',
+                    url: 'result/@Model.Project/@Model.RunId',
                     type: 'POST',
                     dataSrc: 'data',
                     datatype: 'json',
@@ -157,13 +155,5 @@
         th {
             white-space: nowrap;
         }
-        /*table{
-  margin: 0 auto;
-  width: 100%;
-  clear: both;
-  border-collapse: collapse;
-  table-layout: fixed; 
-  word-wrap:break-word; 
-}*/
     </style>
 }

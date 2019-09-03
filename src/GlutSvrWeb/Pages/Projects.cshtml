@@ -2,9 +2,8 @@
 @model ProjectsModel
 @{
     ViewData[ViewConstants.Title] = Model.Title;
+    var DateFormat = @GlutWebConstants.ShortDateTimeFormat;
 }
-
-@Html.AntiForgeryToken() <!-- TODO: Move to master page and check if can have one per whole app -->
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -96,7 +95,8 @@
                 {
                     "targets": [2],
                     "searchable": false,
-                    "orderable": false
+                    "orderable": false,
+                     render: function (data) { return moment(data).format('@DateFormat');}
                 }],
                 columns: [
                     { data: "projectName", name: "Project Name", autoWidth: true },

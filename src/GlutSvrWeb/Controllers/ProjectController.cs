@@ -40,47 +40,9 @@ namespace Default_WebApplication_API_V3.Controllers
         [ValidateAntiForgeryToken]
         public DataTableDto<ProjectDto> Get()
         {
-            var form = this.Request.Form;
+            var args = Request.Form.GetDataTableArgs();
 
-            var draw = Request.Form["draw"].FirstOrDefault();
-            var length = Request.Form["length"].FirstOrDefault();
-            var start = Request.Form["start"].FirstOrDefault();
-            var searchValue = Request.Form["search[value]"].FirstOrDefault();
-            var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][data]"].FirstOrDefault();
-            var sortColumnDir = Request.Form["order[0][dir]"].FirstOrDefault();
-
-            //Paging Size (10,20,50,100)    
-            int pageSize = length != null ? Convert.ToInt32(length) : 0;
-            int skip = start != null ? Convert.ToInt32(start) : 0;
-            int recordsTotal = 0;
-            int recordsFilteredTotal = 0;
-
-            var query = from x in _dataStoreSvr.GetProjects() select x;
-            recordsTotal = query.Count();
-
-            // Sort
-            if (string.IsNullOrWhiteSpace(sortColumn) == false && string.IsNullOrWhiteSpace(sortColumnDir) == false)
-            {
-                sortColumn = LinqExtensions.GetPropertyName(typeof(ProjectDto), sortColumn);
-                query = query.OrderBy(sortColumn, string.Equals("asc", sortColumnDir, StringComparison.CurrentCultureIgnoreCase));
-            }
-
-            // Search
-            if (!string.IsNullOrWhiteSpace(searchValue))
-            {
-                query = query.Where(m => m.ProjectName != null && m.ProjectName.StartsWith(searchValue, StringComparison.CurrentCultureIgnoreCase));
-            }
-
-            recordsFilteredTotal = query.Count();
-            var model = query.Skip(skip).Take(pageSize).ToList();
-
-            var response = new DataTableDto<ProjectDto>
-            {
-                Draw = draw,
-                RecordsFiltered = recordsFilteredTotal,
-                RecordsTotal = recordsTotal,
-                Data = model
-            };
+            var response = _dataStoreSvr.GetProjects(args);
 
             return response;
         }

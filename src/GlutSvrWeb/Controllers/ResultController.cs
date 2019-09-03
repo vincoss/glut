@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GlutSvrWeb.Dto;
 using GlutSvrWeb.Interfaces;
 using GlutSvrWeb.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -33,48 +34,9 @@ namespace Default_WebApplication_API_V3.Controllers
                 return new DataTableDto<ResultItemDto>();
             }
 
-            var draw = Request.Form["draw"].FirstOrDefault();
-            var length = Request.Form["length"].FirstOrDefault();
-            var start = Request.Form["start"].FirstOrDefault();
-            var searchValue = Request.Form["search[value]"].FirstOrDefault();
-            var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][data]"].FirstOrDefault();
-            var sortColumnDir = Request.Form["order[0][dir]"].FirstOrDefault();
+            var args = Request.Form.GetDataTableArgs();
 
-            //Paging Size (10,20,50,100)    
-            int pageSize = length != null ? Convert.ToInt32(length) : 0;
-            int skip = start != null ? Convert.ToInt32(start) : 0;
-            int recordsTotal = 0;
-            int recordsFilteredTotal = 0;
-
-            var query = from x in _dataStoreSvr.GetResultItems(id, run) select x;
-            recordsTotal = query.Count();
-
-            // Sort
-            if (string.IsNullOrWhiteSpace(sortColumn) == false && string.IsNullOrWhiteSpace(sortColumnDir) == false)
-            {
-                sortColumn = LinqExtensions.GetPropertyName(typeof(ResultItemDto), sortColumn);
-                query = query.OrderBy(sortColumn, string.Equals("asc", sortColumnDir, StringComparison.CurrentCultureIgnoreCase));
-            }
-
-            // Search
-            if (!string.IsNullOrWhiteSpace(searchValue))
-            {
-                query = query.Where(m => 
-                (m.Url != null && m.Url.Contains(searchValue, StringComparison.CurrentCultureIgnoreCase)) ||
-                (m.StatusCode.ToString().Contains(searchValue)) ||
-                (m.ResponseHeaders != null && m.ResponseHeaders.Contains(searchValue, StringComparison.CurrentCultureIgnoreCase)));
-            }
-
-            recordsFilteredTotal = query.Count();
-            var model = query.Skip(skip).Take(pageSize).ToList();
-
-            var response = new DataTableDto<ResultItemDto>
-            {
-                Draw = draw,
-                RecordsFiltered = recordsFilteredTotal,
-                RecordsTotal = recordsTotal,
-                Data = model
-            };
+            var response = _dataStoreSvr.GetResultItems(id, run , args);
 
             return response;
         }
