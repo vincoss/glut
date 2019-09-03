@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-
+﻿using Glut.Data.Configuration;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Glut.Data
 {
@@ -26,9 +27,17 @@ namespace Glut.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GlutProject>().ToTable(nameof(GlutProject));
-            modelBuilder.Entity<GlutResultItem>().ToTable(nameof(GlutResultItem));
-            modelBuilder.Entity<GlutRunAttribute>().ToTable(nameof(GlutRunAttribute)).HasKey(x => new { x.GlutProjectName, x.GlutProjectRunId, x.AttributeName });
+            modelBuilder.ApplyConfiguration(new GlutProjectConfiguration());
+            modelBuilder.ApplyConfiguration(new GlutResultItemConfiguration());
+            modelBuilder.ApplyConfiguration(new GlutRunAttributeConfiguration());
+            //modelBuilder.Entity<GlutProject>().ToTable(nameof(GlutProject))
+            //            .HasIndex(x => x.GlutProjectName);
+
+            //modelBuilder.Entity<GlutProject>().Property(x => x.GlutProjectName)
+            //                                  .HasColumnType("TEXT COLLATE NOCASE");
+
+            //modelBuilder.Entity<GlutResultItem>().ToTable(nameof(GlutResultItem));
+            //modelBuilder.Entity<GlutRunAttribute>().ToTable(nameof(GlutRunAttribute)).HasKey(x => new { x.GlutProjectName, x.GlutProjectRunId, x.AttributeName });
         }
     }
 }
