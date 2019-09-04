@@ -17,7 +17,7 @@ namespace Glut.Data.Configuration
                        x.GlutResultId,
                        x.GlutProjectName, x.GlutProjectRunId,
                        x.StartDateTimeUtc, x.EndDateTimeUtc,
-                       x.RequestUri, x.IsSuccessStatusCode, x.StatusCode
+                       x.Url, x.IsSuccessStatusCode, x.StatusCode
                    });
 
             builder.HasKey(x => x.GlutResultId);
@@ -42,7 +42,7 @@ namespace Glut.Data.Configuration
                    .IsRequired()
                    .HasColumnType("DATETIME");
 
-            builder.Property(t => t.RequestUri)
+            builder.Property(t => t.Url)
                    .IsRequired()
                    .HasColumnType("VARCHAR(1024) COLLATE NOCASE");
 

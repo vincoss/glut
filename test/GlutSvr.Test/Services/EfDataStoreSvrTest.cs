@@ -37,7 +37,7 @@ namespace GlutSvr.Services
                     var r = service.GetLastProject();
 
                     Assert.Equal("Test", r.ProjectName);
-                    Assert.Equal(1, r.RunId);
+                    Assert.Equal(2, r.RunId);
                 }
             }
             finally
@@ -146,6 +146,48 @@ namespace GlutSvr.Services
         }
 
         [Fact]
+        public void GetProjects_CanSortByEveryColumn()
+        {
+            // In-memory database only exists while the connection is open
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<EfDbContext>()
+                    .UseSqlite(connection)
+                    .Options;
+
+                // Create the schema in the database
+                using (var context = new EfDbContext(options))
+                {
+                    context.Database.EnsureCreated();
+                    new SeedData().WithProjects(context).WithRunAttributes(context);
+                    var service = new EfDataStoreSvr(context);
+
+                    var columnNames = from x in typeof(ProjectDto).GetProperties()
+                                      select x.Name;
+
+                    foreach (var c in columnNames)
+                    {
+                        var args = new DataTableParameter
+                        {
+                            SortColumn = c
+                        };
+
+                        var results = service.GetProjects(args);
+
+                        Assert.Equal(2, results.Data.Count());
+                    }
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        [Fact]
         public void GetResultItems()
         {
             // In-memory database only exists while the connection is open
@@ -178,6 +220,48 @@ namespace GlutSvr.Services
                     Assert.Equal(2, results.Data.ElementAt(0).ResponseTicks);
                     Assert.Equal(3, results.Data.ElementAt(0).TotalTicks);
                     Assert.Equal("StatusCode: 200", results.Data.ElementAt(0).ResponseHeaders);
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        [Fact]
+        public void GetResultItems_CanSortByEveryColumn()
+        {
+            // In-memory database only exists while the connection is open
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<EfDbContext>()
+                    .UseSqlite(connection)
+                    .Options;
+
+                // Create the schema in the database
+                using (var context = new EfDbContext(options))
+                {
+                    context.Database.EnsureCreated();
+                    new SeedData().WithResults(context);
+                    var service = new EfDataStoreSvr(context);
+
+                    var columnNames = from x in typeof(ResultItemDto).GetProperties()
+                                      select x.Name;
+
+                    foreach(var c in columnNames)
+                    {
+                        var args = new DataTableParameter
+                        {
+                            SortColumn = c
+                        };
+
+                        var results = service.GetResultItems("Test", 1, args);
+
+                        Assert.Equal(6, results.Data.Count());
+                    }
                 }
             }
             finally

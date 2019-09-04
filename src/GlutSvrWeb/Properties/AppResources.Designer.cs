@@ -223,6 +223,15 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project name.
+        /// </summary>
+        public static string ProjectsSeachPlaceholder {
+            get {
+                return ResourceManager.GetString("ProjectsSeachPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Redirection.
         /// </summary>
         public static string Redirection {
@@ -282,6 +291,15 @@ namespace GlutSvrWeb.Properties {
         public static string ResultsDescription {
             get {
                 return ResourceManager.GetString("ResultsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Url, Status Code, Headers - Contains.
+        /// </summary>
+        public static string ResultsSeachPlaceholder {
+            get {
+                return ResourceManager.GetString("ResultsSeachPlaceholder", resourceCulture);
             }
         }
         

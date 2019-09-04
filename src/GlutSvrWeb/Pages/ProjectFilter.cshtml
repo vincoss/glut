@@ -14,7 +14,7 @@
 
         $(function ()
         {
-            $.post("/project/projectNames", null, function (data, textStatus)
+            $.post('@Url.Action("projectNames", "project")', null, function (data, textStatus)
             {
                 $("#projects").empty();
                 $("#runs").empty();

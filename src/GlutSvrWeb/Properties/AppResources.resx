@@ -171,6 +171,9 @@
   <data name="ProjectsDescription" xml:space="preserve">
     <value>Available projects</value>
   </data>
+  <data name="ProjectsSeachPlaceholder" xml:space="preserve">
+    <value>Project name</value>
+  </data>
   <data name="Redirection" xml:space="preserve">
     <value>Redirection</value>
   </data>
@@ -191,6 +194,9 @@
   </data>
   <data name="ResultsDescription" xml:space="preserve">
     <value>Project run results</value>
+  </data>
+  <data name="ResultsSeachPlaceholder" xml:space="preserve">
+    <value>Url, Status Code, Headers - Contains</value>
   </data>
   <data name="Runs" xml:space="preserve">
     <value>Runs</value>

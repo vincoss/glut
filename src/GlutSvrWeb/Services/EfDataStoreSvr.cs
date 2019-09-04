@@ -26,7 +26,7 @@ namespace GlutSvrWeb.Services
 
         public LastRunDto GetLastProject()
         {
-            var project = (from x in _context.Results.AsNoTracking()
+            var project = (from x in _context.RunAttributes.AsNoTracking()
                            orderby x.CreatedDateTimeUtc descending
                            select x).FirstOrDefault();
 
@@ -79,7 +79,7 @@ namespace GlutSvrWeb.Services
                                                           .GroupBy(g => g.GlutProjectRunId)
                                                           .Count()
                         orderby x.ModifiedDateTimeUtc descending
-                        select new ProjectDto
+                        select new
                         {
                             ProjectName = x.GlutProjectName,
                             Runs = count,
@@ -102,11 +102,24 @@ namespace GlutSvrWeb.Services
             if (string.IsNullOrWhiteSpace(args.SortColumn) == false)
             {
                 var sortColumn = LinqExtensions.GetPropertyName(typeof(ProjectDto), args.SortColumn);
+
+                if (string.IsNullOrWhiteSpace(sortColumn))
+                {
+                    throw new InvalidOperationException($"Could not find column :{sortColumn}");
+                }
+
                 query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
             }
 
             recordsFilteredTotal = query.Count();
-            var model = query.Skip(args.Skip).Take(args.Take).ToList();
+
+            var model = (from x in query.Skip(args.Skip).Take(args.Take)
+                         select new ProjectDto
+                         {
+                             ProjectName = x.ProjectName,
+                             Runs = x.Runs,
+                             LastChangeDateTime = x.LastChangeDateTime.ToLocalTime()
+                         }).ToArray();
 
             var response = new DataTableDto<ProjectDto>
             {
@@ -136,7 +149,24 @@ namespace GlutSvrWeb.Services
 
             var query = from x in _context.Results.AsNoTracking()
                         where x.GlutProjectName == projectName && x.GlutProjectRunId == runId
-                        select x;
+                        select new
+                        {
+                            StartDateTime = x.StartDateTimeUtc,
+                            EndDateTime = x.EndDateTimeUtc,
+                            Url = x.Url,
+                            IsSuccessStatusCode = x.IsSuccessStatusCode,
+                            StatusCode = x.StatusCode,
+                            HeaderLength = x.HeaderLength,
+                            ResponseLength = x.ResponseLength,
+                            TotalLength = x.TotalLegth,
+                            RequestTicks = x.RequestSentTicks,
+                            ResponseTicks = x.ResponseTicks,
+                            TotalTicks = x.TotalTicks,
+                            ResponseHeaders = x.ResponseHeaders,
+                            Exception = x.Exception,
+                            CreatedDateTime = x.CreatedDateTimeUtc,
+                            CreatedByUser = x.CreatedByUserName
+                        };
 
             int recordsTotal = 0;
             int recordsFilteredTotal = 0;
@@ -146,16 +176,22 @@ namespace GlutSvrWeb.Services
             // Search
             if (!string.IsNullOrWhiteSpace(args.Search))
             {
-                query = query.Where(m =>
-                (m.RequestUri != null && EF.Functions.Like(m.RequestUri, $"%{args.Search}%")) ||
-              //  (m.StatusCode.ToString().Contains(args.Search)) ||
-                (m.ResponseHeaders != null && EF.Functions.Like(m.ResponseHeaders, $"%{args.Search}%")));
+                query = query.Where(x =>
+                (x.Url != null && EF.Functions.Like(x.Url, $"%{args.Search}%")) ||
+                //(EF.Functions.Like(x.StatusCode, $"%{args.Search}%")) ||  // TODO: fix this
+                (x.ResponseHeaders != null && EF.Functions.Like(x.ResponseHeaders, $"%{args.Search}%")));
             }
 
             // Sort
             if (string.IsNullOrWhiteSpace(args.SortColumn) == false)
             {
-                var sortColumn = LinqExtensions.GetPropertyName(typeof(GlutResultItem), args.SortColumn);
+                var sortColumn = LinqExtensions.GetPropertyName(typeof(ResultItemDto), args.SortColumn);
+
+                if (string.IsNullOrWhiteSpace(sortColumn))
+                {
+                    throw new InvalidOperationException($"Could not find column :{sortColumn}");
+                }
+
                 query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
             }
 
@@ -164,21 +200,21 @@ namespace GlutSvrWeb.Services
             var model = (from x in query.Skip(args.Skip).Take(args.Take)
                          select new ResultItemDto
                          {
-                             StartDateTime = x.StartDateTimeUtc.ToLocalTime(),
-                             EndDateTime = x.EndDateTimeUtc.ToLocalTime(),
-                             Url = x.RequestUri,
+                             StartDateTime = x.StartDateTime.ToLocalTime(),
+                             EndDateTime = x.EndDateTime.ToLocalTime(),
+                             Url = x.Url,
                              IsSuccessStatusCode = x.IsSuccessStatusCode,
                              StatusCode = x.StatusCode,
                              HeaderLength = ConvertToKb(x.HeaderLength),
                              ResponseLength = ConvertToKb(x.ResponseLength),
-                             TotalLength = ConvertToKb(x.TotalLegth),
-                             RequestTicks = ConvertToMillisecond(x.RequestSentTicks),
+                             TotalLength = ConvertToKb(x.TotalLength),
+                             RequestTicks = ConvertToMillisecond(x.RequestTicks),
                              ResponseTicks = ConvertToMillisecond(x.ResponseTicks),
                              TotalTicks = ConvertToMillisecond(x.TotalTicks),
                              ResponseHeaders = x.ResponseHeaders,
                              Exception = x.Exception,
-                             CreatedDateTime = x.CreatedDateTimeUtc.ToLocalTime(),
-                             CreatedByUser = x.CreatedByUserName
+                             CreatedDateTime = x.CreatedDateTime.ToLocalTime(),
+                             CreatedByUser = x.CreatedByUser
                          }).ToArray();
 
             var response = new DataTableDto<ResultItemDto>
@@ -285,8 +321,8 @@ namespace GlutSvrWeb.Services
             var total = await query.CountAsync();
 
             var results = await (from x in query
-                                 orderby x.RequestUri
-                                 group x by x.RequestUri into g
+                                 orderby x.Url
+                                 group x by x.Url into g
                                  select new TopSuccessOrErrorResquestDto
                                  {
                                      Url = g.Key,
@@ -319,7 +355,7 @@ namespace GlutSvrWeb.Services
 
             var results = await (from x in query
                                  orderby x.StatusCode
-                                 group x by x.RequestUri into g
+                                 group x by x.Url into g
                                  select new TopSuccessOrErrorResquestDto
                                  {
                                      Url = g.Key,
@@ -349,7 +385,7 @@ namespace GlutSvrWeb.Services
                         select x;
 
             var results = await (from x in query
-                                 group x by x.RequestUri into g
+                                 group x by x.Url into g
                                  select new KeyValueData<decimal>
                                  {
                                      Key = g.Key,
@@ -377,7 +413,7 @@ namespace GlutSvrWeb.Services
                         select x;
 
             var results = await (from x in query
-                                 group x by x.RequestUri into g
+                                 group x by x.Url into g
                                  select new KeyValueData<decimal>
                                  {
                                      Key = g.Key,
@@ -405,7 +441,7 @@ namespace GlutSvrWeb.Services
                         select x;
 
             var results = await (from x in query
-                                 group x by x.RequestUri into g
+                                 group x by x.Url into g
                                  select new KeyValueData<decimal>
                                  {
                                      Key = g.Key,

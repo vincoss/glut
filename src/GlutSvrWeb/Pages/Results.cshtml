@@ -93,6 +93,7 @@
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 pageLength: 10,
                 paging: true,
+                language: { searchPlaceholder: '@AppResources.ResultsSeachPlaceholder' },
                 scrollX: true,
                 fnCreatedRow: function (nRow, aData, iDataIndex)
                 {
@@ -124,13 +125,11 @@
                     },
                     {
                         "targets": [4],
-                        "searchable": true,
-                        "orderable": true
+                        "searchable": true
                     },
                     {
                         "targets": [11],
-                        "searchable": true,
-                        "orderable": false
+                        "searchable": true
                     }],
                 columns: [
                     { data: "startDateTime", },

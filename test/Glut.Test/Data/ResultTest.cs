@@ -13,7 +13,7 @@ namespace Glut.Data
             var result = new GlutResultItem
             {
                 GlutProjectName = "Test",
-                RequestUri = "/",
+                Url = "/",
                 StatusCode = 200
             };
 

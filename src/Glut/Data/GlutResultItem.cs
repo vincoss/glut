@@ -16,7 +16,7 @@ namespace Glut.Data
         public DateTime StartDateTimeUtc { get; set; }
         public DateTime EndDateTimeUtc { get; set; }
 
-        public string RequestUri { get; set; }
+        public string Url { get; set; }
         public bool IsSuccessStatusCode { get; set; }
         public int StatusCode { get; set; }
 
@@ -40,7 +40,7 @@ namespace Glut.Data
             {
                 return base.ToString();
             }
-            return string.Format($"{GlutProjectName}, Url: {RequestUri}, StatusCode: {StatusCode}");
+            return string.Format($"{GlutProjectName}, Url: {Url}, StatusCode: {StatusCode}");
         }
     }
 }

@@ -72,7 +72,14 @@
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 pageLength: 10,
                 paging: true,
-                language: { searchPlaceholder: '@AppResources.ProjectName.ToLower()' },
+                language: { searchPlaceholder: '@AppResources.ProjectsSeachPlaceholder' },
+                scrollX: true,
+                fnCreatedRow: function (nRow, aData, iDataIndex)
+                {
+                    $(nRow).children("td").css("overflow", "hidden");
+                    $(nRow).children("td").css("white-space", "nowrap");
+                    $(nRow).children("td").css("text-overflow", "ellipsis");
+                },
                 ajax:
                 {
                    url: 'project',
@@ -89,13 +96,11 @@
                 },
                 {
                     "targets": [1],
-                    "searchable": false,
-                    "orderable": true
+                    "searchable": false
                 },
                 {
                     "targets": [2],
                     "searchable": false,
-                    "orderable": false,
                      render: function (data) { return moment(data).format('@DateFormat');}
                 }],
                 columns: [

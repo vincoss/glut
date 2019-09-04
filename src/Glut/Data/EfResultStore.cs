@@ -60,7 +60,7 @@ namespace Glut.Services
                         GlutProjectRunId = runId,
                         StartDateTimeUtc = pair.Value.StartDateTimes[i],
                         EndDateTimeUtc = pair.Value.EndDateTimes[i],
-                        RequestUri = pair.Key,
+                        Url = pair.Key,
                         IsSuccessStatusCode = pair.Value.IsSuccessStatusCodes[i],
                         StatusCode = pair.Value.StatusCodes[i],
                         HeaderLength = pair.Value.HeaderLengths[i],
