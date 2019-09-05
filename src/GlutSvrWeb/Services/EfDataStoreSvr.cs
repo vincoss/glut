@@ -519,4 +519,20 @@ namespace GlutSvrWeb.Services
         }
 
     }
+
+    /*
+        #Lines over time (status code)
+
+        TotalRequests
+        Information
+        Successful
+        Redirection
+        ClientError
+        ServerError
+        
+        #Lines over time (total requests last 5 runs)
+
+         TotalRequests
+    */
+
 }

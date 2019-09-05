@@ -1,9 +1,6 @@
-﻿@model IEnumerable<StatusCodePieDto>
-
-<div class="box box-default">
+﻿<div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">Status Codes</h3>
-
+        <h3 class="box-title">@AppResources.StatusCodes</h3>
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
                 <i class="fa fa-minus"></i>
@@ -16,8 +13,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="chart-responsive">
-                    <canvas id="statusCodePie" aria-label="Status Codes" role="img">
-                        Status Codes Pie Chart
+                    <canvas id="statusCodePie" aria-label="@AppResources.StatusCodes" role="img" height="150">
+                        @AppResources.StatusCodes
                     </canvas>
                 </div>
                 <!-- ./chart-responsive -->

@@ -340,6 +340,15 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status Codes.
+        /// </summary>
+        public static string StatusCodes {
+            get {
+                return ResourceManager.GetString("StatusCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
         public static string Success {

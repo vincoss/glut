@@ -210,6 +210,9 @@
   <data name="StatusCode" xml:space="preserve">
     <value>Status Code</value>
   </data>
+  <data name="StatusCodes" xml:space="preserve">
+    <value>Status Codes</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>Success</value>
   </data>
