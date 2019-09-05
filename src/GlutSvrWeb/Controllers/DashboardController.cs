@@ -66,5 +66,21 @@ namespace Default_WebApplication_API_V3.Controllers
             return json;
         }
 
+        /// <summary>
+        /// dashboard/statusCodePie
+        /// </summary>
+        [HttpPost("headerStatusCodes/{id}/{run?}")]
+        [ValidateAntiForgeryToken]
+        public async Task<dynamic> GetHeaderStatusCodes(string id, int run)
+        {
+            if (string.IsNullOrWhiteSpace(id) || run <= 0)
+            {
+                return NotFound();
+            }
+
+            var result = await _dataStoreSvr.GetResponseDetails(id, run);
+            return result;
+        }
+
     }
 }

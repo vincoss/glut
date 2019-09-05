@@ -19,7 +19,7 @@ namespace GlutSvrWeb.Interfaces
 
         DataTableDto<ResultItemDto> GetResultItems(string projectName, int runId, DataTableParameter args);
 
-        Task<IDictionary<string, decimal>> GetResponseDetails(string projectName, int runId);
+        Task<StatusCodeHeaderDto> GetResponseDetails(string projectName, int runId);
 
         Task<IEnumerable<StatusCodePieDto>> GetStatusCodePieData(string projectName, int runId);
 

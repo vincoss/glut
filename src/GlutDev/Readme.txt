@@ -14,6 +14,7 @@ favicon icon create and add into the project
 navigation the item is not selected see CSS or JS script
 CLI output per line with colours like for dashboard
 antiforgery <!-- TODO: Move to master page and check if can have one per whole app -->
+dashboard header display % sign
 
 #ProjectRun
 	ProjectName

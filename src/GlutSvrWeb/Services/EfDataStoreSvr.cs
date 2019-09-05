@@ -230,7 +230,7 @@ namespace GlutSvrWeb.Services
 
         #region Dashboard
 
-        public Task<IDictionary<string, decimal>> GetResponseDetails(string projectName, int runId)
+        public Task<StatusCodeHeaderDto> GetResponseDetails(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
             {
@@ -241,7 +241,6 @@ namespace GlutSvrWeb.Services
                 throw new ArgumentException(nameof(runId));
             }
 
-            var results = new Dictionary<string, decimal>(StringComparer.InvariantCultureIgnoreCase);
             var query = _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
 
             var total = query.Count();
@@ -251,14 +250,17 @@ namespace GlutSvrWeb.Services
             var clientError = query.Count(x => x.StatusCode >= 400 && x.StatusCode < 500);
             var serverError = query.Count(x => x.StatusCode >= 500);
 
-            results.Add(AppResources.TotalRequests, total);
-            results.Add(AppResources.Information, GlutSvrExtensions.GetPercent(information, total));
-            results.Add(AppResources.Successful, GlutSvrExtensions.GetPercent(success, total));
-            results.Add(AppResources.Redirection, GlutSvrExtensions.GetPercent(redirection, total));
-            results.Add(AppResources.ClientError, GlutSvrExtensions.GetPercent(clientError, total));
-            results.Add(AppResources.ServerError, GlutSvrExtensions.GetPercent(serverError, total));
+            var result = new StatusCodeHeaderDto
+            {
+                TotalRequests = total,
+                Information = GlutSvrExtensions.GetPercent(information, total),
+                Successful = GlutSvrExtensions.GetPercent(success, total),
+                Redirection = GlutSvrExtensions.GetPercent(redirection, total),
+                ClientError = GlutSvrExtensions.GetPercent(clientError, total),
+                ServerError = GlutSvrExtensions.GetPercent(serverError, total)
+            };
 
-            return Task.FromResult<IDictionary<string, decimal>>(results);
+            return Task.FromResult(result);
         }
 
         public async Task<IEnumerable<StatusCodePieDto>> GetStatusCodePieData(string projectName, int runId)

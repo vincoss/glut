@@ -292,13 +292,13 @@ namespace GlutSvr.Services
 
                     var r = await service.GetResponseDetails("Test", 1);
 
-                    Assert.Equal(6, r.Count);
-                    Assert.Equal(6, Math.Round(r[AppResources.TotalRequests]));
-                    Assert.Equal(17.0M, Math.Round(r[AppResources.Information]));
-                    Assert.Equal(33.0M, Math.Round(r[AppResources.Successful]));
-                    Assert.Equal(17.0M, Math.Round(r[AppResources.Redirection]));
-                    Assert.Equal(17.0M, Math.Round(r[AppResources.ClientError]));
-                    Assert.Equal(17.0M, Math.Round(r[AppResources.ServerError]));
+                    Assert.NotNull(r);
+                    Assert.Equal(6, r.TotalRequests);
+                    Assert.Equal(17.0M, Math.Round(r.Information));
+                    Assert.Equal(33.0M, Math.Round(r.Successful));
+                    Assert.Equal(17.0M, Math.Round(r.Redirection));
+                    Assert.Equal(17.0M, Math.Round(r.ClientError));
+                    Assert.Equal(17.0M, Math.Round(r.ServerError));
                 }
             }
             finally

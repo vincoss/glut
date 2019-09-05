@@ -93,6 +93,21 @@
             return token;
         }
 
+        function headerStatusCodes() {
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+            $.post('/dashboard/headerStatusCodes/glut/3', formData, function (data, textStatus) {
+
+                $("#totalHeader").html(data.totalRequests);
+                $("#informationHeader").html(data.information);
+                $("#successfulHeader").html(data.successul);
+                $("#redirectionHeader").html(data.redirection);
+                $("#clientErrorHeader").html(data.clientError);
+                $("#serverErrorHeader").html(data.serverError);
+
+            }, "json");
+        }
+
         function statusCodePie()
         {
             var dataPoints = [];
@@ -137,6 +152,7 @@
         $(function ()
         {
             statusCodePie();
+            headerStatusCodes();
 
         });
     </script>
