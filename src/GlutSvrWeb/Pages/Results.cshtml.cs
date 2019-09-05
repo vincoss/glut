@@ -26,7 +26,7 @@ namespace GlutSvrWeb.Pages
         public void OnGet()
         {
             Project = "Glut";
-            RunId = 1;
+            RunId = 3;
         }
 
         [BindProperty]

@@ -79,8 +79,17 @@
 @section Scripts
 {
     <script>
-      $(document).ready(function ()
-      {
+
+    function onRunChange()
+    {
+        var project = $("#projects").val();
+        var run = $("#runs").val();
+
+        alert(project + ", " + run);
+        }
+
+        function resultGrid() {
+
             var token = $('input[name="__RequestVerificationToken"]').val();
 
             $('#table').DataTable({
@@ -147,6 +156,17 @@
                     { data: "exception" }
                 ]
             });
+        }
+
+
+      $(document).ready(function ()
+      {
+            $("#runs").change(function ()
+            {
+                onRunChange();
+            });
+
+          resultGrid();
       });
     </script>
 

@@ -12,8 +12,24 @@
 {
     <script>
 
+        
+    function onRunChange()
+    {
+        var project = $("#projects").val();
+        var run = $("#runs").val();
+
+        alert(project + ", " + run);
+    }
+
+
         $(function ()
         {
+             $("#runs").change(function ()
+            {
+                onRunChange();
+            });
+
+
             $.post('@Url.Action("projectNames", "project")', null, function (data, textStatus)
             {
                 $("#projects").empty();
