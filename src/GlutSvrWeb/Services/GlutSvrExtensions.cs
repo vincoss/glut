@@ -18,9 +18,6 @@ namespace GlutSvrWeb.Services
             return ((value * 100) / totalItems);
         }
 
-
-
-
         public static DataTableParameter GetDataTableArgs(this IFormCollection form)
         {
             if(form == null)
