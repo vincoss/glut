@@ -84,9 +84,9 @@ namespace GlutSample.Server.Controllers
         #region StatusCode 100-199
 
         /// <summary>
-        /// 408
+        /// 100
         /// </summary>
-        public IActionResult Continue()
+        public IActionResult Continue100()
         {
             return StatusCode((int)HttpStatusCode.Continue);
         }

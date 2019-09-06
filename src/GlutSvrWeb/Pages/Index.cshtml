@@ -96,14 +96,14 @@
         function headerStatusCodes() {
             var formData = { __RequestVerificationToken: getVerificationToken() };
 
-            $.post('/dashboard/headerStatusCodes/glut/3', formData, function (data, textStatus) {
+            $.post('/dashboard/headerStatusCodes/glut/1', formData, function (data, textStatus) {
 
-                $("#totalHeader").html(data.totalRequests);
-                $("#informationHeader").html(data.information);
-                $("#successfulHeader").html(data.successul);
-                $("#redirectionHeader").html(data.redirection);
-                $("#clientErrorHeader").html(data.clientError);
-                $("#serverErrorHeader").html(data.serverError);
+                $("#totalHeader").html(numeral(data.totalRequests).format('0,0'));
+                $("#informationHeader").html(numeral(data.information).format('0.00'));
+                $("#successfulHeader").html(numeral(data.successful).format('0.00'));
+                $("#redirectionHeader").html(numeral(data.redirection).format('0.00'));
+                $("#clientErrorHeader").html(numeral(data.clientError).format('0.00'));
+                $("#serverErrorHeader").html(numeral(data.serverError).format('0.00'));
 
             }, "json");
         }
@@ -141,7 +141,7 @@
 
             var formData = { __RequestVerificationToken: getVerificationToken() };
 
-            $.post('/dashboard/statusCodePie/glut/2', formData, function (data, textStatus) {
+            $.post('/dashboard/statusCodePie/glut/1', formData, function (data, textStatus) {
                 pieChart.data = data;
                 pieChart.update();
 
