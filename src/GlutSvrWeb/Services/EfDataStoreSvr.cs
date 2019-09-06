@@ -478,8 +478,6 @@ namespace GlutSvrWeb.Services
                                     Count = g.Count()
                                 }).ToListAsync();
 
-          
-
             var items = new List<LineChartDto>();
 
             var total = from x in groups
@@ -527,7 +525,7 @@ namespace GlutSvrWeb.Services
                                   Value = g.Sum(c => c.Count)
                               };
 
-            items.AddRange(successful);
+            items.AddRange(redirection);
 
             var clientError = from x in groups
                               where (x.StatusCode >= 400 && x.StatusCode <= 499)
@@ -553,7 +551,8 @@ namespace GlutSvrWeb.Services
 
             items.AddRange(serverError);
 
-            return items.OrderBy(x => x.TimeSeries);
+            var o = items.OrderBy(x => x.TimeSeries);
+            return o;
         }
 
         public async Task<IEnumerable<KeyValueData<string>>> GetRunInfo(string projectName, int runId)

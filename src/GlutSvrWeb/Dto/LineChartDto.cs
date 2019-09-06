@@ -11,5 +11,10 @@ namespace GlutSvrWeb.Dto
         public string SeriesString { get; set; }
         public DateTime TimeSeries { get; set; }
         public decimal Value { get; set; }
+
+        public override string ToString()
+        {
+            return $"{SeriesString}-{TimeSeries}-{Value}";
+        }
     }
 }
