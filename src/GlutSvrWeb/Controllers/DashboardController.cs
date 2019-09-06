@@ -82,5 +82,21 @@ namespace Default_WebApplication_API_V3.Controllers
             return result;
         }
 
+        /// <summary>
+        /// dashboard/statusCodePie
+        /// </summary>
+        [HttpGet("statusCodeLines/{id}/{run?}")]
+        //[ValidateAntiForgeryToken]
+        public async Task<dynamic> GetStatusCodeLines(string id, int run)
+        {
+            if (string.IsNullOrWhiteSpace(id) || run <= 0)
+            {
+                return NotFound();
+            }
+
+            var result = await _dataStoreSvr.GetLineChartRequests(id, run);
+            return result;
+        }
+
     }
 }
