@@ -45,7 +45,7 @@ namespace Default_WebApplication_API_V3.Controllers
             foreach (var item in result)
             {
                 data.Add(item.StatusCodePercent);
-                colour.Add("#0099ff");
+                colour.Add(StatusCodeColour.GetColour(item.StatusCode));
                 labels.Add(item.StatusCode.ToString());
             }
 
