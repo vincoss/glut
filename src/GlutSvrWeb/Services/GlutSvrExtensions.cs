@@ -1,4 +1,5 @@
 ﻿using GlutSvrWeb.Dto;
+using GlutSvrWeb.Properties;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,25 @@ namespace GlutSvrWeb.Services
                 Skip = skip,
                 Take = pageSize
             };
+        }
+
+        public static string GetStatusCodeString(int code)
+        {
+            switch (code)
+            {
+                case 1:
+                    return AppResources.Information;
+                case 2:
+                    return AppResources.Successful;
+                case 3:
+                    return AppResources.Redirection;
+                case 4:
+                    return AppResources.ClientError;
+                case 5:
+                    return AppResources.ServerError;
+                default:
+                    return code.ToString();
+            }
         }
     }
 }

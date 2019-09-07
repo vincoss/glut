@@ -1,4 +1,5 @@
-﻿using Glut.Data;
+﻿using Glut;
+using Glut.Data;
 using GlutSvrWeb.Dto;
 using GlutSvrWeb.Interfaces;
 using GlutSvrWeb.Properties;
@@ -468,12 +469,12 @@ namespace GlutSvrWeb.Services
             var query = _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
 
             var groups = await (from x in query
-                                let sec = (x.EndDateTimeUtc.Ticks / TimeSpan.FromSeconds(1).Ticks)
+                                let sec = (x.EndDateTimeUtc.Ticks / TimeSpan.FromSeconds(1).Ticks) // Per second
                                 orderby x.EndDateTimeUtc
-                                group x by new { Ticks = sec, x.StatusCode } into g
+                                group x by new { Ticks = sec, StatusCode = (x.StatusCode / 100) } into g
                                 select new
                                 {
-                                    Ticks = g.Key.Ticks,
+                                    g.Key.Ticks,
                                     g.Key.StatusCode,
                                     Count = g.Count()
                                 }).ToListAsync();
@@ -491,65 +492,15 @@ namespace GlutSvrWeb.Services
 
             items.AddRange(total);
 
-            var information = from x in groups
-                             where (x.StatusCode >= 100 && x.StatusCode <= 199)
-                             group x by x.Ticks into g
+            var statusCodes = from x in groups
                              select new LineChartDto
                              {
-                                 SeriesString = AppResources.Information,
-                                 TimeSeries = new DateTime(g.Key * TimeSpan.FromSeconds(1).Ticks),
-                                 Value = g.Sum(c => c.Count)
+                                 SeriesString = GlutSvrExtensions.GetStatusCodeString(x.StatusCode),
+                                 TimeSeries = new DateTime(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
+                                 Value = x.Count
                              };
 
-            items.AddRange(information);
-
-            var successful = from x in groups
-                             where (x.StatusCode >= 200 && x.StatusCode <= 299)
-                             group x by x.Ticks into g
-                             select new LineChartDto
-                             {
-                                 SeriesString = AppResources.Successful,
-                                 TimeSeries = new DateTime(g.Key * TimeSpan.FromSeconds(1).Ticks),
-                                 Value = g.Sum(c => c.Count)
-                             };
-
-            items.AddRange(successful);
-
-            var redirection = from x in groups
-                              where (x.StatusCode >= 300 && x.StatusCode <= 399)
-                              group x by x.Ticks into g
-                              select new LineChartDto
-                              {
-                                  SeriesString = AppResources.Redirection,
-                                  TimeSeries = new DateTime(g.Key * TimeSpan.FromSeconds(1).Ticks),
-                                  Value = g.Sum(c => c.Count)
-                              };
-
-            items.AddRange(redirection);
-
-            var clientError = from x in groups
-                              where (x.StatusCode >= 400 && x.StatusCode <= 499)
-                              group x by x.Ticks into g
-                              select new LineChartDto
-                              {
-                                  SeriesString = AppResources.ClientError,
-                                  TimeSeries = new DateTime(g.Key * TimeSpan.FromSeconds(1).Ticks),
-                                  Value = g.Sum(c => c.Count)
-                              };
-
-            items.AddRange(clientError);
-
-            var serverError = from x in groups
-                              where (x.StatusCode >= 500 && x.StatusCode <= 599)
-                              group x by x.Ticks into g
-                              select new LineChartDto
-                              {
-                                  SeriesString = AppResources.ServerError,
-                                  TimeSeries = new DateTime(g.Key * TimeSpan.FromSeconds(1).Ticks),
-                                  Value = g.Sum(c => c.Count)
-                              };
-
-            items.AddRange(serverError);
+            items.AddRange(statusCodes);
 
             var o = items.OrderBy(x => x.TimeSeries);
             return o;
