@@ -161,7 +161,8 @@
                 legend:
                 {
                     position: 'top',
-                },
+                 },
+                ymin: 0,
                 scales:
                 {
                     xAxes: [{
@@ -257,8 +258,14 @@
 
             var formData = { __RequestVerificationToken: getVerificationToken() };
 
-            $.post('/dashboard/statusCodeLines/glut/1', formData, function (data, textStatus) {
-                chart1.data = data;
+           $.post('/dashboard/statusCodeLines/glut/1', formData, function (data)
+           {
+               dataPoints.labels = data.labels;
+               dataPoints.datasets[0].data = data.totalRequests;
+               dataPoints.datasets[2].data = data.successful;
+               dataPoints.datasets[4].data = data.clientError;
+               dataPoints.datasets[5].data = data.serverError;
+
                 chart1.update();
 
             }, "json");

@@ -97,39 +97,49 @@ namespace Default_WebApplication_API_V3.Controllers
 
             var results = await _dataStoreSvr.GetLineChartRequests(id, run);
 
-            var dataSets = new List<dynamic>();
-            var labels = results.Select(x => x.TimeSeries).ToArray();
-            var groups = (from x in results
-                         group x by new { x.TimeSeries, x.SeriesString } into g
-                         select new
-                         {
-                             g.Key,
-                             Count = g.Sum(x => x.Value)
-                         }).ToArray();
-
-            var total = results.Where(x => x.SeriesString == AppResources.TotalRequests).OrderBy(x => x.TimeSeries).Select(x => x.Value).ToArray();
-            var totalColour = results.Where(x => x.SeriesString == AppResources.TotalRequests).OrderBy(x => x.TimeSeries).Select(x => "Red").ToArray();
-
-            var success = results.Where(x => x.SeriesString == AppResources.Successful).OrderBy(x => x.TimeSeries).Select(x => x.Value).ToArray();
-            var successColour = results.Where(x => x.SeriesString == AppResources.Successful).OrderBy(x => x.TimeSeries).Select(x => "Green").ToArray();
-
-            //  "fill":false,"borderColor":"rgb(75, 192, 192)","lineTension":0.1}
-
-            dataSets.Add(new
+            var json = new
             {
-                data = total,
-                borderColor = totalColour.ToArray(),
-                fill = false,
-                lineTension = 0.1
-            });
+                Labels = results.Select(x => x.TimeSeries.ToString("hh.mm.ss.fff")).ToArray(),
+                TotalRequests = results.Where(x => x.SeriesString == AppResources.TotalRequests).Select(x => x.Value).ToArray(),
+                Successful = results.Where(x => x.SeriesString == AppResources.Successful).Select(x => x.Value).ToArray(),
+                ClientError = results.Where(x => x.SeriesString == AppResources.ClientError).Select(x => x.Value).ToArray(),
+                ServerError = results.Where(x => x.SeriesString == AppResources.ServerError).Select(x => x.Value).ToArray(),
+            };
+            return json;
 
-            dataSets.Add(new
-            {
-                data = success,
-                borderColor = successColour.ToArray(),
-                fill = false,
-                lineTension = 0.1
-            }); 
+            //var dataSets = new List<dynamic>();
+            //var labels = results.Select(x => x.TimeSeries).ToArray();
+            //var groups = (from x in results
+            //             group x by new { x.TimeSeries, x.SeriesString } into g
+            //             select new
+            //             {
+            //                 g.Key,
+            //                 Count = g.Sum(x => x.Value)
+            //             }).ToArray();
+
+            //var total = results.Where(x => x.SeriesString == AppResources.TotalRequests).OrderBy(x => x.TimeSeries).Select(x => x.Value).ToArray();
+            //var totalColour = results.Where(x => x.SeriesString == AppResources.TotalRequests).OrderBy(x => x.TimeSeries).Select(x => "Red").ToArray();
+
+            //var success = results.Where(x => x.SeriesString == AppResources.Successful).OrderBy(x => x.TimeSeries).Select(x => x.Value).ToArray();
+            //var successColour = results.Where(x => x.SeriesString == AppResources.Successful).OrderBy(x => x.TimeSeries).Select(x => "Green").ToArray();
+
+            ////  "fill":false,"borderColor":"rgb(75, 192, 192)","lineTension":0.1}
+
+            //dataSets.Add(new
+            //{
+            //    data = total,
+            //    borderColor = totalColour.ToArray(),
+            //    fill = false,
+            //    lineTension = 0.1
+            //});
+
+            //dataSets.Add(new
+            //{
+            //    data = success,
+            //    borderColor = successColour.ToArray(),
+            //    fill = false,
+            //    lineTension = 0.1
+            //}); 
 
             //foreach (var item in groups)
             //{
@@ -146,13 +156,13 @@ namespace Default_WebApplication_API_V3.Controllers
             //    });
             //}
 
-            var json = new
-            {
-                datasets = dataSets.ToArray(),
-                labels = labels.ToArray()
-            };
+            //var json = new
+            //{
+            //    datasets = dataSets.ToArray(),
+            //    labels = labels.ToArray()
+            //};
 
-            return json;
+            //return json;
         }
 
         /*
