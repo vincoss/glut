@@ -46,8 +46,8 @@ namespace Default_WebApplication_API_V3.Controllers
             foreach (var item in result)
             {
                 data.Add(item.StatusCodePercent);
-                colour.Add(StatusCodeColour.GetColour(item.StatusCode));
-                labels.Add(item.StatusCode.ToString());
+                colour.Add(StatusCodeHelper.GetColour(item.StatusCode));
+                labels.Add(StatusCodeHelper.GetStatusCodeString(item.StatusCode));
             }
 
             var json = new

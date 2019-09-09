@@ -97,6 +97,15 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Count.
+        /// </summary>
+        public static string Count {
+            get {
+                return ResourceManager.GetString("Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created By User.
         /// </summary>
         public static string CreatedByUser {
@@ -138,6 +147,15 @@ namespace GlutSvrWeb.Properties {
         public static string Exception {
             get {
                 return ResourceManager.GetString("Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frequency.
+        /// </summary>
+        public static string Frequency {
+            get {
+                return ResourceManager.GetString("Frequency", resourceCulture);
             }
         }
         
@@ -192,6 +210,15 @@ namespace GlutSvrWeb.Properties {
         public static string MainNavigation {
             get {
                 return ResourceManager.GetString("MainNavigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -304,6 +331,15 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Run Attributes.
+        /// </summary>
+        public static string RunAttributes {
+            get {
+                return ResourceManager.GetString("RunAttributes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Runs.
         /// </summary>
         public static string Runs {
@@ -376,6 +412,33 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Top Error Requests (400-500).
+        /// </summary>
+        public static string TopErrorRequests {
+            get {
+                return ResourceManager.GetString("TopErrorRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Fastest Successful Requests.
+        /// </summary>
+        public static string TopFastestSuccessfulRequests {
+            get {
+                return ResourceManager.GetString("TopFastestSuccessfulRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Successful Requests.
+        /// </summary>
+        public static string TopSuccessfulRequests {
+            get {
+                return ResourceManager.GetString("TopSuccessfulRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total Length (kb).
         /// </summary>
         public static string TotalLength {
@@ -403,11 +466,29 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total requests for last five runs.
+        /// </summary>
+        public static string TotalRequestsForLastRuns {
+            get {
+                return ResourceManager.GetString("TotalRequestsForLastRuns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Url.
         /// </summary>
         public static string Url {
             get {
                 return ResourceManager.GetString("Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
         

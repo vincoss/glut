@@ -2,7 +2,7 @@
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">@AppResources.TopFastestSuccessfulRequests</h3>
+        <h3 class="box-title">@AppResources.RunAttributes</h3>
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
                 <i class="fa fa-minus"></i>
@@ -13,23 +13,19 @@
     <!-- /.box-header -->
     <div class="box-body">
         <div class="table-responsive">
-            <table class="table no-margin">
+            <table class="table no-margin" height="220">
                 <thead>
                     <tr>
-                        <th>@AppResources.Url</th>
-                        <th>@AppResources.Count</th>
-                        <th>@AppResources.Frequency</th>
+                        <th>@AppResources.Name</th>
+                        <th>@AppResources.Value</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in await DataStore.GetTopSuccessRequests("Glut", 1))
+                    @foreach (var item in await DataStore.GetRunInfo("glut", 1))
                     {
                         <tr>
-                            <td>@item.Url</td>
-                            <td>@item.Count</td>
-                            <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                            </td>
+                            <td>@item.Key</td>
+                            <td>@item.Value</td>
                         </tr>
                     }
                 </tbody>
@@ -37,4 +33,5 @@
         </div>
         <!-- /.table-responsive -->
     </div>
+    <!-- /.box-body -->
 </div>

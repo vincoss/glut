@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GlutSvrWeb.Services
 {
+    // TODO: remove (part of Blazor)
     public class MemoryAppState : IAppState
     {
         public MemoryAppState()

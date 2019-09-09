@@ -23,8 +23,6 @@
 <!-- Main content -->
 <section class="content">
 
-    @*@await Html.PartialAsync("_projectFilter")*@
-
     <div class="row">
         <div class="col-lg-12">
             <partial name="_statusCodeHeader" model="null" />
@@ -44,8 +42,14 @@
     </div>
 
     <div class="row">
+        <div class="col-lg-12">
+            <partial name="_lastRunsTotalSuccessRequestLineChart" />
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-6">
-            <partial name="_statusCodePie" model="null" />
+            <partial name="_runAttributes" model="null" />
         </div>
         <!-- /.col (LEFT) -->
         <div class="col-md-6">
@@ -73,6 +77,16 @@
         <!-- /.col (LEFT) -->
         <div class="col-md-6">
             <partial name="_topFastestSuccessRequests" model="null" />
+        </div>
+        <!-- /.col (RIGHT) -->
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <partial name="_topErrorRequests" model="null" />
+        </div>
+        <!-- /.col (LEFT) -->
+        <div class="col-md-6">
         </div>
         <!-- /.col (RIGHT) -->
     </div>
@@ -207,42 +221,42 @@
                 datasets: [{
                     data: [],
                     label: '@AppResources.TotalRequests',
-                    borderColor: '@StatusCodeColour.TotalRequests',
+                    borderColor: '@Services.StatusCodeHelper.TotalRequests',
                     fill: false,
 					lineTension: 0
                 },
                 {
                     data: [],
                     label: '@AppResources.Information',
-                    borderColor: '@StatusCodeColour.Information',
+                    borderColor: '@Services.StatusCodeHelper.Information',
                     fill: false,
 					lineTension: 0
                     },
                 {
                     data: [],
                     label: '@AppResources.Successful',
-                    borderColor: '@StatusCodeColour.Successful',
+                    borderColor: '@Services.StatusCodeHelper.Successful',
                     fill: false,
 					lineTension: 0
                     },
                 {
                     data: [],
                     label: '@AppResources.Redirection',
-                    borderColor: '@StatusCodeColour.Redirection',
+                    borderColor: '@Services.StatusCodeHelper.Redirection',
                     fill: false,
 					lineTension: 0
                     },
                 {
                     data: [],
                     label: '@AppResources.ClientError',
-                    borderColor: '@StatusCodeColour.ClientError',
+                    borderColor: '@Services.StatusCodeHelper.ClientError',
                     fill: false,
 					lineTension: 0
                     },
                 {
                     data: [],
                     label: '@AppResources.ServerError',
-                    borderColor: '@StatusCodeColour.ServerError',
+                    borderColor: '@Services.StatusCodeHelper.ServerError',
                     fill: false,
 					lineTension: 0
                 }]
@@ -271,12 +285,148 @@
             }, "json");
         }
 
+         function totalRequestsPerRun()  {
+
+             var options =
+            {
+                responsive: true,
+                title:
+                {
+                    display: true,
+                    text: 'Status Code Lines'
+                },
+                legend:
+                {
+                    position: 'top',
+                 },
+                ymin: 0,
+                scales:
+                {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Duration(s)'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Requests(s)'
+                        }
+                    }]
+                },
+                tooltips: {
+                    intersect: false,
+                    mode: 'index',
+                    callbacks: {
+                        label: function (tooltipItem, myData) {
+                            var label = myData.datasets[tooltipItem.datasetIndex].label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += parseFloat(tooltipItem.value).toFixed(2);
+                            return label;
+                        }
+                    }
+                },
+                animation:
+                {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            };
+
+            //-------------------------------------------------------------------------------- Chart1
+
+            var dataPoints =
+            {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    label: '@AppResources.TotalRequests',
+                    borderColor: '@Services.StatusCodeHelper.TotalRequests',
+                    fill: false,
+					lineTension: 0
+                },
+                {
+                    data: [],
+                    label: '@AppResources.Information',
+                    borderColor: '@Services.StatusCodeHelper.Information',
+                    fill: false,
+					lineTension: 0
+                    },
+                {
+                    data: [],
+                    label: '@AppResources.Successful',
+                    borderColor: '@Services.StatusCodeHelper.Successful',
+                    fill: false,
+					lineTension: 0
+                    },
+                {
+                    data: [],
+                    label: '@AppResources.Redirection',
+                    borderColor: '@Services.StatusCodeHelper.Redirection',
+                    fill: false,
+					lineTension: 0
+                    },
+                {
+                    data: [],
+                    label: '@AppResources.ClientError',
+                    borderColor: '@Services.StatusCodeHelper.ClientError',
+                    fill: false,
+					lineTension: 0
+                    },
+                {
+                    data: [],
+                    label: '@AppResources.ServerError',
+                    borderColor: '@Services.StatusCodeHelper.ServerError',
+                    fill: false,
+					lineTension: 0
+                }]
+            };
+
+            var ctx1 = $("#totalRequestsPerRun");
+            var chart1 = new Chart(ctx1,
+                {
+                    type: 'line',
+                    data: dataPoints,
+                    options: options
+                });
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+           $.post('/dashboard/totalRequestsPerRun/glut/1', formData, function (data)
+           {
+               dataPoints.labels = data.labels;
+               dataPoints.datasets[0].data = data.totalRequests;
+               dataPoints.datasets[1].data = data.information;
+               dataPoints.datasets[2].data = data.successful;
+               dataPoints.datasets[3].data = data.redirection;
+               dataPoints.datasets[4].data = data.clientError;
+               dataPoints.datasets[5].data = data.serverError;
+
+                chart1.update();
+
+            }, "json");
+        }
+
+        function onErrorsTemp() {
+            const Item = ({Url, Count}) => '<tr> <td>{$Url}</td> <td>{$Count}</td> </tr>';
+
+            //<tr> <td>{$Url}</td> <td>{$Count}</td> </tr>
+
+            $('.add-on-test').html([{ Url: "/home", Count: "1" },
+            { Url: "/home/5", Count: "2" }].map(Item).join(''));
+        }
+
 
         $(function ()
         {
             headerStatusCodes();
+            totalRequestsPerRun();
             statusCodePie();
             statusCodeLines();
+            onErrorsTemp();
 
         });
     </script>

@@ -129,6 +129,9 @@
   <data name="Copyright" xml:space="preserve">
     <value>Copyright</value>
   </data>
+  <data name="Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
   <data name="CreatedByUser" xml:space="preserve">
     <value>Created By User</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="Exception" xml:space="preserve">
     <value>Exception</value>
+  </data>
+  <data name="Frequency" xml:space="preserve">
+    <value>Frequency</value>
   </data>
   <data name="HeaderLength" xml:space="preserve">
     <value>Header Length (kb)</value>
@@ -161,6 +167,9 @@
   </data>
   <data name="MainNavigation" xml:space="preserve">
     <value>MAIN NAVIGATION</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="ProjectName" xml:space="preserve">
     <value>Project Name</value>
@@ -198,6 +207,9 @@
   <data name="ResultsSeachPlaceholder" xml:space="preserve">
     <value>Url, Status Code, Headers - Contains</value>
   </data>
+  <data name="RunAttributes" xml:space="preserve">
+    <value>Run Attributes</value>
+  </data>
   <data name="Runs" xml:space="preserve">
     <value>Runs</value>
   </data>
@@ -222,6 +234,15 @@
   <data name="ToggleNavigation" xml:space="preserve">
     <value>Toggle navigation</value>
   </data>
+  <data name="TopErrorRequests" xml:space="preserve">
+    <value>Top Error Requests (400-500)</value>
+  </data>
+  <data name="TopFastestSuccessfulRequests" xml:space="preserve">
+    <value>Top Fastest Successful Requests</value>
+  </data>
+  <data name="TopSuccessfulRequests" xml:space="preserve">
+    <value>Top Successful Requests</value>
+  </data>
   <data name="TotalLength" xml:space="preserve">
     <value>Total Length (kb)</value>
   </data>
@@ -231,8 +252,14 @@
   <data name="TotalRequests" xml:space="preserve">
     <value>Total Requests</value>
   </data>
+  <data name="TotalRequestsForLastRuns" xml:space="preserve">
+    <value>Total requests for last five runs</value>
+  </data>
   <data name="Url" xml:space="preserve">
     <value>Url</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>

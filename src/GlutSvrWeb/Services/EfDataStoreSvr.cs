@@ -231,6 +231,17 @@ namespace GlutSvrWeb.Services
 
         #region Dashboard
 
+        /*
+         URL, VALUE, Frequency
+
+         Top Successful requests            // coun         Url Count %
+         Top Error requests                 // count        Url Count %
+         Top Fastest requests               // (ms)         Url Time (ms)
+         Top Slowest requests               // (ms)         Url Time (ms)
+         Top Largest Successful requests    // SIze (kb)    Url Size (kb) // based on size
+        */
+
+
         public Task<StatusCodeHeaderDto> GetResponseDetails(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
@@ -264,6 +275,29 @@ namespace GlutSvrWeb.Services
             return Task.FromResult(result);
         }
 
+        public async Task<IEnumerable<KeyValueData<string>>> GetRunInfo(string projectName, int runId)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            var query = _context.RunAttributes.AsNoTracking()
+                                              .Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
+
+            return await (from x in query
+                          orderby x.AttributeName
+                          select new KeyValueData<string>
+                          {
+                              Key = x.AttributeName,
+                              Value = x.AttributeValue
+                          }).ToListAsync();
+        }
+
         public async Task<IEnumerable<StatusCodePieDto>> GetStatusCodePieData(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
@@ -283,7 +317,7 @@ namespace GlutSvrWeb.Services
 
             var results = await (from x in query
                                  orderby x.StatusCode
-                                 group x by x.StatusCode into g
+                                 group x by (x.StatusCode / 100) into g
                                  select new StatusCodePieDto
                                  {
                                      StatusCode = g.Key,
@@ -318,7 +352,7 @@ namespace GlutSvrWeb.Services
 
             var query = from x in _context.Results.AsNoTracking()
                         where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
-                              x.StatusCode >= 200 && x.StatusCode < 300
+                              x.StatusCode >= 200 && x.StatusCode <= 299
                         select x;
 
             var total = await query.CountAsync();
@@ -333,7 +367,7 @@ namespace GlutSvrWeb.Services
                                      Frequency = (g.Count() * 100) / total,
                                      TotalItems = total
 
-                                 }).OrderByDescending(o => o.Count).ToListAsync();
+                                 }).OrderByDescending(o => o.Count).Take(10).ToListAsync();
 
             return results;
         }
@@ -400,6 +434,34 @@ namespace GlutSvrWeb.Services
         }
 
         public async Task<IEnumerable<KeyValueData<decimal>>> GetSlowestSuccessRequests(string projectName, int runId)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+            if (runId <= 0)
+            {
+                throw new ArgumentException(nameof(runId));
+            }
+
+            var query = from x in _context.Results.AsNoTracking()
+                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
+                              x.StatusCode >= 200 && x.StatusCode < 300
+                        select x;
+
+            var results = await (from x in query
+                                 group x by x.Url into g
+                                 select new KeyValueData<decimal>
+                                 {
+                                     Key = g.Key,
+                                     Value = g.Max(x => x.TotalTicks)
+
+                                 }).OrderByDescending(x => x.Value).Take(10).ToListAsync();
+
+            return results;
+        }
+
+        public async Task<IEnumerable<KeyValueData<decimal>>> GetAvgSuccessRequests(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
             {
@@ -495,7 +557,7 @@ namespace GlutSvrWeb.Services
             var statusCodes = from x in groups
                              select new LineChartDto
                              {
-                                 SeriesString = GlutSvrExtensions.GetStatusCodeString(x.StatusCode),
+                                 SeriesString = StatusCodeHelper.GetStatusCodeString(x.StatusCode),
                                  TimeSeries = new DateTime(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
                                  Value = x.Count
                              };
@@ -504,28 +566,6 @@ namespace GlutSvrWeb.Services
 
             var o = items.OrderBy(x => x.TimeSeries);
             return o;
-        }
-
-        public async Task<IEnumerable<KeyValueData<string>>> GetRunInfo(string projectName, int runId)
-        {
-            if (string.IsNullOrEmpty(projectName))
-            {
-                throw new ArgumentNullException(nameof(projectName));
-            }
-            if (runId <= 0)
-            {
-                throw new ArgumentException(nameof(runId));
-            }
-
-            var query = _context.RunAttributes.AsNoTracking().Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
-
-            return await (from x in query
-                          orderby x.AttributeName
-                          select new KeyValueData<string>
-                          {
-                              Key = x.AttributeName,
-                              Value = x.AttributeValue
-                          }).ToListAsync();
         }
 
         #endregion
