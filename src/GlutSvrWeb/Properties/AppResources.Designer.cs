@@ -79,6 +79,15 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Avg.
+        /// </summary>
+        public static string Avg {
+            get {
+                return ResourceManager.GetString("Avg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client Error.
         /// </summary>
         public static string ClientError {
@@ -210,6 +219,24 @@ namespace GlutSvrWeb.Properties {
         public static string MainNavigation {
             get {
                 return ResourceManager.GetString("MainNavigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max.
+        /// </summary>
+        public static string Max {
+            get {
+                return ResourceManager.GetString("Max", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min.
+        /// </summary>
+        public static string Min {
+            get {
+                return ResourceManager.GetString("Min", resourceCulture);
             }
         }
         

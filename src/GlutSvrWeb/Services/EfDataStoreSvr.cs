@@ -234,10 +234,11 @@ namespace GlutSvrWeb.Services
         /*
          URL, VALUE, Frequency
 
-         Top Successful requests            // coun         Url Count %
-         Top Error requests                 // count        Url Count %
-         Top Fastest requests               // (ms)         Url Time (ms)
-         Top Slowest requests               // (ms)         Url Time (ms)
+         +Top Successful requests           // coun         Url Count %
+         +Top Error requests                // count        Url Count %
+         Top Fastest requests               // (ms)         Url Min, Max Avg (ms)
+         Top Slowest requests               // (ms)         Url Min, Max Avg (ms)
+         Top Avg requests                   // (ms)         Url Time (ms)
          Top Largest Successful requests    // SIze (kb)    Url Size (kb) // based on size
         */
 
@@ -405,7 +406,7 @@ namespace GlutSvrWeb.Services
             return results;
         }
 
-        public async Task<IEnumerable<KeyValueData<decimal>>> GetFastestSuccessRequests(string projectName, int runId)
+        public async Task<IEnumerable<TopMinMaxAvgResquestDto>> GetFastestSuccessRequests(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
             {
@@ -423,17 +424,19 @@ namespace GlutSvrWeb.Services
 
             var results = await (from x in query
                                  group x by x.Url into g
-                                 select new KeyValueData<decimal>
+                                 select new TopMinMaxAvgResquestDto
                                  {
-                                     Key = g.Key,
-                                     Value = g.Min(x => x.TotalTicks)
+                                     Url = g.Key,
+                                     Min = g.Min(x => x.TotalTicks),
+                                     Max = g.Max(x => x.TotalTicks),
+                                     Avg = g.Average(x => x.TotalTicks)
 
-                                 }).OrderBy(x => x.Value).Take(10).ToListAsync();
+                                 }).OrderBy(x => x.Min).Take(10).ToListAsync();
 
             return results;
         }
 
-        public async Task<IEnumerable<KeyValueData<decimal>>> GetSlowestSuccessRequests(string projectName, int runId)
+        public async Task<IEnumerable<TopMinMaxAvgResquestDto>> GetSlowestSuccessRequests(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
             {
@@ -451,17 +454,19 @@ namespace GlutSvrWeb.Services
 
             var results = await (from x in query
                                  group x by x.Url into g
-                                 select new KeyValueData<decimal>
+                                 select new TopMinMaxAvgResquestDto
                                  {
-                                     Key = g.Key,
-                                     Value = g.Max(x => x.TotalTicks)
+                                     Url = g.Key,
+                                     Min = g.Min(x => x.TotalTicks),
+                                     Max = g.Max(x => x.TotalTicks),
+                                     Avg = g.Average(x => x.TotalTicks)
 
-                                 }).OrderByDescending(x => x.Value).Take(10).ToListAsync();
+                                 }).OrderByDescending(x => x.Max).Take(10).ToListAsync();
 
             return results;
         }
 
-        public async Task<IEnumerable<KeyValueData<decimal>>> GetAvgSuccessRequests(string projectName, int runId)
+        public async Task<IEnumerable<TopMinMaxAvgResquestDto>> GetAvgSuccessRequests(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
             {
@@ -479,17 +484,19 @@ namespace GlutSvrWeb.Services
 
             var results = await (from x in query
                                  group x by x.Url into g
-                                 select new KeyValueData<decimal>
+                                 select new TopMinMaxAvgResquestDto
                                  {
-                                     Key = g.Key,
-                                     Value = g.Max(x => x.TotalTicks)
+                                     Url = g.Key,
+                                     Min = g.Min(x => x.TotalTicks),
+                                     Max = g.Max(x => x.TotalTicks),
+                                     Avg = g.Average(x => x.TotalTicks)
 
-                                 }).OrderByDescending(x => x.Value).Take(10).ToListAsync();
+                                 }).OrderByDescending(x => x.Avg).Take(10).ToListAsync();
 
             return results;
         }
 
-        public async Task<IEnumerable<KeyValueData<decimal>>> GetLargestSuccessRequests(string projectName, int runId)
+        public async Task<IEnumerable<LargestSizeRequestDto>> GetLargestSuccessRequests(string projectName, int runId)
         {
             if (string.IsNullOrEmpty(projectName))
             {
@@ -502,17 +509,22 @@ namespace GlutSvrWeb.Services
 
             var query = from x in _context.Results.AsNoTracking()
                         where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
-                              x.StatusCode >= 200 && x.StatusCode < 300
+                              x.StatusCode >= 200 && x.StatusCode <= 299
                         select x;
 
-            var results = await (from x in query
-                                 group x by x.Url into g
-                                 select new KeyValueData<decimal>
-                                 {
-                                     Key = g.Key,
-                                     Value = g.Max(x => x.TotalLegth)
+            var totalSize = query.Sum(x => x.TotalLegth);
 
-                                 }).OrderByDescending(x => x.Value).Take(10).ToListAsync();
+            var results = await (from x in query
+                                 orderby x.Url
+                                 group x by x.Url into g
+                                 select new LargestSizeRequestDto
+                                 {
+                                     Url = g.Key,
+                                     Length = ConvertToKb(g.Max(x => x.TotalLegth)),
+                                     Percent = (g.Max(x => x.TotalLegth) * 100) / totalSize,
+                                     TotalLength = totalSize
+
+                                 }).OrderByDescending(o => o.Length).Take(10).ToListAsync();
 
             return results;
         }

@@ -29,11 +29,13 @@ namespace GlutSvrWeb.Interfaces
 
         Task<IEnumerable<TopSuccessOrErrorResquestDto>> GetTopErrorRequests(string projectName, int runId);
 
-        Task<IEnumerable<KeyValueData<decimal>>> GetFastestSuccessRequests(string projectName, int runId);
+        Task<IEnumerable<TopMinMaxAvgResquestDto>> GetFastestSuccessRequests(string projectName, int runId);
 
-        Task<IEnumerable<KeyValueData<decimal>>> GetSlowestSuccessRequests(string projectName, int runId);
+        Task<IEnumerable<TopMinMaxAvgResquestDto>> GetSlowestSuccessRequests(string projectName, int runId);
 
-        Task<IEnumerable<KeyValueData<decimal>>> GetLargestSuccessRequests(string projectName, int runId);
+        Task<IEnumerable<TopMinMaxAvgResquestDto>> GetAvgSuccessRequests(string projectName, int runId);
+
+        Task<IEnumerable<LargestSizeRequestDto>> GetLargestSuccessRequests(string projectName, int runId);
 
         Task<IEnumerable<LineChartDto>> GetLineChartRequests(string projectName, int runId);
     }

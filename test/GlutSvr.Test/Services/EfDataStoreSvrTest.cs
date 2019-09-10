@@ -436,8 +436,8 @@ namespace GlutSvr.Services
                     var results = await service.GetFastestSuccessRequests("Test", 1);
 
                     Assert.Equal(2, results.Count());
-                    Assert.Equal("/successful", results.ElementAt(0).Key);
-                    Assert.Equal(10000, results.ElementAt(0).Value);
+                    Assert.Equal("/successful", results.ElementAt(0).Url);
+                    Assert.Equal(10000, results.ElementAt(0).Min);
                 }
             }
             finally
@@ -469,8 +469,8 @@ namespace GlutSvr.Services
                     var results = await service.GetSlowestSuccessRequests("Test", 1);
 
                     Assert.Equal(2, results.Count());
-                    Assert.Equal("/successful0001", results.ElementAt(0).Key);
-                    Assert.Equal(20000, results.ElementAt(0).Value);
+                    Assert.Equal("/successful0001", results.ElementAt(0).Url);
+                    Assert.Equal(20000, results.ElementAt(0).Max);
                 }
             }
             finally
@@ -502,8 +502,8 @@ namespace GlutSvr.Services
                     var results = await service.GetLargestSuccessRequests("Test", 1);
 
                     Assert.Equal(2, results.Count());
-                    Assert.Equal("/successful0001", results.ElementAt(0).Key);
-                    Assert.Equal(2000, results.ElementAt(0).Value);
+                    Assert.Equal("/successful0001", results.ElementAt(0).Url);
+                    Assert.Equal(2000, results.ElementAt(0).Length);
                 }
             }
             finally

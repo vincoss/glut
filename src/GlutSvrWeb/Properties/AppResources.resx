@@ -123,6 +123,9 @@
   <data name="AllRights" xml:space="preserve">
     <value>All rights reserved.</value>
   </data>
+  <data name="Avg" xml:space="preserve">
+    <value>Avg</value>
+  </data>
   <data name="ClientError" xml:space="preserve">
     <value>Client Error</value>
   </data>
@@ -167,6 +170,12 @@
   </data>
   <data name="MainNavigation" xml:space="preserve">
     <value>MAIN NAVIGATION</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>

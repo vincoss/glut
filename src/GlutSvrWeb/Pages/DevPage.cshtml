@@ -1,0 +1,60 @@
+﻿@page "/devPage"
+@model GlutSvrWeb.Pages.Shared.DevPage
+@{
+    ViewData["Title"] = "ProjectFilter";
+    Layout = "_tempLayout";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <partial name="_topMinMaxAvgSuccessRequests" model="@AppResources.TopFastestSuccessfulRequests" />
+    </div>
+    <!-- /.col (LEFT) -->
+    <div class="col-md-6">
+    </div>
+    <!-- /.col (RIGHT) -->
+</div>
+
+
+
+
+@section Scripts
+{
+    <script>
+        function getVerificationToken() {
+            
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            return token;
+        }
+
+        
+        function onTopMinMaxAvgSuccessfulRequestBox(project, run)
+        {
+            var url = ['/dashboard/topMinMaxAvgSuccessfulRequestBox', project, run].join('/');
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+            const template = ({ url, min, max, avg }) => `<tr> <td>${url}</td> <td>${min}</td> <td>${max}</td> <td>${avg}</td></tr>`;
+            
+            $.post(url, formData, function (data)
+            {
+                onApplyTemplate($('.table tbody'), template, data);
+            }, "json");
+        }
+
+
+        function onApplyTemplate(destination, template, data)
+        {
+            destination.html(data.map(template).join(''));
+        }
+
+        $(function ()
+        {
+            var p = "glut"; var r = 1;
+
+            onTopMinMaxAvgSuccessfulRequestBox
+                (p, r);
+        });
+
+    </script>
+}

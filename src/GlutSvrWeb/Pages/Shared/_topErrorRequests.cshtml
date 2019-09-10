@@ -1,6 +1,4 @@
-﻿@inject IDataStoreSvr DataStore
-
-<div class="box box-info">
+﻿<div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">@AppResources.TopErrorRequests</h3>
         <div class="box-tools pull-right">
@@ -21,32 +19,10 @@
                         <th>@AppResources.Frequency</th>
                     </tr>
                 </thead>
-                <tbody class="add-on-test">
-                    @*@foreach (var item in await DataStore.GetTopSuccessRequests("Glut", 1))
-                    {
-                        <tr>
-                            <td>@item.Url</td>
-                            <td>@item.Count</td>
-                            <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                            </td>
-                        </tr>
-                    }*@
+                <tbody>
                 </tbody>
             </table>
         </div>
         <!-- /.table-responsive -->
     </div>
 </div>
-
-@*<script>
-    const Item = ({ }) => '<tr> <td>$Url</td> <td>$Count</td> </tr>';
-
-    $('.add-on-test').html([{ Url: "/home", Count: "1" },
-    {Url: "/home/5", Count: "2"}].map(Item).join(''));
-</script>
-
-Header
-Url,
-Value,
-Frequency*@

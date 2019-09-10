@@ -82,6 +82,45 @@ namespace Default_WebApplication_API_V3.Controllers
             var result = await _dataStoreSvr.GetResponseDetails(id, run);
             return result;
         }
+        
+        [HttpPost("topSuccessfulRequestBox/{id}/{run?}")]
+        [ValidateAntiForgeryToken]
+        public async Task<dynamic> GetTopSuccessfulRequestBox(string id, int run)
+        {
+            if (string.IsNullOrWhiteSpace(id) || run <= 0)
+            {
+                return NotFound();
+            }
+
+            var results = await _dataStoreSvr.GetTopSuccessRequests(id, run);
+            return results;
+        }
+
+        [HttpPost("topErrorRequestBox/{id}/{run?}")]
+        [ValidateAntiForgeryToken]
+        public async Task<dynamic> GetTopErrorRequestBox(string id, int run)
+        {
+            if (string.IsNullOrWhiteSpace(id) || run <= 0)
+            {
+                return NotFound();
+            }
+
+            var results = await _dataStoreSvr.GetTopErrorRequests(id, run);
+            return results;
+        }
+
+        [HttpPost("topMinMaxAvgSuccessfulRequestBox/{id}/{run?}")]
+        [ValidateAntiForgeryToken]
+        public async Task<dynamic> GetTopMinMaxAvgSuccessfulRequestBox(string id, int run)
+        {
+            if (string.IsNullOrWhiteSpace(id) || run <= 0)
+            {
+                return NotFound();
+            }
+
+            var results = await _dataStoreSvr.GetFastestSuccessRequests(id, run);
+            return results;
+        }
 
         /// <summary>
         /// dashboard/statusCodePie

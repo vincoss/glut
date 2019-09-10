@@ -22,7 +22,7 @@
 
 <!-- Main content -->
 <section class="content">
-
+    @*
     <div class="row">
         <div class="col-lg-12">
             <partial name="_statusCodeHeader" model="null" />
@@ -61,7 +61,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <partial name="_topSuccessRequests" model="null" />
+            <partial name="_topSuccessfulRequests" model="null" />
         </div>
         <!-- /.col (LEFT) -->
         <div class="col-md-6">
@@ -80,7 +80,17 @@
         </div>
         <!-- /.col (RIGHT) -->
     </div>
+            <div class="row">
+        <div class="col-md-6">
+            <partial name="_topErrorRequests" model="null" />
+        </div>
+        <!-- /.col (LEFT) -->
+        <div class="col-md-6">
+        </div>
+        <!-- /.col (RIGHT) -->
+    </div>
 
+        *@
     <div class="row">
         <div class="col-md-6">
             <partial name="_topErrorRequests" model="null" />
@@ -410,18 +420,47 @@
             }, "json");
         }
 
-        function onErrorsTemp() {
-            const Item = ({Url, Count}) => '<tr> <td>{$Url}</td> <td>{$Count}</td> </tr>';
+        function onTopSuccessfulRequestBox(project, run)
+        {
+            var url = ['/dashboard/topSuccessfulRequestBox', project, run].join('/');
 
-            //<tr> <td>{$Url}</td> <td>{$Count}</td> </tr>
+            var formData = { __RequestVerificationToken: getVerificationToken() };
 
-            $('.add-on-test').html([{ Url: "/home", Count: "1" },
-            { Url: "/home/5", Count: "2" }].map(Item).join(''));
+            const template = ({ url, count, frequency }) => `<tr> <td>${url}</td> <td>${count}</td> <td>${frequency}%</td></tr>`;
+            
+            $.post(url, formData, function (data)
+            {
+                onApplyTemplate($('.table tbody'), template, data);
+            }, "json");
         }
 
+        function onTopErrorRequestBox(project, run)
+        {
+            var url = ['/dashboard/topErrorRequestBox', project, run].join('/');
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+            const template = ({ url, count, frequency }) => `<tr> <td>${url}</td> <td>${count}</td> <td>${frequency}%</td></tr>`;
+            
+            $.post(url, formData, function (data)
+            {
+                onApplyTemplate($('.table tbody'), template, data);
+            }, "json");
+        }
+
+        function onApplyTemplate(destination, template, data)
+        {
+            destination.html(data.map(template).join(''));
+        }
 
         $(function ()
         {
+            var p = "glut"; var r = 1;
+
+            onTopSuccessfulRequestBox(p, r);
+            onTopErrorRequestBox(p, r);
+
+
             headerStatusCodes();
             totalRequestsPerRun();
             statusCodePie();
