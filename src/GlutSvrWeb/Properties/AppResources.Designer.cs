@@ -205,6 +205,15 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Length.
+        /// </summary>
+        public static string Length {
+            get {
+                return ResourceManager.GetString("Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         public static string Loading {
@@ -246,6 +255,15 @@ namespace GlutSvrWeb.Properties {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percent.
+        /// </summary>
+        public static string Percent {
+            get {
+                return ResourceManager.GetString("Percent", resourceCulture);
             }
         }
         
@@ -439,7 +457,16 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Error Requests (400-500).
+        ///   Looks up a localized string similar to Top Average Successful Requests.
+        /// </summary>
+        public static string TopAverateSuccessfulRequests {
+            get {
+                return ResourceManager.GetString("TopAverateSuccessfulRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Error Requests (400-599).
         /// </summary>
         public static string TopErrorRequests {
             get {
@@ -457,7 +484,25 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Successful Requests.
+        ///   Looks up a localized string similar to Top Largest Successful Requests.
+        /// </summary>
+        public static string TopSLargestSuccessfulRequests {
+            get {
+                return ResourceManager.GetString("TopSLargestSuccessfulRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Slowest Successful Requests.
+        /// </summary>
+        public static string TopSlowestSuccessfulRequests {
+            get {
+                return ResourceManager.GetString("TopSlowestSuccessfulRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Successful Requests (200-299).
         /// </summary>
         public static string TopSuccessfulRequests {
             get {

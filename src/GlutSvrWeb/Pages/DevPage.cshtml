@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <partial name="_topMinMaxAvgSuccessRequests" model="@AppResources.TopFastestSuccessfulRequests" />
+        <partial name="_runAttributeBox" model="null" />
     </div>
     <!-- /.col (LEFT) -->
     <div class="col-md-6">
@@ -28,17 +28,21 @@
         }
 
         
-        function onTopMinMaxAvgSuccessfulRequestBox(project, run)
+        function onRunAttributeBox(project, run)
         {
-            var url = ['/dashboard/topMinMaxAvgSuccessfulRequestBox', project, run].join('/');
+            var url = ['/dashboard/runAttributeBox', project, run].join('/');
 
             var formData = { __RequestVerificationToken: getVerificationToken() };
 
-            const template = ({ url, min, max, avg }) => `<tr> <td>${url}</td> <td>${min}</td> <td>${max}</td> <td>${avg}</td></tr>`;
+            const template = ({ key, value}) => `
+                <tr>
+                    <td>${key}</td> 
+                    <td>${value}</td> 
+                </tr>`;
             
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('.table tbody'), template, data);
+                onApplyTemplate($('#runAttributeBox'), template, data);
             }, "json");
         }
 
@@ -52,8 +56,7 @@
         {
             var p = "glut"; var r = 1;
 
-            onTopMinMaxAvgSuccessfulRequestBox
-                (p, r);
+            onRunAttributeBox(p, r);
         });
 
     </script>

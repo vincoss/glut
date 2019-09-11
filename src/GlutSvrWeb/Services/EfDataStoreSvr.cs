@@ -15,6 +15,7 @@ namespace GlutSvrWeb.Services
     public class EfDataStoreSvr : IDataStoreSvr
     {
         private readonly EfDbContext _context;
+        private const long MillisecondTicks = 10000;
 
         public EfDataStoreSvr(EfDbContext context)
         {
@@ -365,7 +366,7 @@ namespace GlutSvrWeb.Services
                                  {
                                      Url = g.Key,
                                      Count = g.Count(),
-                                     Frequency = (g.Count() * 100) / total,
+                                     Frequency = ((decimal)g.Count() * 100) / total,
                                      TotalItems = total
 
                                  }).OrderByDescending(o => o.Count).Take(10).ToListAsync();
@@ -398,7 +399,7 @@ namespace GlutSvrWeb.Services
                                  {
                                      Url = g.Key,
                                      Count = g.Count(),
-                                     Frequency = (g.Count() * 100) / total,
+                                     Frequency = ((decimal)g.Count() * 100) / total,
                                      TotalItems = total
 
                                  }).OrderByDescending(o => o.Count).ToListAsync();
@@ -427,9 +428,9 @@ namespace GlutSvrWeb.Services
                                  select new TopMinMaxAvgResquestDto
                                  {
                                      Url = g.Key,
-                                     Min = g.Min(x => x.TotalTicks),
-                                     Max = g.Max(x => x.TotalTicks),
-                                     Avg = g.Average(x => x.TotalTicks)
+                                     Min = g.Min(x => x.TotalTicks) / MillisecondTicks, // TO ms
+                                     Max = g.Max(x => x.TotalTicks) / MillisecondTicks, // TO ms
+                                     Avg = g.Average(x => x.TotalTicks) / MillisecondTicks, // TO ms
 
                                  }).OrderBy(x => x.Min).Take(10).ToListAsync();
 
@@ -520,8 +521,8 @@ namespace GlutSvrWeb.Services
                                  select new LargestSizeRequestDto
                                  {
                                      Url = g.Key,
-                                     Length = ConvertToKb(g.Max(x => x.TotalLegth)),
-                                     Percent = (g.Max(x => x.TotalLegth) * 100) / totalSize,
+                                     Length = g.Max(x => x.TotalLegth) / 1024M,
+                                     Percent = 0, //(g.Max(x => x.TotalLegth) * 100) / totalSize,
                                      TotalLength = totalSize
 
                                  }).OrderByDescending(o => o.Length).Take(10).ToListAsync();

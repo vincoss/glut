@@ -1,8 +1,6 @@
-﻿@model string
-
-<div class="box box-info">
+﻿<div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">@Model</h3>
+        <h3 class="box-title">@AppResources.TopAverateSuccessfulRequests</h3>
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
                 <i class="fa fa-minus"></i>
@@ -17,12 +15,12 @@
                 <thead>
                     <tr>
                         <th>@AppResources.Url</th>
-                        <th>@AppResources.Min (ms)</th>
-                        <th>@AppResources.Max (ms)</th>
-                        <th>@AppResources.Avg (ms)</th>
+                        <th>@AppResources.Min (sec)</th>
+                        <th>@AppResources.Max (sec)</th>
+                        <th>@AppResources.Avg (sec)</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="topAverageMinMaxAvgSuccessRequestBox">
                 </tbody>
             </table>
         </div>

@@ -22,7 +22,7 @@
 
 <!-- Main content -->
 <section class="content">
-    @*
+
     <div class="row">
         <div class="col-lg-12">
             <partial name="_statusCodeHeader" model="null" />
@@ -42,18 +42,12 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12">
-            <partial name="_lastRunsTotalSuccessRequestLineChart" />
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col-md-6">
-            <partial name="_runAttributes" model="null" />
+            <partial name="_runAttributeBox" />
         </div>
         <!-- /.col (LEFT) -->
         <div class="col-md-6">
-            <partial name="_statusCodePie" model="null" />
+            <partial name="_statusCodePieBox" />
         </div>
         <!-- /.col (RIGHT) -->
     </div>
@@ -61,45 +55,71 @@
 
     <div class="row">
         <div class="col-md-6">
-            <partial name="_topSuccessfulRequests" model="null" />
+            <partial name="_topSuccessfulRequests" />
         </div>
         <!-- /.col (LEFT) -->
         <div class="col-md-6">
-            <partial name="_topFastestSuccessRequests" model="null" />
+            <partial name="_topErrorRequests" />
         </div>
         <!-- /.col (RIGHT) -->
     </div>
 
     <div class="row">
         <div class="col-md-6">
-            <partial name="_topSuccessRequests" model="null" />
+            <partial name="_topFastestMinMaxAvgSuccessRequestBox" />
         </div>
         <!-- /.col (LEFT) -->
         <div class="col-md-6">
-            <partial name="_topFastestSuccessRequests" model="null" />
-        </div>
-        <!-- /.col (RIGHT) -->
-    </div>
-            <div class="row">
-        <div class="col-md-6">
-            <partial name="_topErrorRequests" model="null" />
-        </div>
-        <!-- /.col (LEFT) -->
-        <div class="col-md-6">
+            <partial name="_topSlowestMinMaxAvgSuccessRequestBox" />
         </div>
         <!-- /.col (RIGHT) -->
     </div>
 
-        *@
     <div class="row">
         <div class="col-md-6">
-            <partial name="_topErrorRequests" model="null" />
+            <partial name="_topAverageMinMaxAvgSuccessRequestBox" />
         </div>
         <!-- /.col (LEFT) -->
         <div class="col-md-6">
+            <partial name="_topLargestSuccessfulRequestBox" />
         </div>
         <!-- /.col (RIGHT) -->
     </div>
+
+    @*
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <partial name="_lastRunsTotalSuccessRequestLineChart" />
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <partial name="_topSuccessRequests" model="null" />
+            </div>
+            <!-- /.col (LEFT) -->
+            <div class="col-md-6">
+                <partial name="_topFastestSuccessRequests" model="null" />
+            </div>
+            <!-- /.col (RIGHT) -->
+        </div>
+                <div class="row">
+            <div class="col-md-6">
+                <partial name="_topErrorRequests" model="null" />
+            </div>
+            <!-- /.col (LEFT) -->
+            <div class="col-md-6">
+            </div>
+            <!-- /.col (RIGHT) -->
+        </div>
+
+    *@
+
 
     <!-- /.row -->
 
@@ -420,17 +440,40 @@
             }, "json");
         }
 
+         function onRunAttributeBox(project, run)
+        {
+            var url = ['/dashboard/runAttributeBox', project, run].join('/');
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+            const template = ({ key, value}) => `
+                <tr>
+                    <td>${key}</td> 
+                    <td>${value}</td> 
+                </tr>`;
+            
+            $.post(url, formData, function (data)
+            {
+                onApplyTemplate($('#runAttributeBox'), template, data);
+            }, "json");
+        }
+
         function onTopSuccessfulRequestBox(project, run)
         {
             var url = ['/dashboard/topSuccessfulRequestBox', project, run].join('/');
 
             var formData = { __RequestVerificationToken: getVerificationToken() };
 
-            const template = ({ url, count, frequency }) => `<tr> <td>${url}</td> <td>${count}</td> <td>${frequency}%</td></tr>`;
+            const template = ({ url, count, frequency }) => `
+                <tr>
+                    <td>${url}</td> 
+                    <td>${count}</td> 
+                    <td>${numeral(frequency).format('0.00')}%</td>
+                </tr>`; 
             
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('.table tbody'), template, data);
+                onApplyTemplate($('#topSuccessfulChart'), template, data);
             }, "json");
         }
 
@@ -440,11 +483,96 @@
 
             var formData = { __RequestVerificationToken: getVerificationToken() };
 
-            const template = ({ url, count, frequency }) => `<tr> <td>${url}</td> <td>${count}</td> <td>${frequency}%</td></tr>`;
+            const template = ({ url, count, frequency }) => `
+                <tr>
+                    <td>${url}</td> 
+                    <td>${count}</td> 
+                    <td>${numeral(frequency).format('0.00')}%</td>
+                </tr>`; 
             
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('.table tbody'), template, data);
+                onApplyTemplate($('#topErrorfulChart'), template, data);
+            }, "json");
+        }
+
+        function onTopFastestMinMaxAvgSuccessfulRequestBox(project, run)
+        {
+            var url = ['/dashboard/topMinMaxAvgSuccessfulRequestBox', project, run].join('/');
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+            const template = ({ url, min, max, avg }) => `
+                <tr>
+                    <td>${url}</td> 
+                    <td>${moment(min).format('@GlutWebConstants.SecMilFormat')}</td> 
+                    <td>${moment(max).format('@GlutWebConstants.SecMilFormat')}</td>  
+                    <td>${moment(avg).format('@GlutWebConstants.SecMilFormat')}</td> 
+                </tr>`;
+            
+            $.post(url, formData, function (data)
+            {
+                onApplyTemplate($('#topFastestMinMaxAvgSuccessfulRequestBox'), template, data);
+            }, "json");
+        }
+
+         function onTopSlowestMinMaxAvgSuccessfulRequestBox(project, run)
+        {
+            var url = ['/dashboard/topSlowestMinMaxAvgSuccessfulRequestBox', project, run].join('/');
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+            const template = ({ url, min, max, avg }) => `
+                <tr>
+                    <td>${url}</td> 
+                    <td>${moment(min).format('@GlutWebConstants.SecMilFormat')}</td> 
+                    <td>${moment(max).format('@GlutWebConstants.SecMilFormat')}</td>  
+                    <td>${moment(avg).format('@GlutWebConstants.SecMilFormat')}</td> 
+                </tr>`;
+            
+            $.post(url, formData, function (data)
+            {
+                onApplyTemplate($('#topSlowestMinMaxAvgSuccessfulRequestBox'), template, data);
+            }, "json");
+        }
+
+          function onTopAverageMinMaxAvgSuccessRequestBox(project, run)
+        {
+            var url = ['/dashboard/topAverageMinMaxAvgSuccessRequestBox', project, run].join('/');
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+            const template = ({ url, min, max, avg }) => `
+                <tr>
+                    <td>${url}</td> 
+                    <td>${moment(min).format('@GlutWebConstants.SecMilFormat')}</td> 
+                    <td>${moment(max).format('@GlutWebConstants.SecMilFormat')}</td>  
+                    <td>${moment(avg).format('@GlutWebConstants.SecMilFormat')}</td> 
+                </tr>`;
+            
+            $.post(url, formData, function (data)
+            {
+                onApplyTemplate($('#topAverageMinMaxAvgSuccessRequestBox'), template, data);
+            }, "json");
+        }
+
+        
+          function onTopLargestSuccessfulRequestBox(project, run)
+        {
+            var url = ['/dashboard/topLargestSuccessfulRequestBox', project, run].join('/');
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+            const template = ({ url, length, percent }) => `
+                <tr>
+                    <td>${url}</td> 
+                    <td>${moment(length).format('@GlutWebConstants.SecMilFormat')}</td> 
+                    <td>${numeral(percent).format('0.00')}</td> 
+                </tr>`;
+            
+            $.post(url, formData, function (data)
+            {
+                onApplyTemplate($('#topLargestSuccessfulRequestBox'), template, data);
             }, "json");
         }
 
@@ -459,10 +587,16 @@
 
             onTopSuccessfulRequestBox(p, r);
             onTopErrorRequestBox(p, r);
+            onTopFastestMinMaxAvgSuccessfulRequestBox(p, r);
+            onTopSlowestMinMaxAvgSuccessfulRequestBox(p, r);
+            onTopAverageMinMaxAvgSuccessRequestBox(p, r);
+            onTopLargestSuccessfulRequestBox(p, r);
+
 
 
             headerStatusCodes();
             totalRequestsPerRun();
+            onRunAttributeBox(p, r);
             statusCodePie();
             statusCodeLines();
             onErrorsTemp();

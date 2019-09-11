@@ -1,6 +1,6 @@
 ﻿<div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">@AppResources.TopErrorRequests</h3>
+        <h3 class="box-title">@AppResources.TopSlowestSuccessfulRequests</h3>
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
                 <i class="fa fa-minus"></i>
@@ -15,11 +15,12 @@
                 <thead>
                     <tr>
                         <th>@AppResources.Url</th>
-                        <th>@AppResources.Count</th>
-                        <th>@AppResources.Frequency</th>
+                        <th>@AppResources.Min (sec)</th>
+                        <th>@AppResources.Max (sec)</th>
+                        <th>@AppResources.Avg (sec)</th>
                     </tr>
                 </thead>
-                <tbody id="topErrorfulChart">
+                <tbody id="topSlowestMinMaxAvgSuccessfulRequestBox">
                 </tbody>
             </table>
         </div>
