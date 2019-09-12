@@ -38,5 +38,6 @@ namespace GlutSvrWeb.Interfaces
         Task<IEnumerable<LargestSizeRequestDto>> GetLargestSuccessRequests(string projectName, int runId);
 
         Task<IEnumerable<LineChartDto>> GetLineChartRequests(string projectName, int runId);
+        Task<IEnumerable<LineChartDto>> GetLineChartRuns(string projectName);
     }
 }

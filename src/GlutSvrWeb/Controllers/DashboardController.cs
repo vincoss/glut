@@ -199,5 +199,35 @@ namespace Default_WebApplication_API_V3.Controllers
             var results = await _dataStoreSvr.GetRunInfo(id, run);
             return results;
         }
+
+        /// <summary>
+        /// dashboard/statusCodePie
+        /// </summary>
+        [HttpPost("totalRequestsPerRunLineBox/{id}/{run?}")]
+        [ValidateAntiForgeryToken]
+        public async Task<dynamic> GetTotalRequestsPerRunLineBox(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return NotFound();
+            }
+
+            var results = await _dataStoreSvr.GetLineChartRuns(id);
+
+            var r = from x in results
+                    group x by x.SeriesString into g
+                    select new
+                    {
+                        g.Key,
+                        Data = results.Where(x => x.SeriesString == g.Key).OrderBy(x => x.TimeSeries)
+                    };
+
+            var json = new
+            {
+                Labels = results.Select(x => x.TimeSeries.ToString("hh.mm.ss.fff")).ToArray(),
+                Run1 = new { Label = "Hi", Data = results.Select(x => x.Value).ToArray() },
+            };
+            return json;
+        }
     }
 }

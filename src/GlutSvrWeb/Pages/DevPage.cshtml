@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <partial name="_runAttributeBox" model="null" />
+        <partial name="_totalRequestPerRunLineBox" />
     </div>
     <!-- /.col (LEFT) -->
     <div class="col-md-6">
@@ -28,21 +28,91 @@
         }
 
         
-        function onRunAttributeBox(project, run)
-        {
-            var url = ['/dashboard/runAttributeBox', project, run].join('/');
+        function totalRequestsPerRun(project)  {
 
-            var formData = { __RequestVerificationToken: getVerificationToken() };
-
-            const template = ({ key, value}) => `
-                <tr>
-                    <td>${key}</td> 
-                    <td>${value}</td> 
-                </tr>`;
-            
-            $.post(url, formData, function (data)
+             var options =
             {
-                onApplyTemplate($('#runAttributeBox'), template, data);
+                responsive: true,
+                title:
+                {
+                    display: true,
+                    text: '@AppResources.StatusCodes'
+                },
+                legend:
+                {
+                    position: 'top',
+                 },
+                ymin: 0,
+                scales:
+                {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Duration(s)'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Requests(s)'
+                        }
+                    }]
+                },
+                tooltips: {
+                    intersect: false,
+                    mode: 'index',
+                    callbacks: {
+                        label: function (tooltipItem, myData) {
+                            var label = myData.datasets[tooltipItem.datasetIndex].label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += parseFloat(tooltipItem.value).toFixed(2);
+                            return label;
+                        }
+                    }
+                },
+                animation:
+                {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            };
+
+            //-------------------------------------------------------------------------------- Chart1
+
+            var dataPoints =
+            {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    label: 'Run-1',
+                    borderColor: '@Services.StatusCodeHelper.TotalRequests',
+                    fill: false,
+					lineTension: 0
+                }]
+            };
+
+            var ctx1 = $("#_totalRequestPerRunLineBox");
+            var chart1 = new Chart(ctx1,
+                {
+                    type: 'line',
+                    data: dataPoints,
+                    options: options
+                });
+
+             var formData = { __RequestVerificationToken: getVerificationToken() };
+
+              var url = ['/dashboard/totalRequestsPerRunLineBox', project].join('/');
+
+           $.post(url, formData, function (data)
+           {
+               dataPoints.labels = data.labels;
+               dataPoints.datasets[0].data = data.A.data;
+               dataPoints.datasets[0].label = data.A.label;
+
+                chart1.update();
+
             }, "json");
         }
 
@@ -56,7 +126,7 @@
         {
             var p = "glut"; var r = 1;
 
-            onRunAttributeBox(p, r);
+            totalRequestsPerRun(p);
         });
 
     </script>

@@ -250,28 +250,31 @@
     <value>Toggle navigation</value>
   </data>
   <data name="TopAverateSuccessfulRequests" xml:space="preserve">
-    <value>Top Average Successful Requests</value>
+    <value>Top Average Requests (200-299)</value>
   </data>
   <data name="TopErrorRequests" xml:space="preserve">
     <value>Top Error Requests (400-599)</value>
   </data>
   <data name="TopFastestSuccessfulRequests" xml:space="preserve">
-    <value>Top Fastest Successful Requests</value>
+    <value>Top Fastest Requests (200-299)</value>
   </data>
   <data name="TopSLargestSuccessfulRequests" xml:space="preserve">
-    <value>Top Largest Successful Requests</value>
+    <value>Top Largest Requests (200-299)</value>
   </data>
   <data name="TopSlowestSuccessfulRequests" xml:space="preserve">
-    <value>Top Slowest Successful Requests</value>
+    <value>Top Slowest Requests (200-299)</value>
   </data>
   <data name="TopSuccessfulRequests" xml:space="preserve">
-    <value>Top Successful Requests (200-299)</value>
+    <value>Top Sum Requests (200-299)</value>
   </data>
   <data name="TotalLength" xml:space="preserve">
     <value>Total Length (kb)</value>
   </data>
   <data name="TotalMs" xml:space="preserve">
     <value>Total (ms)</value>
+  </data>
+  <data name="TotalRequestPerRun" xml:space="preserve">
+    <value>Total Request Per Run</value>
   </data>
   <data name="TotalRequests" xml:space="preserve">
     <value>Total Requests</value>

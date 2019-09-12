@@ -42,6 +42,12 @@
     </div>
 
     <div class="row">
+        <div class="col-lg-12">
+            <partial name="_totalRequestPerRunLineBox" />
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-6">
             <partial name="_runAttributeBox" />
         </div>
@@ -200,7 +206,7 @@
                 title:
                 {
                     display: true,
-                    text: 'Status Code Lines'
+                     text: '@AppResources.StatusCodes'
                 },
                 legend:
                 {
@@ -315,7 +321,7 @@
             }, "json");
         }
 
-         function totalRequestsPerRun()  {
+         function totalRequestsPerRun(project)  {
 
              var options =
             {
@@ -323,7 +329,7 @@
                 title:
                 {
                     display: true,
-                    text: 'Status Code Lines'
+                    text: '@AppResources.StatusCodes'
                 },
                 legend:
                 {
@@ -415,7 +421,7 @@
                 }]
             };
 
-            var ctx1 = $("#totalRequestsPerRun");
+            var ctx1 = $("#_totalRequestPerRunLineBox");
             var chart1 = new Chart(ctx1,
                 {
                     type: 'line',
@@ -423,9 +429,11 @@
                     options: options
                 });
 
-            var formData = { __RequestVerificationToken: getVerificationToken() };
+             var formData = { __RequestVerificationToken: getVerificationToken() };
 
-           $.post('/dashboard/totalRequestsPerRun/glut/1', formData, function (data)
+              var url = ['/dashboard/totalRequestsPerRunLineBox', project].join('/');
+
+           $.post(url, formData, function (data)
            {
                dataPoints.labels = data.labels;
                dataPoints.datasets[0].data = data.totalRequests;
@@ -595,7 +603,7 @@
 
 
             headerStatusCodes();
-            totalRequestsPerRun();
+            totalRequestsPerRun(p);
             onRunAttributeBox(p, r);
             statusCodePie();
             statusCodeLines();

@@ -516,12 +516,11 @@ namespace GlutSvrWeb.Services
             var totalSize = query.Sum(x => x.TotalLegth);
 
             var results = await (from x in query
-                                 orderby x.Url
                                  group x by x.Url into g
                                  select new LargestSizeRequestDto
                                  {
                                      Url = g.Key,
-                                     Length = g.Max(x => x.TotalLegth) / 1024M,
+                                     Length = g.Max(x => x.TotalLegth),
                                      Percent = 0, //(g.Max(x => x.TotalLegth) * 100) / totalSize,
                                      TotalLength = totalSize
 
@@ -593,9 +592,57 @@ namespace GlutSvrWeb.Services
             return ((decimal)length) / 1024M;
         }
 
+        public async Task<IEnumerable<LineChartDto>> GetLineChartRuns(string projectName)
+        {
+            if (string.IsNullOrEmpty(projectName))
+            {
+                throw new ArgumentNullException(nameof(projectName));
+            }
+
+            var query = _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName);
+
+            var groups = await (from x in query
+                                let sec = (x.EndDateTimeUtc.Ticks / TimeSpan.FromSeconds(1).Ticks) // Per second
+                                where x.StatusCode >= 200 && x.StatusCode <= 299
+                                group x by new { Ticks = sec, x.GlutProjectRunId } into g
+                                select new
+                                {
+                                    g.Key.Ticks,
+                                    g.Key.GlutProjectRunId,
+                                    Count = g.Count()
+                                }).ToListAsync();
+
+            var results = (from x in groups
+                          orderby x.GlutProjectRunId descending
+                          select new LineChartDto
+                          {
+                              SeriesString = $"Run-{x.GlutProjectRunId}",
+                              TimeSeries = new DateTime(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
+                              Value = x.Count
+                          }).Take(5);
+
+            return results.OrderBy(x => x.TimeSeries).ThenBy(x => x.SeriesString).ToArray();
+        }
     }
 
     /*
+        {
+            Labels  timeseries
+            
+            A
+                Label
+                Data
+            B
+                Label
+                Data
+            
+        }
+
+
+       Label
+       Data array
+       Series array
+
         #Lines over time (status code)
 
         TotalRequests

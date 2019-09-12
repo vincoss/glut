@@ -1,8 +1,6 @@
-﻿@model IEnumerable<StatusCodePieDto>
-
-<div class="box box-default">
+﻿<div class="box box-default">
     <div class="box-header with-border">
-        <h3 class="box-title">@AppResources.StatusCodes</h3>
+        <h3 class="box-title">@AppResources.TotalRequestPerRun</h3>
 
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -16,8 +14,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="chart-responsive">
-                    <canvas id="statusCodeLines" aria-label="@AppResources.StatusCodes" role="img" height="80">
-                        @AppResources.StatusCodes
+                    <canvas id="_totalRequestPerRunLineBox" aria-label="@AppResources.TotalRequestPerRun" role="img" height="80">
+                        @AppResources.TotalRequestPerRun
                     </canvas>
                 </div>
                 <!-- ./chart-responsive -->

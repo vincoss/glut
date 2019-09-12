@@ -457,7 +457,7 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Average Successful Requests.
+        ///   Looks up a localized string similar to Top Average Requests (200-299).
         /// </summary>
         public static string TopAverateSuccessfulRequests {
             get {
@@ -475,7 +475,7 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Fastest Successful Requests.
+        ///   Looks up a localized string similar to Top Fastest Requests (200-299).
         /// </summary>
         public static string TopFastestSuccessfulRequests {
             get {
@@ -484,7 +484,7 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Largest Successful Requests.
+        ///   Looks up a localized string similar to Top Largest Requests (200-299).
         /// </summary>
         public static string TopSLargestSuccessfulRequests {
             get {
@@ -493,7 +493,7 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Slowest Successful Requests.
+        ///   Looks up a localized string similar to Top Slowest Requests (200-299).
         /// </summary>
         public static string TopSlowestSuccessfulRequests {
             get {
@@ -502,7 +502,7 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top Successful Requests (200-299).
+        ///   Looks up a localized string similar to Top Sum Requests (200-299).
         /// </summary>
         public static string TopSuccessfulRequests {
             get {
@@ -525,6 +525,15 @@ namespace GlutSvrWeb.Properties {
         public static string TotalMs {
             get {
                 return ResourceManager.GetString("TotalMs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Request Per Run.
+        /// </summary>
+        public static string TotalRequestPerRun {
+            get {
+                return ResourceManager.GetString("TotalRequestPerRun", resourceCulture);
             }
         }
         
