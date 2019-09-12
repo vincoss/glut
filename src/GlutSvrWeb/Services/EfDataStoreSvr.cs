@@ -418,7 +418,7 @@ namespace GlutSvrWeb.Services
 
         public async Task<IEnumerable<TopMinMaxAvgResquestDto>> GetSlowestSuccessRequests(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -448,7 +448,7 @@ namespace GlutSvrWeb.Services
 
         public async Task<IEnumerable<TopMinMaxAvgResquestDto>> GetAvgSuccessRequests(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -478,7 +478,7 @@ namespace GlutSvrWeb.Services
 
         public async Task<IEnumerable<LargestSizeRequestDto>> GetLargestSuccessRequests(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -517,7 +517,7 @@ namespace GlutSvrWeb.Services
 
         public async Task<IEnumerable<LineChartDto>> GetLineChartRequests(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -566,21 +566,9 @@ namespace GlutSvrWeb.Services
             return o;
         }
 
-        #endregion
-
-        public static long ConvertToMillisecond(long ticks)
-        {
-            return ticks / 10000;
-        }
-
-        public static decimal ConvertToKb(long length)
-        {
-            return ((decimal)length) / 1024M;
-        }
-
         public async Task<IEnumerable<LineChartDto>> GetLineChartRuns(string projectName)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -599,48 +587,28 @@ namespace GlutSvrWeb.Services
                                 }).ToListAsync();
 
             var results = (from x in groups
-                          orderby x.GlutProjectRunId descending
-                          select new LineChartDto
-                          {
-                              SeriesString = $"Run-{x.GlutProjectRunId}",
-                              TimeSeries = new DateTime(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
-                              Value = x.Count
-                          }).Take(5);
+                           orderby x.GlutProjectRunId descending
+                           select new LineChartDto
+                           {
+                               SeriesString = $"Run-{x.GlutProjectRunId}",
+                               TimeSeries = new DateTime(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
+                               Value = x.Count
+                           }).Take(5);
 
             return results.OrderBy(x => x.TimeSeries).ThenBy(x => x.SeriesString).ToArray();
         }
-    }
 
-    /*
+        #endregion
+
+        public static long ConvertToMillisecond(long ticks)
         {
-            Labels  timeseries
-            
-            A
-                Label
-                Data
-            B
-                Label
-                Data
-            
+            return ticks / 10000;
         }
 
+        public static decimal ConvertToKb(long length)
+        {
+            return ((decimal)length) / 1024M;
+        }
 
-       Label
-       Data array
-       Series array
-
-        #Lines over time (status code)
-
-        TotalRequests
-        Information
-        Successful
-        Redirection
-        ClientError
-        ServerError
-        
-        #Lines over time (total requests last 5 runs)
-
-         TotalRequests
-    */
-
+    }
 }

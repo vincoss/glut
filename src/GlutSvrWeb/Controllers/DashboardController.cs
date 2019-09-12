@@ -177,7 +177,7 @@ namespace Default_WebApplication_API_V3.Controllers
 
             var json = new
             {
-                Labels = results.Select(x => x.TimeSeries.ToString("hh.mm.ss.fff")).ToArray(),
+                Labels = results.Select(x => x.TimeSeries.ToString("hh.mm.ss.fff")).Distinct().ToArray(),
                 TotalRequests = results.Where(x => x.SeriesString == AppResources.TotalRequests).Select(x => x.Value).ToArray(),
                 Successful = results.Where(x => x.SeriesString == AppResources.Successful).Select(x => x.Value).ToArray(),
                 ClientError = results.Where(x => x.SeriesString == AppResources.ClientError).Select(x => x.Value).ToArray(),

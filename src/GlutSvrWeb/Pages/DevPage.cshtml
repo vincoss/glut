@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <partial name="_totalRequestPerRunLineBox" />
+        <partial name="_statusCodeLineChart" />
     </div>
     <!-- /.col (LEFT) -->
     <div class="col-md-6">
@@ -26,7 +26,128 @@
             var token = $('input[name="__RequestVerificationToken"]').val();
             return token;
         }
+         function statusCodeLines()  {
 
+             var options =
+            {
+                responsive: true,
+                title:
+                {
+                    display: true,
+                     text: '@AppResources.StatusCodes'
+                },
+                legend:
+                {
+                    position: 'top',
+                 },
+                ymin: 0,
+                scales:
+                {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Duration(s)'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Requests(s)'
+                        }
+                    }]
+                },
+                tooltips: {
+                    intersect: false,
+                    mode: 'index',
+                    callbacks: {
+                        label: function (tooltipItem, myData) {
+                            var label = myData.datasets[tooltipItem.datasetIndex].label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += parseFloat(tooltipItem.value).toFixed(2);
+                            return label;
+                        }
+                    }
+                },
+                animation:
+                {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            };
+
+            //-------------------------------------------------------------------------------- Chart1
+
+            var dataPoints =
+            {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    label: '@AppResources.TotalRequests',
+                    borderColor: '@Services.StatusCodeHelper.TotalRequests',
+                    fill: false,
+					lineTension: 0
+                },
+                {
+                    data: [],
+                    label: '@AppResources.Information',
+                    borderColor: '@Services.StatusCodeHelper.Information',
+                    fill: false,
+					lineTension: 0
+                    },
+                {
+                    data: [],
+                    label: '@AppResources.Successful',
+                    borderColor: '@Services.StatusCodeHelper.Successful',
+                    fill: false,
+					lineTension: 0
+                    },
+                {
+                    data: [],
+                    label: '@AppResources.Redirection',
+                    borderColor: '@Services.StatusCodeHelper.Redirection',
+                    fill: false,
+					lineTension: 0
+                    },
+                {
+                    data: [],
+                    label: '@AppResources.ClientError',
+                    borderColor: '@Services.StatusCodeHelper.ClientError',
+                    fill: false,
+					lineTension: 0
+                    },
+                {
+                    data: [],
+                    label: '@AppResources.ServerError',
+                    borderColor: '@Services.StatusCodeHelper.ServerError',
+                    fill: false,
+					lineTension: 0
+                }]
+            };
+
+            var ctx1 = $("#statusCodeLines");
+            var chart1 = new Chart(ctx1,
+                {
+                    type: 'line',
+                    data: dataPoints,
+                    options: options
+                });
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+           $.post('/dashboard/statusCodeLines/glut/1', formData, function (data)
+           {
+               dataPoints.labels = data.labels;
+               dataPoints.datasets[0].data = data.totalRequests;
+               dataPoints.datasets[2].data = data.successful;
+               dataPoints.datasets[4].data = data.clientError;
+               dataPoints.datasets[5].data = data.serverError;
+
+                chart1.update();
+
+            }, "json");
+        }
         
         function totalRequestsPerRun(project)  {
 
@@ -126,7 +247,7 @@
         {
             var p = "glut"; var r = 1;
 
-            totalRequestsPerRun(p);
+            statusCodeLines(p, r);
         });
 
     </script>

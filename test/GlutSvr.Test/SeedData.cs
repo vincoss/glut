@@ -239,6 +239,20 @@ namespace GlutSvr
                     GlutProjectRunId = 1,
                     StartDateTimeUtc = start,
                     EndDateTimeUtc = start.AddMilliseconds(500),
+                    Url = "/information01",
+                    IsSuccessStatusCode = true,
+                    StatusCode = 100,
+                    TotalTicks = 10000,
+                    TotalLegth = 1000,
+                    CreatedDateTimeUtc = DateTime.UtcNow,
+                    CreatedByUserName = Environment.UserName
+                },
+                new GlutResultItem
+                {
+                    GlutProjectName = "Test",
+                    GlutProjectRunId = 1,
+                    StartDateTimeUtc = start,
+                    EndDateTimeUtc = start.AddMilliseconds(500),
                     Url = "/successful01",
                     IsSuccessStatusCode = true,
                     StatusCode = 200,
@@ -275,6 +289,20 @@ namespace GlutSvr
                      CreatedDateTimeUtc = DateTime.UtcNow,
                      CreatedByUserName = Environment.UserName
                  },
+                  new GlutResultItem
+                  {
+                      GlutProjectName = "Test",
+                      GlutProjectRunId = 1,
+                      StartDateTimeUtc = start,
+                      EndDateTimeUtc = start.AddMilliseconds(500),
+                      Url = "/redirection01",
+                      IsSuccessStatusCode = true,
+                      StatusCode = 300,
+                      TotalTicks = 10000,
+                      TotalLegth = 1000,
+                      CreatedDateTimeUtc = DateTime.UtcNow,
+                      CreatedByUserName = Environment.UserName
+                  },
                 new GlutResultItem
                 {
                     GlutProjectName = "Test",
