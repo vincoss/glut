@@ -40,7 +40,7 @@ namespace GlutSvrWeb.Services
             return ((PropertyInfo)memberExpression.Member).Name;
         }
 
-        public static string GetPropertyName(Type type, string propertyName)
+        public static string GetPropertyNameIgnoreCase(Type type, string propertyName)
         {
             var info = type.GetProperties().Single(pi => pi.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
 

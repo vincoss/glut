@@ -92,6 +92,21 @@ namespace GlutSvr
                     ResponseHeaders = "Headers",
                     CreatedDateTimeUtc = now.AddSeconds(2),
                     CreatedByUserName = Environment.UserName
+                }, 
+                new GlutResultItem
+                {
+                    GlutProjectName = "Test",
+                    GlutProjectRunId = 1,
+                    StartDateTimeUtc = now,
+                    EndDateTimeUtc = now.AddSeconds(1.1),
+                    Url = "/successful",
+                    IsSuccessStatusCode = true,
+                    StatusCode = 200,
+                    TotalTicks = 30000,
+                    TotalLegth = 1000,
+                    ResponseHeaders = "Headers",
+                    CreatedDateTimeUtc = now.AddSeconds(2.2),
+                    CreatedByUserName = Environment.UserName
                 },
                 new GlutResultItem
                  {
@@ -160,7 +175,10 @@ namespace GlutSvr
             {
                 return this;
             }
-            
+
+            var createdDate = DateTime.UtcNow;
+            var createdBy = Environment.UserName;
+
             context.RunAttributes.AddRange(
                  new GlutRunAttribute
                  {
@@ -168,8 +186,8 @@ namespace GlutSvr
                      GlutProjectRunId = 1,
                      AttributeName = "Threads",
                      AttributeValue = "5",
-                     CreatedDateTimeUtc = DateTime.UtcNow,
-                     CreatedByUserName = Environment.UserName
+                     CreatedDateTimeUtc = createdDate,
+                     CreatedByUserName = createdBy
                  },
                  new GlutRunAttribute
                  {
@@ -177,8 +195,8 @@ namespace GlutSvr
                      GlutProjectRunId = 1,
                      AttributeName = "Duration",
                      AttributeValue = "1000",
-                     CreatedDateTimeUtc = DateTime.UtcNow,
-                     CreatedByUserName = Environment.UserName
+                     CreatedDateTimeUtc = createdDate,
+                     CreatedByUserName = createdBy
                  },
                 new GlutRunAttribute
                 {
@@ -186,8 +204,8 @@ namespace GlutSvr
                     GlutProjectRunId = 2,
                     AttributeName = "Threads",
                     AttributeValue = "5",
-                    CreatedDateTimeUtc = DateTime.UtcNow,
-                    CreatedByUserName = Environment.UserName
+                    CreatedDateTimeUtc = createdDate.AddMinutes(1),
+                    CreatedByUserName = createdBy
                 },
                  new GlutRunAttribute
                  {
@@ -195,8 +213,8 @@ namespace GlutSvr
                      GlutProjectRunId = 2,
                      AttributeName = "Duration",
                      AttributeValue = "10000",
-                     CreatedDateTimeUtc = DateTime.UtcNow,
-                     CreatedByUserName = Environment.UserName
+                     CreatedDateTimeUtc = createdDate.AddMinutes(1),
+                     CreatedByUserName = createdBy
                  });
 
             context.SaveChanges();

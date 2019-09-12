@@ -9,5 +9,6 @@ namespace GlutSvrWeb.Dto
         public decimal Length { get; set; }
         public decimal Percent { get; set; }
         public decimal TotalLength { get; set; }
+
     }
 }

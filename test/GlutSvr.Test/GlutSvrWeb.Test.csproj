@@ -18,4 +18,12 @@
     <ProjectReference Include="..\..\src\GlutSvrWeb\GlutSvrWeb.csproj" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="echo &quot;App Offline&quot; /a &gt; &quot;$(ProjectDir)app_offline.htm&quot;" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del &quot;$(ProjectDir)app_offline.htm&quot;" />
+  </Target>
+
 </Project>

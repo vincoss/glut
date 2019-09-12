@@ -16,6 +16,7 @@ namespace GlutSvrWeb.Services
     {
         private readonly EfDbContext _context;
         private const long MillisecondTicks = 10000;
+        private const int KbBits = 1024;
 
         public EfDataStoreSvr(EfDbContext context)
         {
@@ -53,7 +54,7 @@ namespace GlutSvrWeb.Services
 
         public async Task<IEnumerable<int>> GetProjectRuns(string projectName)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -65,7 +66,6 @@ namespace GlutSvrWeb.Services
                           group x by x.GlutProjectRunId into g
                           orderby g.Key descending
                           select g.Key).ToListAsync();
-
         }
 
         public DataTableDto<ProjectDto> GetProjects(DataTableParameter args)
@@ -88,7 +88,6 @@ namespace GlutSvrWeb.Services
                             LastChangeDateTime = x.ModifiedDateTimeUtc
                         };
 
-
             int recordsTotal = 0;
             int recordsFilteredTotal = 0;
 
@@ -100,21 +99,22 @@ namespace GlutSvrWeb.Services
                 query = query.Where(x => x.ProjectName != null && EF.Functions.Like(x.ProjectName, $"%{args.Search}%"));
             }
 
+            recordsFilteredTotal = query.Count();
+
             // Sort
             if (string.IsNullOrWhiteSpace(args.SortColumn) == false)
             {
-                var sortColumn = LinqExtensions.GetPropertyName(typeof(ProjectDto), args.SortColumn);
+                var sortColumn = LinqExtensions.GetPropertyNameIgnoreCase(typeof(ProjectDto), args.SortColumn);
 
                 if (string.IsNullOrWhiteSpace(sortColumn))
                 {
-                    throw new InvalidOperationException($"Could not find column :{sortColumn}");
+                    throw new InvalidOperationException($"Could not find column: {sortColumn}");
                 }
 
                 query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
             }
 
-            recordsFilteredTotal = query.Count();
-
+            // Paging
             var model = (from x in query.Skip(args.Skip).Take(args.Take)
                          select new ProjectDto
                          {
@@ -178,16 +178,18 @@ namespace GlutSvrWeb.Services
             // Search
             if (!string.IsNullOrWhiteSpace(args.Search))
             {
-                query = query.Where(x =>
+                query = query.Where(x => 
                 (x.Url != null && EF.Functions.Like(x.Url, $"%{args.Search}%")) ||
-                //(EF.Functions.Like(x.StatusCode, $"%{args.Search}%")) ||  // TODO: fix this
+                (EF.Functions.Like(Convert.ToString(x.StatusCode), $"%{args.Search}%")) || 
                 (x.ResponseHeaders != null && EF.Functions.Like(x.ResponseHeaders, $"%{args.Search}%")));
             }
+
+            recordsFilteredTotal = query.Count();
 
             // Sort
             if (string.IsNullOrWhiteSpace(args.SortColumn) == false)
             {
-                var sortColumn = LinqExtensions.GetPropertyName(typeof(ResultItemDto), args.SortColumn);
+                var sortColumn = LinqExtensions.GetPropertyNameIgnoreCase(typeof(ResultItemDto), args.SortColumn);
 
                 if (string.IsNullOrWhiteSpace(sortColumn))
                 {
@@ -196,8 +198,6 @@ namespace GlutSvrWeb.Services
 
                 query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
             }
-
-            recordsFilteredTotal = query.Count();
 
             var model = (from x in query.Skip(args.Skip).Take(args.Take)
                          select new ResultItemDto
@@ -232,21 +232,9 @@ namespace GlutSvrWeb.Services
 
         #region Dashboard
 
-        /*
-         URL, VALUE, Frequency
-
-         +Top Successful requests           // coun         Url Count %
-         +Top Error requests                // count        Url Count %
-         Top Fastest requests               // (ms)         Url Min, Max Avg (ms)
-         Top Slowest requests               // (ms)         Url Min, Max Avg (ms)
-         Top Avg requests                   // (ms)         Url Time (ms)
-         Top Largest Successful requests    // SIze (kb)    Url Size (kb) // based on size
-        */
-
-
         public Task<StatusCodeHeaderDto> GetResponseDetails(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -277,9 +265,9 @@ namespace GlutSvrWeb.Services
             return Task.FromResult(result);
         }
 
-        public async Task<IEnumerable<KeyValueData<string>>> GetRunInfo(string projectName, int runId)
+        public async Task<IEnumerable<KeyValueData<string>>> GetRunAttributes(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -302,7 +290,7 @@ namespace GlutSvrWeb.Services
 
         public async Task<IEnumerable<StatusCodePieDto>> GetStatusCodePieData(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -324,7 +312,7 @@ namespace GlutSvrWeb.Services
                                  {
                                      StatusCode = g.Key,
                                      StatusCodeItems = g.Count(),
-                                     StatusCodePercent = (g.Count() * 100) / total,
+                                     StatusCodePercent = ((decimal)g.Count() * 100) / total,
                                      TotalItems = total
 
                                  }).ToListAsync();
@@ -334,16 +322,7 @@ namespace GlutSvrWeb.Services
 
         public async Task<IEnumerable<TopSuccessOrErrorResquestDto>> GetTopSuccessRequests(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
-            {
-                throw new ArgumentNullException(nameof(projectName));
-            }
-            if (runId <= 0)
-            {
-                throw new ArgumentException(nameof(runId));
-            }
-
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -376,7 +355,7 @@ namespace GlutSvrWeb.Services
 
         public async Task<IEnumerable<TopSuccessOrErrorResquestDto>> GetTopErrorRequests(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -409,7 +388,7 @@ namespace GlutSvrWeb.Services
 
         public async Task<IEnumerable<TopMinMaxAvgResquestDto>> GetFastestSuccessRequests(string projectName, int runId)
         {
-            if (string.IsNullOrEmpty(projectName))
+            if (string.IsNullOrWhiteSpace(projectName))
             {
                 throw new ArgumentNullException(nameof(projectName));
             }
@@ -420,7 +399,7 @@ namespace GlutSvrWeb.Services
 
             var query = from x in _context.Results.AsNoTracking()
                         where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
-                              x.StatusCode >= 200 && x.StatusCode < 300
+                              x.StatusCode >= 200 && x.StatusCode <= 299
                         select x;
 
             var results = await (from x in query
@@ -428,8 +407,8 @@ namespace GlutSvrWeb.Services
                                  select new TopMinMaxAvgResquestDto
                                  {
                                      Url = g.Key,
-                                     Min = g.Min(x => x.TotalTicks) / MillisecondTicks, // TO ms
-                                     Max = g.Max(x => x.TotalTicks) / MillisecondTicks, // TO ms
+                                     Min = g.Min(x => x.TotalTicks) / MillisecondTicks,     // TO ms
+                                     Max = g.Max(x => x.TotalTicks) / MillisecondTicks,     // TO ms
                                      Avg = g.Average(x => x.TotalTicks) / MillisecondTicks, // TO ms
 
                                  }).OrderBy(x => x.Min).Take(10).ToListAsync();
@@ -450,7 +429,7 @@ namespace GlutSvrWeb.Services
 
             var query = from x in _context.Results.AsNoTracking()
                         where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
-                              x.StatusCode >= 200 && x.StatusCode < 300
+                              x.StatusCode >= 200 && x.StatusCode <= 299
                         select x;
 
             var results = await (from x in query
@@ -458,9 +437,9 @@ namespace GlutSvrWeb.Services
                                  select new TopMinMaxAvgResquestDto
                                  {
                                      Url = g.Key,
-                                     Min = g.Min(x => x.TotalTicks),
-                                     Max = g.Max(x => x.TotalTicks),
-                                     Avg = g.Average(x => x.TotalTicks)
+                                     Min = g.Min(x => x.TotalTicks) / MillisecondTicks,     // TO ms
+                                     Max = g.Max(x => x.TotalTicks) / MillisecondTicks,     // TO ms
+                                     Avg = g.Average(x => x.TotalTicks) / MillisecondTicks, // TO ms
 
                                  }).OrderByDescending(x => x.Max).Take(10).ToListAsync();
 
@@ -488,11 +467,11 @@ namespace GlutSvrWeb.Services
                                  select new TopMinMaxAvgResquestDto
                                  {
                                      Url = g.Key,
-                                     Min = g.Min(x => x.TotalTicks),
-                                     Max = g.Max(x => x.TotalTicks),
-                                     Avg = g.Average(x => x.TotalTicks)
+                                     Min = g.Min(x => x.TotalTicks) / MillisecondTicks,     // TO ms
+                                     Max = g.Max(x => x.TotalTicks) / MillisecondTicks,     // TO ms
+                                     Avg = g.Average(x => x.TotalTicks) / MillisecondTicks, // TO ms
 
-                                 }).OrderByDescending(x => x.Avg).Take(10).ToListAsync();
+                                 }).OrderBy(x => x.Avg).Take(10).ToListAsync();
 
             return results;
         }
@@ -515,16 +494,23 @@ namespace GlutSvrWeb.Services
 
             var totalSize = query.Sum(x => x.TotalLegth);
 
-            var results = await (from x in query
-                                 group x by x.Url into g
-                                 select new LargestSizeRequestDto
-                                 {
-                                     Url = g.Key,
-                                     Length = g.Max(x => x.TotalLegth),
-                                     Percent = 0, //(g.Max(x => x.TotalLegth) * 100) / totalSize,
-                                     TotalLength = totalSize
+            var res = await (from x in query
+                             group x by x.Url into g
+                             select new
+                             {
+                                 Url = g.Key,
+                                 Length = g.Max(x => x.TotalLegth)
+                             }).OrderByDescending(o => o.Length).Take(10).ToListAsync();
 
-                                 }).OrderByDescending(o => o.Length).Take(10).ToListAsync();
+            var results = (from x in res
+                           select new LargestSizeRequestDto
+                           {
+                               Url = x.Url,
+                               Length = (decimal)x.Length / KbBits,    // To Kb
+                               Percent = ((decimal)x.Length * 100) / totalSize,
+                               TotalLength = totalSize / KbBits
+
+                           }).ToArray();
 
             return results;
         }

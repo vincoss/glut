@@ -196,7 +196,7 @@ namespace Default_WebApplication_API_V3.Controllers
                 return NotFound();
             }
 
-            var results = await _dataStoreSvr.GetRunInfo(id, run);
+            var results = await _dataStoreSvr.GetRunAttributes(id, run);
             return results;
         }
 

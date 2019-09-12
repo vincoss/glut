@@ -23,7 +23,7 @@ namespace GlutSvrWeb.Interfaces
 
         Task<IEnumerable<StatusCodePieDto>> GetStatusCodePieData(string projectName, int runId);
 
-        Task<IEnumerable<KeyValueData<string>>> GetRunInfo(string projectName, int runId);
+        Task<IEnumerable<KeyValueData<string>>> GetRunAttributes(string projectName, int runId);
 
         Task<IEnumerable<TopSuccessOrErrorResquestDto>> GetTopSuccessRequests(string projectName, int runId);
 
