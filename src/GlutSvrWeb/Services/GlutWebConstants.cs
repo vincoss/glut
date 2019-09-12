@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace GlutSvrWeb.Services
 {
@@ -10,5 +8,9 @@ namespace GlutSvrWeb.Services
         public const string LongDateTimeFormat = "DD-MM-YYYY h:mm:ss.SSSSSS";
         public const string ShortDateTimeFormat = "DD-MM-YYYY h:mm:ss";
         public const string SecMilFormat = "ss.SSS";
+
+        public const string Title = "Title";
+        public const string SortDirectionAsc = "asc";
+
     }
 }

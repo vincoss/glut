@@ -29,14 +29,14 @@ namespace GlutSvr
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IDataStoreSvr, EfDataStoreSvr>();
-            services.AddSingleton<IAppState, MemoryAppState>();
-            services.AddDbContext<EfDbContext>(options =>
-                   options.UseSqlite(Configuration.GetConnectionString("EfDbContext")), ServiceLifetime.Transient);
+            services.AddDbContext<EfDbContext>(options =>  options.UseSqlite(Configuration.GetConnectionString("EfDbContext")), ServiceLifetime.Transient);
 
             // Razor pages
             services.AddRazorPages();
+
             // MVC views
-            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNameCaseInsensitive = false);
+            services.AddControllersWithViews();
+
             // Web API
             services.AddControllers();
         }

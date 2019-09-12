@@ -1,10 +1,8 @@
 ﻿using GlutSvrWeb.Dto;
-using GlutSvrWeb.Properties;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace GlutSvrWeb.Services
 {
@@ -33,7 +31,7 @@ namespace GlutSvrWeb.Services
             var sortColumn = form["columns[" + form["order[0][column]"].FirstOrDefault() + "][data]"].FirstOrDefault();
             var sortColumnDir = form["order[0][dir]"].FirstOrDefault();
 
-            //Paging Size (10,20,50,100)    
+            // Paging Size (10,20,50,100)    
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
 
@@ -41,7 +39,7 @@ namespace GlutSvrWeb.Services
             {
                 Draw = draw,
                 SortColumn = sortColumn,
-                SortDirection = sortColumnDir ?? ViewConstants.SortDirectionAsc,
+                SortDirection = sortColumnDir ?? GlutWebConstants.SortDirectionAsc,
                 Search = searchValue,
 
                 Skip = skip,

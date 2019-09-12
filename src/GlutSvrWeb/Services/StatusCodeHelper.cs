@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace GlutSvrWeb.Services
 {
@@ -18,25 +18,25 @@ namespace GlutSvrWeb.Services
 
         static StatusCodeHelper()
         {
-            Cache.Add(new StatusCodeHelper { From = 100, To = 199, Colour = Information }); 
-            Cache.Add(new StatusCodeHelper { From = 200, To = 299, Colour = Successful }); 
+            Cache.Add(new StatusCodeHelper { From = 100, To = 199, Colour = Information });
+            Cache.Add(new StatusCodeHelper { From = 200, To = 299, Colour = Successful });
             Cache.Add(new StatusCodeHelper { From = 300, To = 399, Colour = Redirection });
             Cache.Add(new StatusCodeHelper { From = 400, To = 499, Colour = ClientError });
             Cache.Add(new StatusCodeHelper { From = 500, To = 599, Colour = ServerError });
         }
 
-        public int From { get; set; }
-        public int To { get; set; }
-        public string Colour { get; set; }
-
         public override string ToString()
         {
-            return $"{From}-{To}-{Colour}";
+            return $"{ShortStatusCode}-{From}-{To}-{Colour}";
         }
 
         public static string GetColour(int statusCode)
         {
-            var item = Cache.SingleOrDefault(x => statusCode >= x.From && statusCode <= x.To);
+            if (statusCode <= 0)
+            {
+                throw new ArgumentException(nameof(statusCode));
+            }
+            var item = Cache.SingleOrDefault(x => statusCode >= x.From && statusCode <= x.To || statusCode == x.ShortStatusCode);
             if (item == null)
             {
                 return "#000000";
@@ -62,5 +62,16 @@ namespace GlutSvrWeb.Services
                     return code.ToString();
             }
         }
+
+        public int ShortStatusCode
+        {
+            get { return From / 100; }
+        }
+
+        public int From { get; set; }
+
+        public int To { get; set; }
+
+        public string Colour { get; set; }
     }
 }

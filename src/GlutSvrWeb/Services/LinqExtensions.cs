@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading.Tasks;
 
 
 namespace GlutSvrWeb.Services
@@ -12,6 +10,15 @@ namespace GlutSvrWeb.Services
     {
         public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty, bool desc) where TEntity: class
         {
+            if(source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+            if(string.IsNullOrWhiteSpace(orderByProperty))
+            {
+                throw new ArgumentNullException(nameof(orderByProperty));
+            }
+
             string command = desc ? "OrderByDescending" : "OrderBy";
             var type = typeof(TEntity);
             var property = type.GetProperty(orderByProperty);
@@ -24,17 +31,22 @@ namespace GlutSvrWeb.Services
 
         public static string GetPropertyName<T>(System.Linq.Expressions.Expression<Func<T, object>> property)
         {
-            System.Linq.Expressions.LambdaExpression lambda = (System.Linq.Expressions.LambdaExpression)property;
-            System.Linq.Expressions.MemberExpression memberExpression;
-
-            if (lambda.Body is System.Linq.Expressions.UnaryExpression)
+            if(property == null)
             {
-                System.Linq.Expressions.UnaryExpression unaryExpression = (System.Linq.Expressions.UnaryExpression)(lambda.Body);
-                memberExpression = (System.Linq.Expressions.MemberExpression)(unaryExpression.Operand);
+                throw new ArgumentNullException(nameof(property));
+            }
+
+            LambdaExpression lambda = (LambdaExpression)property;
+            MemberExpression memberExpression;
+
+            if (lambda.Body is UnaryExpression)
+            {
+                UnaryExpression unaryExpression = (UnaryExpression)(lambda.Body);
+                memberExpression = (MemberExpression)(unaryExpression.Operand);
             }
             else
             {
-                memberExpression = (System.Linq.Expressions.MemberExpression)(lambda.Body);
+                memberExpression = (MemberExpression)(lambda.Body);
             }
 
             return ((PropertyInfo)memberExpression.Member).Name;
@@ -42,6 +54,15 @@ namespace GlutSvrWeb.Services
 
         public static string GetPropertyNameIgnoreCase(Type type, string propertyName)
         {
+            if(type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+            if(string.IsNullOrWhiteSpace(propertyName))
+            {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+
             var info = type.GetProperties().Single(pi => pi.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
 
             if (info == null)

@@ -111,7 +111,7 @@ namespace GlutSvrWeb.Services
                     throw new InvalidOperationException($"Could not find column: {sortColumn}");
                 }
 
-                query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
+                query = query.OrderBy(sortColumn, string.Equals(GlutWebConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
             }
 
             // Paging
@@ -196,7 +196,7 @@ namespace GlutSvrWeb.Services
                     throw new InvalidOperationException($"Could not find column :{sortColumn}");
                 }
 
-                query = query.OrderBy(sortColumn, string.Equals(ViewConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
+                query = query.OrderBy(sortColumn, string.Equals(GlutWebConstants.SortDirectionAsc, args.SortDirection, StringComparison.CurrentCultureIgnoreCase));
             }
 
             var model = (from x in query.Skip(args.Skip).Take(args.Take)

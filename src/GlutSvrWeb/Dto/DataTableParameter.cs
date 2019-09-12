@@ -9,7 +9,7 @@ namespace GlutSvrWeb.Dto
         public string Draw { get; set; } // TOOD: What is this for???
 
         public string SortColumn { get; set; }
-        public string SortDirection { get; set; } = ViewConstants.SortDirectionAsc;
+        public string SortDirection { get; set; } = GlutWebConstants.SortDirectionAsc;
 
         public string Search { get; set; }
 
