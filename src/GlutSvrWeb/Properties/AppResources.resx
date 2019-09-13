@@ -147,6 +147,9 @@
   <data name="DashboardDescription" xml:space="preserve">
     <value>Project test results</value>
   </data>
+  <data name="DurationSeconds" xml:space="preserve">
+    <value>Duration(s)</value>
+  </data>
   <data name="End" xml:space="preserve">
     <value>End</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="HeaderLength" xml:space="preserve">
     <value>Header Length (kb)</value>
+  </data>
+  <data name="Hits" xml:space="preserve">
+    <value>Hits</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>

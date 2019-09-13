@@ -151,6 +151,15 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duration(s).
+        /// </summary>
+        public static string DurationSeconds {
+            get {
+                return ResourceManager.GetString("DurationSeconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End.
         /// </summary>
         public static string End {
@@ -183,6 +192,15 @@ namespace GlutSvrWeb.Properties {
         public static string HeaderLength {
             get {
                 return ResourceManager.GetString("HeaderLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hits.
+        /// </summary>
+        public static string Hits {
+            get {
+                return ResourceManager.GetString("Hits", resourceCulture);
             }
         }
         
