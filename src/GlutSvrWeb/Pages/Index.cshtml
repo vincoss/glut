@@ -1,31 +1,26 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home";
+    ViewData[GlutWebConstants.Title] = AppResources.Home;
     Layout = "_dashboardLayout";
 }
-@inject IDataStoreSvr DataStore
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Blank page
-        <small>it all starts here</small>
+        @AppResources.Home
+        <small>@AppResources.DashboardDescription</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a asp-page="/"><i class="fa fa-dashboard"></i>@AppResources.Home</a></li>
     </ol>
 </section>
 
-
-
 <!-- Main content -->
 <section class="content">
-
     <div class="row">
         <div class="col-lg-12">
-            <partial name="_statusCodeHeader" model="null" />
+            <partial name="_statusCodeHeaderBox" />
         </div>
     </div>
 
@@ -37,7 +32,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <partial name="_statusCodeLineChart" model="null" />
+            <partial name="_statusCodeLineChartBox" />
         </div>
     </div>
 

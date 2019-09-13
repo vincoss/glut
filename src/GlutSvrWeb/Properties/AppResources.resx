@@ -144,6 +144,9 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="DashboardDescription" xml:space="preserve">
+    <value>Project test results</value>
+  </data>
   <data name="End" xml:space="preserve">
     <value>End</value>
   </data>

@@ -2,7 +2,6 @@
 @model ProjectsModel
 @{
     ViewData[GlutWebConstants.Title] = Model.Title;
-    var DateFormat = @GlutWebConstants.ShortDateTimeFormat;
 }
 
 <!-- Content Header (Page header) -->
@@ -101,7 +100,7 @@
                 {
                     "targets": [2],
                     "searchable": false,
-                     render: function (data) { return moment(data).format('@DateFormat');}
+                     render: function (data) { return moment(data).format('@GlutWebConstants.ShortDateTimeFormat');}
                 }],
                 columns: [
                     { data: "projectName", name: "Project Name", autoWidth: true },

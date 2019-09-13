@@ -20,6 +20,7 @@ antiforgery <!-- TODO: Move to master page and check if can have one per whole a
 runner should not cancel already running if duration expires just dont create new request and wait for already running requets
 lenght for ui should be string Kb
 cli colour code totals like a dasbhoard header
+statisCodeHeaderBox icons see ion ion-bag
 
 
 #ProjectRun

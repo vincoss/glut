@@ -9,15 +9,7 @@ namespace GlutSvrWeb.Pages
     {
         public void OnGet()
         {
-            Project = "Glut"; // Todo remove use from drop down list
-            RunId = 1; // TODO:
         }
-
-        [BindProperty]
-        public string Project { get; set; }
-
-        [BindProperty]
-        public int RunId { get; set; }
 
         public string Title
         {
