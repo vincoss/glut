@@ -8,30 +8,15 @@ F:\_VincoHome\Business-Job\Bills-Receipts\2013
 +the duration request must enforce or create new CancelationToken
 +add sn key
 Ensure that request contains 'User-Agent' glut if missing, possible other also
-Totals, Add Max,Min,Arg
-Store the Run setting into the database
-favicon icon create and add into the project
++Store the Run setting into the database
++favicon icon create and add into the project
 navigation the item is not selected see CSS or JS script
 CLI output per line with colours like for dashboard
-antiforgery <!-- TODO: Move to master page and check if can have one per whole app -->
-+dashboard header display % sign
-1. Last 10 runs Total success requests
-2. Last 10 runs Total error requests
+	cli progress indicator
 runner should not cancel already running if duration expires just dont create new request and wait for already running requets
-lenght for ui should be string Kb
 cli colour code totals like a dasbhoard header
 box height need to be set. see pi-hole for page width and box height settings
-cli progress indicator
-pie chart always slow all status codes
 fails if runId provided from config file. database error
-
-
-#ProjectRun
-	ProjectName
-	RunId
-	Threads
-	Count
-	Duraction
 
 
 # Nice to have
