@@ -165,10 +165,17 @@
 
       $(document).ready(function ()
       {
+           $("#projects").change(function ()
+            {
+                onFetchRuns();
+            });
+
             $("#runs").change(function ()
             {
                 onRunChange();
             });
+
+            onFetchProjects();
       });
     </script>
 

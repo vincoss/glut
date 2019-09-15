@@ -2,9 +2,7 @@
 @model IndexModel
 @{
     ViewData[GlutWebConstants.Title] = AppResources.Home;
-    Layout = "_DashboardLayout";
 }
-@inject IDataStoreSvr DataStore;
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -553,37 +551,6 @@
         function onApplyTemplate(destination, template, data)
         {
             destination.html(data.map(template).join(''));
-        }
-
-        function onFetchProjects()
-        {
-            $.post('@Url.Action("projectNames", "project")', null, function (data)
-            {
-                $("#projects").empty();
-                $("#runs").empty();
-
-                $.each(data, function ()
-                {
-                    $("#projects").append($("<option></option>").val(this).html(this));
-                });
-                $("#projects").val('@DataStore.GetLastProject().ProjectName');
-                $("#projects").trigger("change");
-
-            }, "json");
-        }
-
-        function onFetchRuns()
-        {
-            $("#runs").empty();
-
-            $.post('@Url.Action("runIds", "project")' + '/' + $("#projects").val(), function (data)
-            {
-                $.each(data, function ()
-                {
-                    $("#runs").append($("<option></option>").val(this).html(this));
-                });
-                $("#runs").trigger("change");
-            }, "json");
         }
 
         function onRunChange()

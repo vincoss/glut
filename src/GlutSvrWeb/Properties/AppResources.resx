@@ -147,6 +147,9 @@
   <data name="DashboardDescription" xml:space="preserve">
     <value>Project test results</value>
   </data>
+  <data name="DevelopedBy" xml:space="preserve">
+    <value>Ferdinand Lukasak</value>
+  </data>
   <data name="DurationSeconds" xml:space="preserve">
     <value>Duration(s)</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Frequency" xml:space="preserve">
     <value>Frequency</value>
+  </data>
+  <data name="GlutDescription" xml:space="preserve">
+    <value>Open Source Web Load Test</value>
   </data>
   <data name="HeaderLength" xml:space="preserve">
     <value>Header Length (kb)</value>

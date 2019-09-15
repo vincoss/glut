@@ -1,4 +1,6 @@
-﻿  <!-- ./wrapper -->
+﻿
+@inject IDataStoreSvr DataStore;
+<!-- ./wrapper -->
 <!-- jQuery 3 -->
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
@@ -17,7 +19,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="~/lib/admin-lte/js/demo.js"></script>
 
-
 <!-- ChartJS -->
 <script src="~/lib/chart.js/Chart.min.js"></script>
 <script src="~/lib/moment.js/moment.min.js"></script>
@@ -27,4 +28,30 @@
     $(document).ready(function () {
         $('.sidebar-menu').tree()
     })
+
+
+function onFetchProjects() {
+    $.post('@Url.Action("projectNames", "project")', null, function (data) {
+        $("#projects").empty();
+        $("#runs").empty();
+
+        $.each(data, function () {
+            $("#projects").append($("<option></option>").val(this).html(this));
+        });
+        $("#projects").val('@DataStore.GetLastProject().ProjectName');
+        $("#projects").trigger("change");
+
+    }, "json");
+}
+
+function onFetchRuns() {
+    $("#runs").empty();
+
+    $.post('@Url.Action("runIds", "project")' + '/' + $("#projects").val(), function (data) {
+        $.each(data, function () {
+            $("#runs").append($("<option></option>").val(this).html(this));
+        });
+        $("#runs").trigger("change");
+    }, "json");
+}
 </script>
