@@ -1,31 +1,28 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home";
-    Layout = "_dashboardLayout";
+    ViewData[GlutWebConstants.Title] = AppResources.Home;
+    Layout = "_DashboardLayout";
 }
-@inject IDataStoreSvr DataStore
+@inject IDataStoreSvr DataStore;
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Blank page
-        <small>it all starts here</small>
+        @AppResources.Home
+        <small>@AppResources.DashboardDescription</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a asp-page="/"><i class="fa fa-dashboard"></i>@AppResources.Home</a></li>
     </ol>
 </section>
-
-
 
 <!-- Main content -->
 <section class="content">
 
     <div class="row">
         <div class="col-lg-12">
-            <partial name="_statusCodeHeader" model="null" />
+            <partial name="_statusCodeHeaderBox" />
         </div>
     </div>
 
@@ -37,13 +34,13 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <partial name="_statusCodeLineChart" model="null" />
+            <partial name="_statusCodeLineChartBox" />
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <partial name="_totalRequestPerRunLineBox" />
+            <partial name="_totalRequestPerRunLineChartBox" />
         </div>
     </div>
 
@@ -91,116 +88,43 @@
         </div>
         <!-- /.col (RIGHT) -->
     </div>
-
-    @*
-
-
-        <div class="row">
-            <div class="col-lg-12">
-                <partial name="_lastRunsTotalSuccessRequestLineChart" />
-            </div>
-        </div>
-
-
-
-
-        <div class="row">
-            <div class="col-md-6">
-                <partial name="_topSuccessRequests" model="null" />
-            </div>
-            <!-- /.col (LEFT) -->
-            <div class="col-md-6">
-                <partial name="_topFastestSuccessRequests" model="null" />
-            </div>
-            <!-- /.col (RIGHT) -->
-        </div>
-                <div class="row">
-            <div class="col-md-6">
-                <partial name="_topErrorRequests" model="null" />
-            </div>
-            <!-- /.col (LEFT) -->
-            <div class="col-md-6">
-            </div>
-            <!-- /.col (RIGHT) -->
-        </div>
-
-    *@
-
-
     <!-- /.row -->
 
 </section>
 <!-- /.content -->
 
-
 @section Scripts
 {
     <script>
 
-        function getVerificationToken() {
-            
+        function getVerificationToken()
+        {
             var token = $('input[name="__RequestVerificationToken"]').val();
             return token;
         }
 
-        function headerStatusCodes() {
+        function headerStatusCodes(project, run)
+        {
+            var url = ['/dashboard/headerStatusCodes', project, run].join('/');
             var formData = { __RequestVerificationToken: getVerificationToken() };
 
-            $.post('/dashboard/headerStatusCodes/glut/1', formData, function (data, textStatus) {
-
-                $("#totalHeader").html(numeral(data.totalRequests).format('0,0'));
-                $("#informationHeader").html(numeral(data.information).format('0.00'));
-                $("#successfulHeader").html(numeral(data.successful).format('0.00'));
-                $("#redirectionHeader").html(numeral(data.redirection).format('0.00'));
-                $("#clientErrorHeader").html(numeral(data.clientError).format('0.00'));
-                $("#serverErrorHeader").html(numeral(data.serverError).format('0.00'));
+            $.post(url, formData, function (data)
+            {
+                $("#totalHeader").html(numeral(data.totalRequests).format('@GlutWebConstants.ThouandsNumberFormat'));
+                $("#informationHeader").html(numeral(data.information).format('@GlutWebConstants.DecimalsNumberFormat'));
+                $("#successfulHeader").html(numeral(data.successful).format('@GlutWebConstants.DecimalsNumberFormat'));
+                $("#redirectionHeader").html(numeral(data.redirection).format('@GlutWebConstants.DecimalsNumberFormat'));
+                $("#clientErrorHeader").html(numeral(data.clientError).format('@GlutWebConstants.DecimalsNumberFormat'));
+                $("#serverErrorHeader").html(numeral(data.serverError).format('@GlutWebConstants.DecimalsNumberFormat'));
 
             }, "json");
         }
 
-        function statusCodePie()
+        function statusCodeLines(project, run)
         {
-            var dataPoints = [];
+            var url = ['/dashboard/statusCodeLines', project, run].join('/');
 
             var options =
-            {
-                responsive: true,
-                legend:
-                {
-                    position: 'right',
-                },
-                title:
-                {
-                    display: true,
-                    text: 'Status Codes'
-                },
-                animation:
-                {
-                    animateScale: true,
-                    animateRotate: true
-                }
-            };
-
-            var ctx = $("#statusCodePie");
-            var pieChart = new Chart(ctx,
-                {
-                    type: 'pie',
-                    data: dataPoints,
-                    options: options
-                });
-
-            var formData = { __RequestVerificationToken: getVerificationToken() };
-
-            $.post('/dashboard/statusCodePie/glut/1', formData, function (data, textStatus) {
-                pieChart.data = data;
-                pieChart.update();
-
-            }, "json");
-        }
-       
-       function statusCodeLines()  {
-
-             var options =
             {
                 responsive: true,
                 title:
@@ -218,13 +142,13 @@
                     xAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'Duration(s)'
+                            labelString: '@AppResources.DurationSeconds'
                         }
                     }],
                     yAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'Requests(s)'
+                            labelString: '@AppResources.Hits'
                         }
                     }]
                 },
@@ -298,7 +222,7 @@
                 }]
             };
 
-            var ctx1 = $("#statusCodeLines");
+            var ctx1 = $("#_statusCodeLineChartBox");
             var chart1 = new Chart(ctx1,
                 {
                     type: 'line',
@@ -308,11 +232,13 @@
 
             var formData = { __RequestVerificationToken: getVerificationToken() };
 
-           $.post('/dashboard/statusCodeLines/glut/1', formData, function (data)
+           $.post(url, formData, function (data)
            {
                dataPoints.labels = data.labels;
                dataPoints.datasets[0].data = data.totalRequests;
+               dataPoints.datasets[1].data = data.information;
                dataPoints.datasets[2].data = data.successful;
+               dataPoints.datasets[3].data = data.redirection;
                dataPoints.datasets[4].data = data.clientError;
                dataPoints.datasets[5].data = data.serverError;
 
@@ -321,8 +247,8 @@
             }, "json");
         }
 
-         function totalRequestsPerRun(project)  {
-
+        function totalRequestsPerRun(project)
+        {
              var options =
             {
                 responsive: true,
@@ -341,13 +267,13 @@
                     xAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'Duration(s)'
+                            labelString: '@AppResources.DurationSeconds'
                         }
                     }],
                     yAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'Requests(s)'
+                            labelString: '@AppResources.Hits'
                         }
                     }]
                 },
@@ -421,7 +347,7 @@
                 }]
             };
 
-            var ctx1 = $("#_totalRequestPerRunLineBox");
+            var ctx1 = $("#_totalRequestPerRunLineChartBox");
             var chart1 = new Chart(ctx1,
                 {
                     type: 'line',
@@ -448,7 +374,7 @@
             }, "json");
         }
 
-         function onRunAttributeBox(project, run)
+        function onRunAttributeBox(project, run)
         {
             var url = ['/dashboard/runAttributeBox', project, run].join('/');
 
@@ -456,13 +382,54 @@
 
             const template = ({ key, value}) => `
                 <tr>
-                    <td>${key}</td> 
-                    <td>${value}</td> 
+                    <td>${key}</td>
+                    <td>${value}</td>
                 </tr>`;
-            
+
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('#runAttributeBox'), template, data);
+                onApplyTemplate($('#_runAttributeBox'), template, data);
+            }, "json");
+        }
+
+        function statusCodePie(project, run)
+        {
+            var url = ['/dashboard/statusCodePie', project, run].join('/');
+            var dataPoints = [];
+
+            var options =
+            {
+                responsive: true,
+                legend:
+                {
+                    position: 'right',
+                },
+                title:
+                {
+                    display: true,
+                    text: '@AppResources.StatusCodes'
+                },
+                animation:
+                {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            };
+
+            var ctx = $("#_statusCodePieBox");
+            var pieChart = new Chart(ctx,
+                {
+                    type: 'pie',
+                    data: dataPoints,
+                    options: options
+                });
+
+            var formData = { __RequestVerificationToken: getVerificationToken() };
+
+            $.post(url, formData, function (data) {
+                pieChart.data = data;
+                pieChart.update();
+
             }, "json");
         }
 
@@ -474,14 +441,14 @@
 
             const template = ({ url, count, frequency }) => `
                 <tr>
-                    <td>${url}</td> 
-                    <td>${count}</td> 
-                    <td>${numeral(frequency).format('0.00')}%</td>
-                </tr>`; 
-            
+                    <td>${url}</td>
+                    <td>${numeral(count).format('@GlutWebConstants.ThouandsNumberFormat')}</td>
+                    <td>${numeral(frequency).format('@GlutWebConstants.DecimalsNumberFormat')}%</td>
+                </tr>`;
+
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('#topSuccessfulChart'), template, data);
+                onApplyTemplate($('#_topSuccessfulRequests'), template, data);
             }, "json");
         }
 
@@ -493,14 +460,14 @@
 
             const template = ({ url, count, frequency }) => `
                 <tr>
-                    <td>${url}</td> 
-                    <td>${count}</td> 
-                    <td>${numeral(frequency).format('0.00')}%</td>
-                </tr>`; 
-            
+                    <td>${url}</td>
+                     <td>${numeral(count).format('@GlutWebConstants.ThouandsNumberFormat')}</td>
+                    <td>${numeral(frequency).format('@GlutWebConstants.DecimalsNumberFormat')}%</td>
+                </tr>`;
+
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('#topErrorfulChart'), template, data);
+                onApplyTemplate($('#_topErrorRequests'), template, data);
             }, "json");
         }
 
@@ -512,19 +479,19 @@
 
             const template = ({ url, min, max, avg }) => `
                 <tr>
-                    <td>${url}</td> 
-                    <td>${moment(min).format('@GlutWebConstants.SecMilFormat')}</td> 
-                    <td>${moment(max).format('@GlutWebConstants.SecMilFormat')}</td>  
-                    <td>${moment(avg).format('@GlutWebConstants.SecMilFormat')}</td> 
+                    <td>${url}</td>
+                    <td>${moment(min).format('@GlutWebConstants.SecMilFormat')}</td>
+                    <td>${moment(max).format('@GlutWebConstants.SecMilFormat')}</td>
+                    <td>${moment(avg).format('@GlutWebConstants.SecMilFormat')}</td>
                 </tr>`;
-            
+
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('#topFastestMinMaxAvgSuccessfulRequestBox'), template, data);
+                onApplyTemplate($('#_topFastestMinMaxAvgSuccessRequestBox'), template, data);
             }, "json");
         }
 
-         function onTopSlowestMinMaxAvgSuccessfulRequestBox(project, run)
+        function onTopSlowestMinMaxAvgSuccessfulRequestBox(project, run)
         {
             var url = ['/dashboard/topSlowestMinMaxAvgSuccessfulRequestBox', project, run].join('/');
 
@@ -532,19 +499,19 @@
 
             const template = ({ url, min, max, avg }) => `
                 <tr>
-                    <td>${url}</td> 
-                    <td>${moment(min).format('@GlutWebConstants.SecMilFormat')}</td> 
-                    <td>${moment(max).format('@GlutWebConstants.SecMilFormat')}</td>  
-                    <td>${moment(avg).format('@GlutWebConstants.SecMilFormat')}</td> 
+                    <td>${url}</td>
+                    <td>${moment(min).format('@GlutWebConstants.SecMilFormat')}</td>
+                    <td>${moment(max).format('@GlutWebConstants.SecMilFormat')}</td>
+                    <td>${moment(avg).format('@GlutWebConstants.SecMilFormat')}</td>
                 </tr>`;
-            
+
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('#topSlowestMinMaxAvgSuccessfulRequestBox'), template, data);
+                onApplyTemplate($('#_topSlowestMinMaxAvgSuccessRequestBox'), template, data);
             }, "json");
         }
 
-          function onTopAverageMinMaxAvgSuccessRequestBox(project, run)
+        function onTopAverageMinMaxAvgSuccessRequestBox(project, run)
         {
             var url = ['/dashboard/topAverageMinMaxAvgSuccessRequestBox', project, run].join('/');
 
@@ -552,20 +519,19 @@
 
             const template = ({ url, min, max, avg }) => `
                 <tr>
-                    <td>${url}</td> 
-                    <td>${moment(min).format('@GlutWebConstants.SecMilFormat')}</td> 
-                    <td>${moment(max).format('@GlutWebConstants.SecMilFormat')}</td>  
-                    <td>${moment(avg).format('@GlutWebConstants.SecMilFormat')}</td> 
+                    <td>${url}</td>
+                    <td>${moment(min).format('@GlutWebConstants.SecMilFormat')}</td>
+                    <td>${moment(max).format('@GlutWebConstants.SecMilFormat')}</td>
+                    <td>${moment(avg).format('@GlutWebConstants.SecMilFormat')}</td>
                 </tr>`;
-            
+
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('#topAverageMinMaxAvgSuccessRequestBox'), template, data);
+                onApplyTemplate($('#_topAverageMinMaxAvgSuccessRequestBox'), template, data);
             }, "json");
         }
 
-        
-          function onTopLargestSuccessfulRequestBox(project, run)
+        function onTopLargestSuccessfulRequestBox(project, run)
         {
             var url = ['/dashboard/topLargestSuccessfulRequestBox', project, run].join('/');
 
@@ -573,14 +539,14 @@
 
             const template = ({ url, length, percent }) => `
                 <tr>
-                    <td>${url}</td> 
-                    <td>${moment(length).format('@GlutWebConstants.SecMilFormat')}</td> 
-                    <td>${numeral(percent).format('0.00')}</td> 
+                    <td>${url}</td>
+                    <td>${moment(length).format('@GlutWebConstants.DecimalsNumberFormat')}bB</td>
+                    <td>${numeral(percent).format('@GlutWebConstants.DecimalsNumberFormat')}%</td>
                 </tr>`;
-            
+
             $.post(url, formData, function (data)
             {
-                onApplyTemplate($('#topLargestSuccessfulRequestBox'), template, data);
+                onApplyTemplate($('#_topLargestSuccessfulRequestBox'), template, data);
             }, "json");
         }
 
@@ -589,9 +555,49 @@
             destination.html(data.map(template).join(''));
         }
 
-        $(function ()
+        function onFetchProjects()
         {
-            var p = "glut"; var r = 1;
+            $.post('@Url.Action("projectNames", "project")', null, function (data)
+            {
+                $("#projects").empty();
+                $("#runs").empty();
+
+                $.each(data, function ()
+                {
+                    $("#projects").append($("<option></option>").val(this).html(this));
+                });
+                $("#projects").val('@DataStore.GetLastProject().ProjectName');
+                $("#projects").trigger("change");
+
+            }, "json");
+        }
+
+        function onFetchRuns()
+        {
+            $("#runs").empty();
+
+            $.post('@Url.Action("runIds", "project")' + '/' + $("#projects").val(), function (data)
+            {
+                $.each(data, function ()
+                {
+                    $("#runs").append($("<option></option>").val(this).html(this));
+                });
+                $("#runs").trigger("change");
+            }, "json");
+        }
+
+        function onRunChange()
+        {
+            var p = $("#projects").val();
+            var r = $("#runs").val();
+
+            headerStatusCodes(p, r);
+
+            statusCodeLines(p, r);
+            totalRequestsPerRun(p);
+
+            onRunAttributeBox(p, r);
+            statusCodePie(p, r);
 
             onTopSuccessfulRequestBox(p, r);
             onTopErrorRequestBox(p, r);
@@ -599,15 +605,21 @@
             onTopSlowestMinMaxAvgSuccessfulRequestBox(p, r);
             onTopAverageMinMaxAvgSuccessRequestBox(p, r);
             onTopLargestSuccessfulRequestBox(p, r);
+        }
 
+        $(function ()
+        {
+            $("#projects").change(function ()
+            {
+                onFetchRuns();
+            });
 
+            $("#runs").change(function ()
+            {
+                onRunChange();
+            });
 
-            headerStatusCodes();
-            totalRequestsPerRun(p);
-            onRunAttributeBox(p, r);
-            statusCodePie();
-            statusCodeLines();
-
+            onFetchProjects();
         });
     </script>
 }

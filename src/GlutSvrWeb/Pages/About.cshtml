@@ -1,7 +1,7 @@
 ﻿@page "/about"
 @model AboutModel
 @{
-    ViewData["Title"] = "About";
+    ViewData[GlutWebConstants.Title] = AppResources.About;
 }
 
 <!-- Content Header (Page header) -->
@@ -10,8 +10,8 @@
         @AppResources.About
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="/about">About</a></li>
+        <li><a href="/"><i class="fa fa-dashboard"></i>@AppResources.Home</a></li>
+        <li><a href="/about">@AppResources.About</a></li>
     </ol>
 </section>
 

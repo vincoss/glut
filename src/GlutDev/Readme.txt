@@ -20,6 +20,10 @@ antiforgery <!-- TODO: Move to master page and check if can have one per whole a
 runner should not cancel already running if duration expires just dont create new request and wait for already running requets
 lenght for ui should be string Kb
 cli colour code totals like a dasbhoard header
+box height need to be set. see pi-hole for page width and box height settings
+cli progress indicator
+pie chart always slow all status codes
+fails if runId provided from config file. database error
 
 
 #ProjectRun

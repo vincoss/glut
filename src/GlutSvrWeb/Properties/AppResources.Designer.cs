@@ -142,11 +142,20 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Developed by Ferdinand Lukasak.
+        ///   Looks up a localized string similar to Project test results.
         /// </summary>
-        public static string DevelopedBy {
+        public static string DashboardDescription {
             get {
-                return ResourceManager.GetString("DevelopedBy", resourceCulture);
+                return ResourceManager.GetString("DashboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration(s).
+        /// </summary>
+        public static string DurationSeconds {
+            get {
+                return ResourceManager.GetString("DurationSeconds", resourceCulture);
             }
         }
         
@@ -178,20 +187,20 @@ namespace GlutSvrWeb.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open Source Web Load Test.
-        /// </summary>
-        public static string GlutDescription {
-            get {
-                return ResourceManager.GetString("GlutDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Header Length (kb).
         /// </summary>
         public static string HeaderLength {
             get {
                 return ResourceManager.GetString("HeaderLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hits.
+        /// </summary>
+        public static string Hits {
+            get {
+                return ResourceManager.GetString("Hits", resourceCulture);
             }
         }
         

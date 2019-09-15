@@ -2,7 +2,6 @@
 @model ResultsModel
 @{
     ViewData[GlutWebConstants.Title] = Model.Title;
-    var DateFormat = @GlutWebConstants.LongDateTimeFormat;
 }
 
 <!-- Content Header (Page header) -->
@@ -19,11 +18,16 @@
 
 <!-- Main content -->
 <section class="content">
+    <div class="row bg-gray-light">
+        <div class="col-lg-12">
+            <partial name="_projectFilter" />
+        </div>
+    </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Project: @Model.Project - Run: @Model.RunId</h3>
+                    <h3 class="box-title">@AppResources.Results</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -80,15 +84,16 @@
 {
     <script>
 
-    function onRunChange()
-    {
-        var project = $("#projects").val();
-        var run = $("#runs").val();
-
-        alert(project + ", " + run);
+        function onRunChange()
+        {
+            resultGrid();
         }
 
-        function resultGrid() {
+        function resultGrid()
+        {
+            var project = $("#projects").val();
+            var run = $("#runs").val();
+            var url = ['/result', project, run].join('/');
 
             var token = $('input[name="__RequestVerificationToken"]').val();
 
@@ -112,7 +117,7 @@
                 },
                 ajax:
                 {
-                    url: 'result/@Model.Project/@Model.RunId',
+                    url: url,
                     type: 'POST',
                     dataSrc: 'data',
                     datatype: 'json',
@@ -121,11 +126,11 @@
                 "columnDefs": [
                     {
                         "targets": [0],
-                        render: function (data) { return moment(data).format('@DateFormat');}
+                        render: function (data) { return moment(data).format('@GlutWebConstants.LongDateTimeFormat');}
                     },
                     {
                         "targets": [1],
-                        render: function (data) { return moment(data).format('@DateFormat');}
+                        render: function (data) { return moment(data).format('@GlutWebConstants.LongDateTimeFormat');}
                     },
                     {
                         "targets": [2],
@@ -158,15 +163,12 @@
             });
         }
 
-
       $(document).ready(function ()
       {
             $("#runs").change(function ()
             {
                 onRunChange();
             });
-
-          resultGrid();
       });
     </script>
 

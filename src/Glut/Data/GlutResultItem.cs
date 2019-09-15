@@ -18,7 +18,6 @@ namespace Glut.Data
 
         public string Url { get; set; }
         public bool IsSuccessStatusCode { get; set; }
-        public byte StatusCodeGroup { get; set; }
         public int StatusCode { get; set; }
 
         public long HeaderLength { get; set; }

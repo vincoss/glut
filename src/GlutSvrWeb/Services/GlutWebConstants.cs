@@ -12,5 +12,9 @@ namespace GlutSvrWeb.Services
         public const string Title = "Title";
         public const string SortDirectionAsc = "asc";
 
+        // Number formats
+        public const string ThouandsNumberFormat = "0,0";
+        public const string DecimalsNumberFormat = "0.00";
+
     }
 }
