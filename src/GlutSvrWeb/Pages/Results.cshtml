@@ -18,6 +18,11 @@
 
 <!-- Main content -->
 <section class="content">
+    <div class="row bg-gray-light">
+        <div class="col-lg-12">
+            <partial name="_projectFilter" />
+        </div>
+    </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
@@ -79,14 +84,17 @@
 {
     <script>
 
-    function onRunChange()
-    {
-        var project = $("#projects").val();
-        var run = $("#runs").val();
-        var url = ['/result', project, run].join('/');
+        function onRunChange()
+        {
+            resultGrid();
+        }
 
         function resultGrid()
         {
+            var project = $("#projects").val();
+            var run = $("#runs").val();
+            var url = ['/result', project, run].join('/');
+
             var token = $('input[name="__RequestVerificationToken"]').val();
 
             $('#table').DataTable({
@@ -161,8 +169,6 @@
             {
                 onRunChange();
             });
-
-          resultGrid();
       });
     </script>
 

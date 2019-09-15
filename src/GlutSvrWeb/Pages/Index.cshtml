@@ -2,7 +2,7 @@
 @model IndexModel
 @{
     ViewData[GlutWebConstants.Title] = AppResources.Home;
-    Layout = "_dashboardLayout";
+    Layout = "_DashboardLayout";
 }
 @inject IDataStoreSvr DataStore;
 
@@ -582,6 +582,7 @@
                 {
                     $("#runs").append($("<option></option>").val(this).html(this));
                 });
+                $("#runs").trigger("change");
             }, "json");
         }
 
