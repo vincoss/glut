@@ -1,15 +1,6 @@
 ﻿
-# Cleaning 
-F:\_VincoHome\Business-Job\Bills-Receipts\2013
-
 # Tasks
-+ApplicationName is composite including versin number Glut 1.0.0.0
-+length value form response ensure that that is with headers and content. ThreadResult does that
-+the duration request must enforce or create new CancelationToken
-+add sn key
 Ensure that request contains 'User-Agent' glut if missing, possible other also
-+Store the Run setting into the database
-+favicon icon create and add into the project
 navigation the item is not selected see CSS or JS script
 CLI output per line with colours like for dashboard
 	cli progress indicator
@@ -17,7 +8,9 @@ runner should not cancel already running if duration expires just dont create ne
 cli colour code totals like a dasbhoard header
 box height need to be set. see pi-hole for page width and box height settings
 fails if runId provided from config file. database error
-
+clean css and java scripts not used
+GlutSvrWeb_Blazor clean the files
+GlutWebAdminLteTemplate remove the project or move into Core samples
 
 # Nice to have
 Request timeout not implemented

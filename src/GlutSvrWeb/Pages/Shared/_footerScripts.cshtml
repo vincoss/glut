@@ -29,7 +29,6 @@
         $('.sidebar-menu').tree()
     })
 
-
 function onFetchProjects() {
     $.post('@Url.Action("projectNames", "project")', null, function (data) {
         $("#projects").empty();
