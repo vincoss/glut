@@ -1,6 +1,5 @@
 ﻿using Glut.Interface;
 using Glut.Providers;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -59,14 +58,25 @@ namespace Glut.Services
             {
                 _resultStore.Add(_appConfig.ProjectName, _appConfig.ProjectRunId, GetConfigToDictionary(_appConfig), _threadResult);
             }
-            
-            Environment.ExitCode = (int)ExitCode.Success;
+
+            Environment.ExitCode = GetExitCode();
 
             _applicationLifetime.StopApplication();
 
             _logger.LogDebug($"End {nameof(ExecuteAsync)}");
 
             return Task.CompletedTask;
+        }
+
+        public int GetExitCode()
+        {
+            var result = (from x in _threadResult.Results.Values
+                          from s in x.StatusCodes
+                          let c = s / 100
+                          where c != 2
+                          select c).Any();
+
+            return (int)(result ? ExitCode.UnknownError : ExitCode.Success);
         }
 
         public IDictionary<string, string> GetConfigToDictionary(AppConfig config)
@@ -88,9 +98,50 @@ namespace Glut.Services
 
         private void DisplayResultInformation()
         {
-            var str = _threadResult.ToString();
-            _logger.LogDebug(str);
-            Console.WriteLine(str);
+            try
+            {
+                var to = (from x in _threadResult.Results.Values
+                          from s in x.StatusCodes
+                          group x by s / 100 into g
+                          select new
+                          {
+                              g.Key,
+                              Count = g.Count()
+                          }).ToArray();
+
+                var totalRequests = to.Sum(x => x.Count);
+                var information = to.Where(x => x.Key == 1).Sum(x => x.Count);
+                var successful = to.Where(x => x.Key == 2).Sum(x => x.Count);
+                var redirection = to.Where(x => x.Key == 3).Sum(x => x.Count);
+                var clientError = to.Where(x => x.Key == 3).Sum(x => x.Count);
+                var serverError = to.Where(x => x.Key == 5).Sum(x => x.Count);
+
+                var str = _threadResult.ToString();
+                _logger.LogDebug(str);
+
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("Total Requests:".PadRight(20));
+                Console.WriteLine(totalRequests);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("Information:".PadRight(20));
+                Console.WriteLine(information);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("Successful:".PadRight(20));
+                Console.WriteLine(successful);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("Redirection:".PadRight(20));
+                Console.WriteLine(redirection);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("Client Errors:".PadRight(20));
+                Console.WriteLine(clientError);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Server errors:".PadRight(20));
+                Console.WriteLine(serverError);
+            }
+            finally
+            {
+                Console.ResetColor();
+            }
         }
     }
 }

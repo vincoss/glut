@@ -4,7 +4,4 @@ using System.Text;
 
 namespace Glut
 {
-    public class StatusCodeHelper // TODO: delete
-    {
-    }
 }

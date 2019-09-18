@@ -2,15 +2,14 @@
 # Tasks
 Ensure that request contains 'User-Agent' glut if missing, possible other also
 navigation the item is not selected see CSS or JS script
-CLI output per line with colours like for dashboard
-	cli progress indicator
+
 runner should not cancel already running if duration expires just dont create new request and wait for already running requets
-cli colour code totals like a dasbhoard header
 box height need to be set. see pi-hole for page width and box height settings
 fails if runId provided from config file. database error
 clean css and java scripts not used
 GlutSvrWeb_Blazor clean the files
 GlutWebAdminLteTemplate remove the project or move into Core samples
+runs change project or run throws
 
 # Nice to have
 Request timeout not implemented
@@ -22,6 +21,9 @@ interval option this can be used with duration
 add exit code result based on status code filter list
 ResponseContentPath Save the response content into specified directory, must not delete on close the stream. Nice to have
 buy me a coffee
+
+# Nice to have
+Cli progress indicator (Spiner) nice to have
 
 
 Test fore all return HTTP every codes, create samples

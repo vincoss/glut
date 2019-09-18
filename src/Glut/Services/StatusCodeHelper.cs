@@ -1,10 +1,9 @@
-﻿using GlutSvrWeb.Properties;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 
-namespace GlutSvrWeb.Services
+namespace Glut.Services
 {
     public class StatusCodeHelper
     {
@@ -49,15 +48,15 @@ namespace GlutSvrWeb.Services
             switch (code)
             {
                 case 1:
-                    return AppResources.Information;
+                    return "Information";
                 case 2:
-                    return AppResources.Successful;
+                    return "Successful";
                 case 3:
-                    return AppResources.Redirection;
+                    return "Redirection";
                 case 4:
-                    return AppResources.ClientError;
+                    return "Client Error";
                 case 5:
-                    return AppResources.ServerError;
+                    return "Server Error";
                 default:
                     return code.ToString();
             }

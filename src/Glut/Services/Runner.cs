@@ -113,7 +113,7 @@ namespace Glut
                     events[i].Dispose();
                 }
             }
-            Console.WriteLine($"Disposed: {stopWatch.Elapsed}");
+            _logger.LogDebug($"Disposed: {stopWatch.Elapsed}");
         }
 
         public async Task CountWork(IEnumerable<HttpRequestMessage> messages, int count, ManualResetEventSlim resetEvent, CancellationToken cancellationToken)
