@@ -111,7 +111,14 @@ namespace Glut.Services
                             CreatedByUserName = _environment.UserName
                         };
 
-            _context.AddRange(items);
+            if(_context.RunAttributes.Any(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId))
+            {
+                _context.UpdateRange(items);
+            }
+            else
+            {
+                _context.AddRange(items);
+            }
         }
 
         private void SaveProject(string projectName)
@@ -131,7 +138,7 @@ namespace Glut.Services
             else
             {
                 existing.ModifiedDateTimeUtc = _environment.SystemDateTimeUtc;
-                _context.Update(existing); // TODO: test for update
+                _context.Update(existing);
             }
         }
     }
