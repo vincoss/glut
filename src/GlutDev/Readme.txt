@@ -4,7 +4,6 @@ Ensure that request contains 'User-Agent' glut if missing, possible other also
 navigation the item is not selected see CSS or JS script
 
 runner should not cancel already running if duration expires just dont create new request and wait for already running requets
-box height need to be set. see pi-hole for page width and box height settings
 fails if runId provided from config file. database error
 clean css and java scripts not used
 GlutSvrWeb_Blazor clean the files
