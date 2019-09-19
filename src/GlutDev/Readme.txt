@@ -20,6 +20,7 @@ interval option this can be used with duration
 add exit code result based on status code filter list
 ResponseContentPath Save the response content into specified directory, must not delete on close the stream. Nice to have
 buy me a coffee
+avatar5.png find and replace
 
 # Nice to have
 Cli progress indicator (Spiner) nice to have
