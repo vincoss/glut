@@ -33,6 +33,8 @@ namespace Glut.Services
             {
                 client.BaseAddress = new Uri(_appConfig.BaseAddress);
             }
+            client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json"); // TODO:
+            client.DefaultRequestHeaders.Add("User-Agent", GlutConstants.FullApplicationName);
         }
 
         public async ValueTask Run(HttpRequestMessage request, ThreadResult result, CancellationToken cancellationToken)

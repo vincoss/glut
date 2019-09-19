@@ -9,16 +9,6 @@ namespace Glut
     public static class Extensions
     {
         // TODO: Not used remove
-        public static string GetDefaultApplicatioName(string applicationName)
-        {
-            if(string.IsNullOrWhiteSpace(applicationName))
-            {
-                return GlutConstants.ApplicationName;
-            }
-            return applicationName;
-        }
-
-        // TODO: Not used remove
         public static void PrintConfiguration(this IConfiguration configuration, Action<string> print)
         {
             if(configuration == null)

@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Glut.IntegrationTest", "tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutSvrWeb.Test", "test\GlutSvr.Test\GlutSvrWeb.Test.csproj", "{688894E6-A38D-416D-A9B9-0AB77D8B7090}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutWebAdminLteTemplate", "src\GlutWebAdminLteTemplate\GlutWebAdminLteTemplate.csproj", "{75DA067E-9E9E-4BFF-9363-BED03BB64B97}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutSvrWeb", "src\GlutSvrWeb\GlutSvrWeb.csproj", "{FC126678-E721-4DEE-BD0E-66B88A59C03E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlutSample.Server", "src\GlutSample.Server\GlutSample.Server.csproj", "{58507D6E-C400-4EF9-A864-4FC0BB744BEB}"
@@ -61,10 +59,6 @@ Global
 		{688894E6-A38D-416D-A9B9-0AB77D8B7090}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{688894E6-A38D-416D-A9B9-0AB77D8B7090}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{688894E6-A38D-416D-A9B9-0AB77D8B7090}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75DA067E-9E9E-4BFF-9363-BED03BB64B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75DA067E-9E9E-4BFF-9363-BED03BB64B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75DA067E-9E9E-4BFF-9363-BED03BB64B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75DA067E-9E9E-4BFF-9363-BED03BB64B97}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC126678-E721-4DEE-BD0E-66B88A59C03E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC126678-E721-4DEE-BD0E-66B88A59C03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC126678-E721-4DEE-BD0E-66B88A59C03E}.Release|Any CPU.ActiveCfg = Release|Any CPU

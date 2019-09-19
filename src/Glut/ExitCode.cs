@@ -3,9 +3,9 @@
 
 namespace Glut
 {
-    public enum ExitCode : byte
+    public enum ExitCode : int
     {
         Success = 0,
-        UnknownError = 1 // TODO; not used yet
+        UnknownError = -1
     }
 }
