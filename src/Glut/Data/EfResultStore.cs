@@ -100,6 +100,10 @@ namespace Glut.Services
 
         private void SaveRunAttributes(string projectName, int runId, IDictionary<string, string> attributes)
         {
+            // Clear before if multiple CLI runners use same runId.
+            var existing = _context.RunAttributes.Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
+            _context.RemoveRange(existing);
+
             var items = from x in attributes
                         select new GlutRunAttribute
                         {
@@ -111,14 +115,7 @@ namespace Glut.Services
                             CreatedByUserName = _environment.UserName
                         };
 
-            if(_context.RunAttributes.Any(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId))
-            {
-                _context.UpdateRange(items);
-            }
-            else
-            {
-                _context.AddRange(items);
-            }
+            _context.AddRange(items);
         }
 
         private void SaveProject(string projectName)
