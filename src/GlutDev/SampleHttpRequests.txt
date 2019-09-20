@@ -7,7 +7,7 @@ Host: clientnotification-userprodeau1-4.servicebus.windows.net
 Host: qit-nas04
 
 #
-OPTIONS http://bnesbs/GAD_Solutions HTTP/1.1
+OPTIONS http://bnesbs/somedir HTTP/1.1
 Proxy-Connection: Keep-Alive
 User-Agent: Microsoft-WebDAV-MiniRedir/10.0.17134
 translate: f
