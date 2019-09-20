@@ -20,6 +20,7 @@ namespace GlutSample.Server
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(c => c.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(2));
                     webBuilder.UseStartup<Startup>();
                 });
     }

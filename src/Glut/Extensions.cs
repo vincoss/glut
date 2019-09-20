@@ -8,7 +8,6 @@ namespace Glut
 {
     public static class Extensions
     {
-        // TODO: Not used remove
         public static void PrintConfiguration(this IConfiguration configuration, Action<string> print)
         {
             if(configuration == null)

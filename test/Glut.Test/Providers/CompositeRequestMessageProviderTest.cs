@@ -13,7 +13,7 @@ namespace Glut.Providers
         [Fact]
         public void Test()
         {
-            var rootPath = Path.Combine(AppContext.BaseDirectory, "TestData");
+            var rootPath = Path.Combine(AppContext.BaseDirectory, "TestData", "Sample");
             var listSubpath = "list";
             var singleSubpath = "single";
             var fileProvider = new PhysicalFileProvider(rootPath);
@@ -26,7 +26,7 @@ namespace Glut.Providers
 
             var results = compositeProvider.Get();
 
-            Assert.Equal(11, results.Count());
+            Assert.Equal(20, results.Count());
         }
     }
 }

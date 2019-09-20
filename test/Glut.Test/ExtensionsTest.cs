@@ -9,16 +9,6 @@ namespace Glut
     public class ExtensionsTest
     {
         [Fact]
-        public void GetDefaultApplicatioNameTest()
-        {
-            var actualDefault = Extensions.GetDefaultApplicatioName("");
-            var actualAsked = Extensions.GetDefaultApplicatioName("TestName");
-
-            Assert.Equal("Glut", actualDefault);
-            Assert.Equal("TestName", actualAsked);
-        }
-
-        [Fact]
         public void PrintConfigurationTest()
         {
             var buildder = new ConfigurationBuilder();

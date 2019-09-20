@@ -15,7 +15,7 @@ namespace Glut.Providers
         [Fact]
         public void RequestListParseTest()
         {
-            var rootPath = Path.Combine(AppContext.BaseDirectory, "TestData");
+            var rootPath = Path.Combine(AppContext.BaseDirectory, "TestData", "Sample");
             var subpath = "list";
             var fileProvider = new PhysicalFileProvider(rootPath);
             var lLogger = new LoggerFactory().CreateLogger<ListHttpRequestMessageProvider>();
@@ -24,7 +24,7 @@ namespace Glut.Providers
 
             var messages = provider.Get();
 
-            Assert.Equal(9, messages.Count());
+            Assert.Equal(18, messages.Count());
             Assert.True(messages.All(x => x.Method == HttpMethod.Get));
 
             Assert.Equal("/", messages.ElementAt(0).RequestUri.ToString());

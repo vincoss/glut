@@ -26,7 +26,7 @@ namespace GlutSample.Server
             // Razor pages
             services.AddRazorPages();
             // MVC views
-            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNameCaseInsensitive = false);
+            services.AddControllersWithViews();
             // Web API
             services.AddControllers();
         }

@@ -1,0 +1,13 @@
+﻿/home
+/home/NoContentTest
+/home/LongRunningTest
+/home/LargeRequest
+/home/LargeRequest/1000
+/home/LargeRequest/100000
+/home/LargeRequest/10000000
+/home/NotModifiedTest
+/home/TestBadRequest
+/home/TestForbid
+/home/TestUnauthorized
+/home/Timeout
+/home/Error

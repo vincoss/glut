@@ -11,7 +11,7 @@ namespace Glut
         public void Test()
         {
             Assert.Equal(0, (int)ExitCode.Success);
-            Assert.Equal(1, (int)ExitCode.UnknownError);
+            Assert.Equal(-1, (int)ExitCode.UnknownError);
         }
     }
 }

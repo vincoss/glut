@@ -246,11 +246,11 @@ namespace GlutSvr.Services
 
                     var args = new DataTableParameter()
                     {
-                        Search = 100.ToString()
+                        Search = null
                     };
                     var results = service.GetResultItems("Test", 1, args);
 
-                    Assert.Equal(6, results.Data.Count());
+                    Assert.Equal(7, results.Data.Count());
                     Assert.Equal("/information", results.Data.ElementAt(0).Url);
                     Assert.True(results.Data.ElementAt(0).IsSuccessStatusCode);
                     Assert.Equal(100, results.Data.ElementAt(0).StatusCode);
@@ -301,7 +301,7 @@ namespace GlutSvr.Services
 
                         var results = service.GetResultItems("Test", 1, args);
 
-                        Assert.Equal(6, results.Data.Count());
+                        Assert.Equal(7, results.Data.Count());
                     }
                 }
             }
@@ -336,12 +336,12 @@ namespace GlutSvr.Services
                     var r = await service.GetResponseDetails("Test", 1);
 
                     Assert.NotNull(r);
-                    Assert.Equal(6, r.TotalRequests);
-                    Assert.Equal(17.0M, Math.Round(r.Information));
-                    Assert.Equal(33.0M, Math.Round(r.Successful));
-                    Assert.Equal(17.0M, Math.Round(r.Redirection));
-                    Assert.Equal(17.0M, Math.Round(r.ClientError));
-                    Assert.Equal(17.0M, Math.Round(r.ServerError));
+                    Assert.Equal(7, r.TotalRequests);
+                    Assert.Equal(14.29M, Math.Round(r.Information, 2));
+                    Assert.Equal(42.86M, Math.Round(r.Successful, 2));
+                    Assert.Equal(14.29M, Math.Round(r.Redirection, 2));
+                    Assert.Equal(14.29M, Math.Round(r.ClientError, 2));
+                    Assert.Equal(14.29M, Math.Round(r.ServerError, 2));
                 }
             }
             finally

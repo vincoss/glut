@@ -15,7 +15,7 @@ namespace Glut.Providers
         [Fact]
         public void Test()
         {
-            var rootPath = Path.Combine(AppContext.BaseDirectory, "TestData");
+            var rootPath = Path.Combine(AppContext.BaseDirectory, "TestData", "Sample");
             var subpath = "single";
             var fileProvider = new PhysicalFileProvider(rootPath);
             var sLogger = new LoggerFactory().CreateLogger<SingleRequestMessageProvider>();

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Glut
 {
-    public class SeedData
+    public class GlutSeedData
     {
         public void Initialize(EfDbContext context)
         {
@@ -17,7 +17,7 @@ namespace Glut
             WithRunAttributes(context);
         }
 
-        public SeedData WithProjects(EfDbContext context)
+        public GlutSeedData WithProjects(EfDbContext context)
         {
             // Look for any movies.
             if (context.Results.Any())
@@ -48,7 +48,7 @@ namespace Glut
             return this;
         }
 
-        public SeedData WithResults(EfDbContext context)
+        public GlutSeedData WithResults(EfDbContext context)
         {
             // Look for any movies.
             if (context.Results.Any())
@@ -147,7 +147,7 @@ namespace Glut
             return this;
         }
 
-        public SeedData WithRunAttributes(EfDbContext context)
+        public GlutSeedData WithRunAttributes(EfDbContext context)
         {
             if (context.RunAttributes.Any())
             {

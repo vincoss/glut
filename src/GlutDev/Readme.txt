@@ -13,22 +13,7 @@ crate test files for Glut project
 avatar5.png find and replace with logo
 Test fore all return HTTP every codes, create samples
 Validate AppConfig values
-	https://startbootstrap.com/themes/clean-blog/
-
-	
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages
-https://stackoverflow.com/questions/13255622/parsing-raw-http-request
-http://www.java2s.com/Code/Java/Network-Protocol/HttpParser.htm
-https://tools.ietf.org/html/rfc2616#section-5
-https://code.joejag.com/2012/how-to-send-a-raw-http-request-via-java.html
-
-#Resources
-https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-2.2
-https://thomaslevesque.com/tag/httpclient/
-https://johnthiriet.com/efficient-api-calls/#
-https://www.c-sharpcorner.com/article/measuring-and-reporting-the-response-time-of-an-asp-net-core-api/
-https://gist.github.com/thomaslevesque/b4fd8c3aa332c9582a57935d6ed3406f
-https://devhints.io/moment
+Remove unused tests projects
 
 
 
@@ -68,4 +53,21 @@ Data tables
 Icon
 https://www.compart.com/en/unicode/U+2305
 https://en.wikipedia.org/wiki/List_of_Unicode_characters
+
+Http
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages
+https://tools.ietf.org/html/rfc2616#section-5
+https://stackoverflow.com/questions/13255622/parsing-raw-http-request
+http://www.java2s.com/Code/Java/Network-Protocol/HttpParser.htm
+https://thomaslevesque.com/tag/httpclient/
 	 
+Themes
+https://startbootstrap.com/themes/
+https://startbootstrap.com/themes/sb-admin-2/
+
+DateTime format
+https://devhints.io/moment
+
+Number fromat
+http://numeraljs.com/
+http://numbrojs.com/

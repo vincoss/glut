@@ -36,7 +36,7 @@ namespace Glut.Data
                 using (var context = new EfDbContext(options))
                 {
                     context.Database.EnsureCreated();
-                    new SeedData().Initialize(context);
+                    new GlutSeedData().Initialize(context);
                     var service = new EfResultStore(context, new EnvironmentService());
 
                     var actual = service.GetProjectLastRunId(projectName);
