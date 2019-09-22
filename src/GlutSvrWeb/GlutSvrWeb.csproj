@@ -21,6 +21,7 @@
     <None Include="hostsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="wwwroot\lib\img\favicon-96x96.png" />
   </ItemGroup>
 
   <ItemGroup>
