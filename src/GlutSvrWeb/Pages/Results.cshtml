@@ -93,8 +93,13 @@
         {
             var project = $("#projects").val();
             var run = $("#runs").val();
-            var url = ['/result', project, run].join('/');
 
+            if (project === null || run === null) {
+                return;
+            }
+
+            var url = ['/result', project, run].filter(Boolean).join('/');
+           
             var token = $('input[name="__RequestVerificationToken"]').val();
 
             $('#table').DataTable({

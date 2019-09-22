@@ -27,16 +27,16 @@ namespace Default_WebApplication_API_V3.Controllers
         [HttpPost]
         [Route("{id}/{run?}")]
         [ValidateAntiForgeryToken]
-        public DataTableDto<ResultItemDto> Get(string id, int run)
+        public DataTableDto<ResultItemDto> Get(string id, int? run)
         {
-            if (string.IsNullOrWhiteSpace(id) || run <= 0)
+            if (string.IsNullOrWhiteSpace(id) || run == null || run <= 0)
             {
                 return new DataTableDto<ResultItemDto>();
             }
 
             var args = Request.Form.GetDataTableArgs();
 
-            var response = _dataStoreSvr.GetResultItems(id, run , args);
+            var response = _dataStoreSvr.GetResultItems(id, run.Value , args);
 
             return response;
         }

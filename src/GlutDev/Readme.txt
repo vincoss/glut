@@ -7,8 +7,6 @@ use latest bootstrap if not too much work
 runner should not cancel already running if duration expires just dont create new request and wait for already running requets
 runs change project or run throws
 save attributes if multiple cli projects are running just duplicate those values, update table with auto-Ids
-avatar5.png find and replace with logo
-throws if database empty results
 
 
 
