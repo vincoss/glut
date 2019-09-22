@@ -12,9 +12,13 @@ namespace Glut.Data.Configuration
         public void Configure(EntityTypeBuilder<GlutRunAttribute> builder)
         {
             builder.ToTable(nameof(GlutRunAttribute))
-                   .HasIndex(x => new { x.GlutProjectName, x.GlutProjectRunId, x.AttributeName }).IsUnique();
+                   .HasIndex(x => new { x.GlutRunAttributeId, x.GlutProjectName, x.GlutProjectRunId, x.AttributeName }).IsUnique();
 
-            builder.HasKey(x => new { x.GlutProjectName, x.GlutProjectRunId, x.AttributeName });
+            builder.HasKey(x => x.GlutRunAttributeId);
+
+            builder.Property(t => t.GlutRunAttributeId)
+                   .IsRequired()
+                   .HasColumnType("INTEGER");
 
             builder.Property(t => t.GlutProjectName)
                    .IsRequired()

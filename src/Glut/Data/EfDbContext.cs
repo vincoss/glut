@@ -30,14 +30,6 @@ namespace Glut.Data
             modelBuilder.ApplyConfiguration(new GlutProjectConfiguration());
             modelBuilder.ApplyConfiguration(new GlutResultItemConfiguration());
             modelBuilder.ApplyConfiguration(new GlutRunAttributeConfiguration());
-            //modelBuilder.Entity<GlutProject>().ToTable(nameof(GlutProject))
-            //            .HasIndex(x => x.GlutProjectName);
-
-            //modelBuilder.Entity<GlutProject>().Property(x => x.GlutProjectName)
-            //                                  .HasColumnType("TEXT COLLATE NOCASE");
-
-            //modelBuilder.Entity<GlutResultItem>().ToTable(nameof(GlutResultItem));
-            //modelBuilder.Entity<GlutRunAttribute>().ToTable(nameof(GlutRunAttribute)).HasKey(x => new { x.GlutProjectName, x.GlutProjectRunId, x.AttributeName });
         }
     }
 }

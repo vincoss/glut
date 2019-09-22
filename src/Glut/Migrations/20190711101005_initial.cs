@@ -25,6 +25,7 @@ namespace Glut.Migrations
               name: "GlutRunAttribute",
               columns: table => new
               {
+                  GlutRunAttributeId = table.Column<int>(nullable: false).Annotation("Sqlite:Autoincrement", true),
                   GlutProjectName = table.Column<string>(nullable: false),
                   GlutProjectRunId = table.Column<int>(nullable: false),
                   AttributeName = table.Column<string>(nullable: false),

@@ -1,10 +1,12 @@
 ﻿using System;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace Glut.Data
 {
     public class GlutRunAttribute
     {
+        [Key]
+        public int GlutRunAttributeId { get; set; }
         public string GlutProjectName { get; set; }
         public int GlutProjectRunId { get; set; }
         public string AttributeName { get; set; }

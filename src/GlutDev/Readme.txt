@@ -3,18 +3,13 @@
 Search for TODO
 Ensure that request contains 'User-Agent' glut if missing, possible other also
 navigation the item is not selected see CSS or JS script
-update bootstrap if not too much work
+use latest bootstrap if not too much work
 runner should not cancel already running if duration expires just dont create new request and wait for already running requets
 fails if runId provided from config file. database error
 runs change project or run throws
 save attributes if multiple cli projects are running just duplicate those values, update table with auto-Ids
-update test project controller with right action
-crate test files for Glut project
 avatar5.png find and replace with logo
-Test fore all return HTTP every codes, create samples
-Validate AppConfig values
-Remove unused tests projects
-GlutDev see the img folder
+
 
 
 
@@ -25,6 +20,7 @@ buy me a coffee
 # Cli
 Cli progress indicator (Spiner) nice to have
 add exit code result based on status code filter list (0 for 200) other 1, 3, 4, 5 -1
+Validate AppConfig values
 
 # Web
 Create Blazor project for the server (GlutSvrWeb_Blazor)
