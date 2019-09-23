@@ -22,7 +22,7 @@ namespace Glut.Data
 
         public long HeaderLength { get; set; }
         public long ResponseLength { get; set; }
-        public long TotalLegth { get; set; }
+        public long TotalLength { get; set; }
 
         public long RequestSentTicks { get; set; }
         public long ResponseTicks { get; set; }

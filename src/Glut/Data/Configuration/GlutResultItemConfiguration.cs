@@ -62,7 +62,7 @@ namespace Glut.Data.Configuration
                  .IsRequired()
                  .HasColumnType("BIGINT");
 
-            builder.Property(t => t.TotalLegth)
+            builder.Property(t => t.TotalLength)
                .IsRequired()
                .HasColumnType("BIGINT");
 

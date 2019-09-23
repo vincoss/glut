@@ -161,7 +161,7 @@ namespace GlutSvrWeb.Services
                             StatusCode = x.StatusCode,
                             HeaderLength = x.HeaderLength,
                             ResponseLength = x.ResponseLength,
-                            TotalLength = x.TotalLegth,
+                            TotalLength = x.TotalLength,
                             RequestTicks = x.RequestSentTicks,
                             ResponseTicks = x.ResponseTicks,
                             TotalTicks = x.TotalTicks,
@@ -493,14 +493,14 @@ namespace GlutSvrWeb.Services
                               x.StatusCode >= 200 && x.StatusCode <= 299
                         select x;
 
-            var totalSize = query.Sum(x => x.TotalLegth);
+            var totalSize = query.Sum(x => x.TotalLength);
 
             var res = await (from x in query
                              group x by x.Url into g
                              select new
                              {
                                  Url = g.Key,
-                                 Length = g.Max(x => x.TotalLegth)
+                                 Length = g.Max(x => x.TotalLength)
                              }).OrderByDescending(o => o.Length).Take(10).ToListAsync();
 
             var results = (from x in res

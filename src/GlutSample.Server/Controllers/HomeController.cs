@@ -42,7 +42,7 @@ namespace GlutSample.Server.Controllers
             return Ok();
         }
 
-        public async Task<IActionResult> LargeRequest(int? id)
+        public async Task LargeRequest(int? id)
         {
             if (id == null)
             {
@@ -53,8 +53,7 @@ namespace GlutSample.Server.Controllers
             Response.Headers[HeaderNames.CacheControl] = "no-cache";
 
             var bytes = Encoding.UTF8.GetBytes(new string('z', id.Value));
-            await Response.Body.WriteAsync(bytes);
-            return Ok();
+            await Response.Body.WriteAsync(bytes, 0, bytes.Length);
         }
 
         #endregion

@@ -68,7 +68,7 @@ namespace Glut
                      StatusCode = 100,
                      HeaderLength = 1000,
                      ResponseLength = 2000,
-                     TotalLegth = 3000,
+                     TotalLength = 3000,
                      RequestSentTicks = 10000,
                      ResponseTicks = 20000,
                      TotalTicks = 30000,
@@ -86,7 +86,7 @@ namespace Glut
                     IsSuccessStatusCode = true,
                     StatusCode = 200,
                     TotalTicks = 10000,
-                    TotalLegth = 1000,
+                    TotalLength = 1000,
                     CreatedDateTimeUtc = DateTime.UtcNow,
                     CreatedByUserName = Environment.UserName
                 },
@@ -100,7 +100,7 @@ namespace Glut
                      IsSuccessStatusCode = true,
                      StatusCode = 200,
                      TotalTicks = 20000,
-                     TotalLegth = 2000,
+                     TotalLength = 2000,
                      CreatedDateTimeUtc = DateTime.UtcNow,
                      CreatedByUserName = Environment.UserName
                  },

@@ -65,7 +65,7 @@ namespace Glut.Services
                         StatusCode = pair.Value.StatusCodes[i],
                         HeaderLength = pair.Value.HeaderLengths[i],
                         ResponseLength = pair.Value.ResponseLengths[i],
-                        TotalLegth = pair.Value.HeaderLengths[i] + pair.Value.ResponseLengths[i],
+                        TotalLength = pair.Value.HeaderLengths[i] + pair.Value.ResponseLengths[i],
                         RequestSentTicks = pair.Value.RequestSentTicks[i],
                         ResponseTicks = pair.Value.ResponseTicks[i],
                         TotalTicks = pair.Value.RequestSentTicks[i] + pair.Value.ResponseTicks[i],

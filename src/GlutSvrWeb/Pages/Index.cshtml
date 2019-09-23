@@ -538,7 +538,7 @@
             const template = ({ url, length, percent }) => `
                 <tr>
                     <td>${url}</td>
-                    <td>${moment(length).format('@GlutWebConstants.DecimalsNumberFormat')}bB</td>
+                    <td>${numeral(length).format('@GlutWebConstants.DecimalsNumberFormat')}kB</td>
                     <td>${numeral(percent).format('@GlutWebConstants.DecimalsNumberFormat')}%</td>
                 </tr>`;
 

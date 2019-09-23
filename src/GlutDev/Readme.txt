@@ -5,8 +5,8 @@ Ensure that request contains 'User-Agent' glut if missing, possible other also
 navigation the item is not selected see CSS or JS script
 
 runner should not cancel already running if duration expires just dont create new request and wait for already running requets
-
-
+count does not works
+runner does not async wait.
 
 
 ### Nice to have

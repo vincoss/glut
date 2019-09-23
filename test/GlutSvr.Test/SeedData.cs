@@ -70,7 +70,7 @@ namespace GlutSvr
                      StatusCode = 100,
                      HeaderLength = 1000,
                      ResponseLength = 2000,
-                     TotalLegth = 3000,
+                     TotalLength = 3000,
                      RequestSentTicks = 10000,
                      ResponseTicks = 20000,
                      TotalTicks = 30000,
@@ -88,7 +88,7 @@ namespace GlutSvr
                     IsSuccessStatusCode = true,
                     StatusCode = 200,
                     TotalTicks = 10000,
-                    TotalLegth = 1000,
+                    TotalLength = 1000,
                     ResponseHeaders = "Headers",
                     CreatedDateTimeUtc = now.AddSeconds(2),
                     CreatedByUserName = Environment.UserName
@@ -103,7 +103,7 @@ namespace GlutSvr
                     IsSuccessStatusCode = true,
                     StatusCode = 200,
                     TotalTicks = 30000,
-                    TotalLegth = 1000,
+                    TotalLength = 1000,
                     ResponseHeaders = "Headers",
                     CreatedDateTimeUtc = now.AddSeconds(2.2),
                     CreatedByUserName = Environment.UserName
@@ -118,7 +118,7 @@ namespace GlutSvr
                      IsSuccessStatusCode = true,
                      StatusCode = 200,
                      TotalTicks = 20000,
-                     TotalLegth = 2000,
+                     TotalLength = 2000,
                     ResponseHeaders = "Headers",
                     CreatedDateTimeUtc = now.AddSeconds(3),
                      CreatedByUserName = Environment.UserName
@@ -243,7 +243,7 @@ namespace GlutSvr
                     IsSuccessStatusCode = true,
                     StatusCode = 100,
                     TotalTicks = 10000,
-                    TotalLegth = 1000,
+                    TotalLength = 1000,
                     CreatedDateTimeUtc = DateTime.UtcNow,
                     CreatedByUserName = Environment.UserName
                 },
@@ -257,7 +257,7 @@ namespace GlutSvr
                     IsSuccessStatusCode = true,
                     StatusCode = 200,
                     TotalTicks = 10000,
-                    TotalLegth = 1000,
+                    TotalLength = 1000,
                     CreatedDateTimeUtc = DateTime.UtcNow,
                     CreatedByUserName = Environment.UserName
                 },
@@ -271,7 +271,7 @@ namespace GlutSvr
                      IsSuccessStatusCode = true,
                      StatusCode = 200,
                      TotalTicks = 10000,
-                     TotalLegth = 1000,
+                     TotalLength = 1000,
                      CreatedDateTimeUtc = DateTime.UtcNow,
                      CreatedByUserName = Environment.UserName
                  },
@@ -285,7 +285,7 @@ namespace GlutSvr
                      IsSuccessStatusCode = true,
                      StatusCode = 200,
                      TotalTicks = 20000,
-                     TotalLegth = 2000,
+                     TotalLength = 2000,
                      CreatedDateTimeUtc = DateTime.UtcNow,
                      CreatedByUserName = Environment.UserName
                  },
@@ -299,7 +299,7 @@ namespace GlutSvr
                       IsSuccessStatusCode = true,
                       StatusCode = 300,
                       TotalTicks = 10000,
-                      TotalLegth = 1000,
+                      TotalLength = 1000,
                       CreatedDateTimeUtc = DateTime.UtcNow,
                       CreatedByUserName = Environment.UserName
                   },
