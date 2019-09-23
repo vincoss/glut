@@ -73,12 +73,14 @@ namespace Glut.Services
 
                     using (var sourceStream = await response.Content.ReadAsStreamAsync())
                     {
-                        string fileToWriteTo = Path.GetTempFileName();
-                        using (var destinationStream = new FileStream(fileToWriteTo, FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.DeleteOnClose))
-                        {
-                            await sourceStream.CopyToAsync(destinationStream);
-                            responseLength = destinationStream.Length;
-                        }
+                        // TODO: Saving result does make is much slover.
+                        //string fileToWriteTo = Path.GetTempFileName();
+                        //using (var destinationStream = new FileStream(fileToWriteTo, FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.DeleteOnClose))
+                        //{
+                        //    await sourceStream.CopyToAsync(destinationStream);
+                        //    responseLength = destinationStream.Length;
+                        //}
+                        responseLength = sourceStream.Length;
                     }
                     sw.Stop();
                     responseTicks = sw.ElapsedTicks;

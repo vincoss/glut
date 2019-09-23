@@ -23,6 +23,7 @@ namespace Glut.Services
         private readonly Runner _runner;
         private readonly ThreadResult _threadResult;
         private readonly IResultStore _resultStore;
+        private DateTime _startDateTime;
 
         public LoadBackgroundService(ThreadResult result, Runner runner, IHostApplicationLifetime applicationLifetime, IOptions<AppConfig> appConfig, ILogger<LoadBackgroundService> logger, CompositeRequestMessageProvider compositeMessageProvider, IResultStore resultStore)
         {
@@ -50,6 +51,7 @@ namespace Glut.Services
         {
             _logger.LogDebug($"Begin {nameof(ExecuteAsync)}");
 
+            _startDateTime = DateTime.UtcNow;
             _runner.CreateWorkerThreads(_appConfig.Threads, TimeSpan.FromMilliseconds(_appConfig.DurationMilliseconds), _appConfig.Count, _appConfig.IntervalMilliseconds, _messages, cancellationToken);
 
             DisplayResultInformation();
@@ -82,11 +84,14 @@ namespace Glut.Services
         public IDictionary<string, string> GetConfigToDictionary(AppConfig config)
         {
             var dict = new Dictionary<string, string>();
+            dict.Add(GlutConstants.StartDateTime, _startDateTime.ToString());
+            dict.Add(GlutConstants.EndDateTime, DateTime.UtcNow.ToString());
             dict.Add(nameof(config.BaseAddress), config.BaseAddress);
             dict.Add(nameof(config.ContentRootPath), config.ContentRootPath);
             dict.Add(nameof(config.ListSubpath), config.ListSubpath);
             dict.Add(nameof(config.SingleSubpath), config.SingleSubpath);
             dict.Add(nameof(config.Threads), config.Threads.ToString());
+            dict.Add(nameof(config.Count), config.Count.ToString());
             dict.Add(nameof(config.DurationMilliseconds), config.DurationMilliseconds.ToString());
             dict.Add(nameof(config.IntervalMilliseconds), config.IntervalMilliseconds.ToString());
             dict.Add(nameof(config.ProjectName), config.ProjectName);

@@ -15,5 +15,8 @@ namespace Glut
         public static string ApplicationName = "Glut"; 
         public static string FullApplicationName { get; private set; }
         public static Version GlutVersion { get; private set; }
+
+        public static string StartDateTime = "StartDateTime";
+        public static string EndDateTime = "EndDateTime";
     }
 }

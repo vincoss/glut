@@ -281,12 +281,21 @@ namespace GlutSvrWeb.Services
                                               .Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
 
             return await (from x in query
-                          orderby x.AttributeName
                           select new KeyValueData<string>
                           {
                               Key = x.AttributeName,
-                              Value = x.AttributeValue
+                              Value = GetValue(x.AttributeName, x.AttributeValue)
                           }).ToListAsync();
+        }
+
+        private static string GetValue(string key, string value)
+        {
+            if(string.Equals(GlutConstants.StartDateTime, key, StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(GlutConstants.EndDateTime, key, StringComparison.OrdinalIgnoreCase))
+            {
+                return DateTime.Parse(value).ToLocalTime().ToString();
+            }
+            return value;
         }
 
         public async Task<IEnumerable<StatusCodePieDto>> GetStatusCodePieData(string projectName, int runId)

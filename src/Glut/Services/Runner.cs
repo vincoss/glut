@@ -116,7 +116,7 @@ namespace Glut
             _logger.LogDebug($"Disposed: {stopWatch.Elapsed}");
         }
 
-        public async Task CountWork(IEnumerable<HttpRequestMessage> messages, int count, ManualResetEventSlim resetEvent, CancellationToken cancellationToken)
+        public async ValueTask CountWork(IEnumerable<HttpRequestMessage> messages, int count, ManualResetEventSlim resetEvent, CancellationToken cancellationToken)
         {
             if (messages == null)
             {
@@ -130,6 +130,7 @@ namespace Glut
             {
                 throw new ArgumentNullException(nameof(resetEvent));
             }
+            _logger.LogDebug($"{nameof(CountWork)} - Start");
             for (int i = 0; i < count; i++)
             {
                 if(cancellationToken.IsCancellationRequested)
@@ -143,13 +144,16 @@ namespace Glut
                         break;
                     }
                     var clone = CloneMessage(message);
+                    _logger.LogDebug($"{nameof(CountWork)} - Start: {message.RequestUri}");
                     await _worker.Run(clone, _threadResult, cancellationToken);
+                    _logger.LogDebug($"{nameof(CountWork)} - End: {message.RequestUri}");
                 }
             }
+            _logger.LogDebug($"{nameof(CountWork)} - End");
             resetEvent.Set();
         }
 
-        public async Task DurationWork(IEnumerable<HttpRequestMessage> messages, TimeSpan duration, Stopwatch stopWatch, ManualResetEventSlim resetEvent, CancellationToken cancellationToken)
+        public async ValueTask DurationWork(IEnumerable<HttpRequestMessage> messages, TimeSpan duration, Stopwatch stopWatch, ManualResetEventSlim resetEvent, CancellationToken cancellationToken)
         {
             if (messages == null)
             {
