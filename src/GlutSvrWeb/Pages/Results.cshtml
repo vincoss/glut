@@ -86,22 +86,33 @@
 
         function onRunChange()
         {
-            resultGrid();
+            onDataReload();
         }
 
-        function resultGrid()
+        function getDataUrl()
         {
             var project = $("#projects").val();
             var run = $("#runs").val();
 
-            if (project === null || run === null) {
-                return;
-            }
-
             var url = ['/result', project, run].filter(Boolean).join('/');
-           
-            var token = $('input[name="__RequestVerificationToken"]').val();
 
+            return url;
+        }
+
+        function onDataReload()
+        {
+           if ( $.fn.dataTable.isDataTable( '#table' ) ) {
+               var table = $('#table').DataTable();
+               table.ajax.url(getDataUrl());
+               table.ajax.reload();
+            }
+            else {
+               resultGrid();
+            }
+        }
+
+        function resultGrid()
+        {
             $('#table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -114,19 +125,17 @@
                 paging: true,
                 language: { searchPlaceholder: '@AppResources.ResultsSeachPlaceholder' },
                 scrollX: true,
-                fnCreatedRow: function (nRow, aData, iDataIndex)
-                {
+                fnCreatedRow: function (nRow, aData, iDataIndex) {
                     $(nRow).children("td").css("overflow", "hidden");
                     $(nRow).children("td").css("white-space", "nowrap");
                     $(nRow).children("td").css("text-overflow", "ellipsis");
                 },
-                ajax:
-                {
-                    url: url,
+                ajax: {
+                    url: getDataUrl(),
                     type: 'POST',
                     dataSrc: 'data',
                     datatype: 'json',
-                    data: { __RequestVerificationToken: token }
+                    data: { __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() }
                 },
                 "columnDefs": [
                     {

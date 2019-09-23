@@ -5,7 +5,6 @@ Ensure that request contains 'User-Agent' glut if missing, possible other also
 navigation the item is not selected see CSS or JS script
 use latest bootstrap if not too much work
 runner should not cancel already running if duration expires just dont create new request and wait for already running requets
-runs change project or run throws
 save attributes if multiple cli projects are running just duplicate those values, update table with auto-Ids
 
 
