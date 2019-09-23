@@ -23,9 +23,10 @@ namespace Glut.Services
         private readonly Runner _runner;
         private readonly ThreadResult _threadResult;
         private readonly IResultStore _resultStore;
+        private readonly IEnvironment _environment;
         private DateTime _startDateTime;
 
-        public LoadBackgroundService(ThreadResult result, Runner runner, IHostApplicationLifetime applicationLifetime, IOptions<AppConfig> appConfig, ILogger<LoadBackgroundService> logger, CompositeRequestMessageProvider compositeMessageProvider, IResultStore resultStore)
+        public LoadBackgroundService(ThreadResult result, Runner runner, IHostApplicationLifetime applicationLifetime, IOptions<AppConfig> appConfig, ILogger<LoadBackgroundService> logger, CompositeRequestMessageProvider compositeMessageProvider, IResultStore resultStore, IEnvironment environment)
         {
             _runner = runner;
             _applicationLifetime = applicationLifetime;
@@ -34,6 +35,7 @@ namespace Glut.Services
             _compositeMessageProvider = compositeMessageProvider;
             _threadResult = result;
             _resultStore = resultStore;
+            _environment = environment;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
@@ -51,7 +53,7 @@ namespace Glut.Services
         {
             _logger.LogDebug($"Begin {nameof(ExecuteAsync)}");
 
-            _startDateTime = DateTime.UtcNow;
+            _startDateTime = _environment.SystemDateTimeUtc;
             _runner.CreateWorkerThreads(_appConfig.Threads, TimeSpan.FromMilliseconds(_appConfig.DurationMilliseconds), _appConfig.Count, _appConfig.IntervalMilliseconds, _messages, cancellationToken);
 
             DisplayResultInformation();
@@ -85,7 +87,7 @@ namespace Glut.Services
         {
             var dict = new Dictionary<string, string>();
             dict.Add(GlutConstants.StartDateTime, _startDateTime.ToString());
-            dict.Add(GlutConstants.EndDateTime, DateTime.UtcNow.ToString());
+            dict.Add(GlutConstants.EndDateTime, _environment.SystemDateTimeUtc.ToString());
             dict.Add(nameof(config.BaseAddress), config.BaseAddress);
             dict.Add(nameof(config.ContentRootPath), config.ContentRootPath);
             dict.Add(nameof(config.ListSubpath), config.ListSubpath);

@@ -2,11 +2,10 @@
 # Tasks
 Search for TODO
 Ensure that request contains 'User-Agent' glut if missing, possible other also
-navigation the item is not selected see CSS or JS script
+count chart does not work
+charts should start by second 1,3,4
+complete line charts
 
-runner should not cancel already running if duration expires just dont create new request and wait for already running requets
-count does not works
-runner does not async wait.
 
 
 ### Nice to have
@@ -18,6 +17,7 @@ add exit code result based on status code filter list (0 for 200) other 1, 3, 4,
 Validate AppConfig values
 
 # Web
+navigation the item is not selected see CSS or JS script
 use latest bootstrap if not too much work
 Create Blazor project for the server (GlutSvrWeb_Blazor)
 

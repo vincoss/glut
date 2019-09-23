@@ -374,10 +374,10 @@ namespace GlutSvr.Services
                     var results = await service.GetRunAttributes("Test", 2);
 
                     Assert.Equal(2, results.Count());
-                    Assert.Equal("Duration", results.ElementAt(0).Key);
-                    Assert.Equal("10000", results.ElementAt(0).Value);
-                    Assert.Equal("Threads", results.ElementAt(1).Key);
-                    Assert.Equal("5", results.ElementAt(1).Value);
+                    Assert.Equal("Threads", results.ElementAt(0).Key);
+                    Assert.Equal("5", results.ElementAt(0).Value);
+                    Assert.Equal("Duration", results.ElementAt(1).Key);
+                    Assert.Equal("10000", results.ElementAt(1).Value);
                 }
             }
             finally

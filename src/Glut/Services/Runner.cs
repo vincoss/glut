@@ -12,10 +12,9 @@ using Microsoft.Extensions.Logging;
 namespace Glut
 {
     // TODO: Refactor this
-    public class Runner : IDisposable
+    public class Runner
     {
         private readonly IWorker _worker;
-        private System.Timers.Timer _heartbeat;
         private readonly ThreadResult _threadResult;
         private readonly ILogger<Runner> _logger;
 
@@ -48,21 +47,6 @@ namespace Glut
             {
                 var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
                 var token = cts.Token;
-
-                // Watch for duration expire then cancel the tasks/threads work.
-                if (count <= 0)
-                {
-                    _heartbeat = new System.Timers.Timer(100);
-                    _heartbeat.Start();
-                    _heartbeat.Elapsed += (s, e) =>
-                    {
-                        if (cts.IsCancellationRequested == false && (duration.TotalMilliseconds < stopWatch.Elapsed.TotalMilliseconds))
-                        {
-                            _logger.LogDebug("Triggering cancell event.");
-                            cts.Cancel();
-                        }
-                    };
-                }
 
                 _logger.LogDebug($"Begin build threads.");
 
@@ -176,7 +160,8 @@ namespace Glut
             {
                 foreach (var message in messages)
                 {
-                    if(cancellationToken.IsCancellationRequested)
+                    if(cancellationToken.IsCancellationRequested ||
+                       duration.TotalMilliseconds <= stopWatch.Elapsed.TotalMilliseconds)
                     {
                         break;
                     }
@@ -196,15 +181,6 @@ namespace Glut
         public static HttpRequestMessage CloneMessage(HttpRequestMessage message)
         {
             return new HttpRequestMessage(message.Method, message.RequestUri);
-        }
-
-        public void Dispose()
-        {
-            if(_heartbeat != null)
-            {
-                _heartbeat.Dispose();
-                _heartbeat = null;
-            }
         }
     }
 }
