@@ -9,7 +9,7 @@ namespace GlutSvrWeb.Dto
     public class LineChartDto
     {
         public string SeriesString { get; set; }
-        public DateTime TimeSeries { get; set; }
+        public TimeSpan TimeSeries { get; set; }
         public decimal Value { get; set; }
 
         public override string ToString()

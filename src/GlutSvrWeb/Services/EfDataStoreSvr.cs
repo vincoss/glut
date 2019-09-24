@@ -549,6 +549,14 @@ namespace GlutSvrWeb.Services
                                     Count = g.Count()
                                 }).ToListAsync();
 
+            var secn = (from x in groups
+                       group x by x.Ticks into g
+                       select g).Select((row, index) =>
+                       new
+                       {
+
+                       });
+
             var items = new List<LineChartDto>();
 
             var total = from x in groups
@@ -556,23 +564,35 @@ namespace GlutSvrWeb.Services
                         select new LineChartDto
                         {
                             SeriesString = AppResources.TotalRequests,
-                            TimeSeries = new DateTime(g.Key * TimeSpan.FromSeconds(1).Ticks),
+                            TimeSeries = TimeSpan.FromTicks(g.Key * TimeSpan.FromSeconds(1).Ticks),
                             Value = g.Sum(c => c.Count)
                         };
 
             items.AddRange(total);
 
             var statusCodes = from x in groups
-                             select new LineChartDto
-                             {
-                                 SeriesString = StatusCodeHelper.GetStatusCodeString(x.StatusCode),
-                                 TimeSeries = new DateTime(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
-                                 Value = x.Count
-                             };
+                              orderby x.Ticks
+                              orderby x.StatusCode
+                              select new LineChartDto
+                              {
+                                  SeriesString = StatusCodeHelper.GetStatusCodeString(x.StatusCode),
+                                  TimeSeries = TimeSpan.FromTicks(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
+                                  Value = x.Count
+                              };
 
             items.AddRange(statusCodes);
 
-            var o = items.OrderBy(x => x.TimeSeries);
+            var r = (from x in items
+                     orderby x.TimeSeries
+                     group x by new { x.TimeSeries, x.SeriesString } into g
+                     select g).Select((v, index) => new LineChartDto
+                     {
+                         SeriesString = v.Key.SeriesString,
+                         TimeSeries = TimeSpan.FromSeconds(index),
+                         Value = v.Count()
+                     }).ToArray();
+
+            var o = r.OrderBy(x => x.TimeSeries);
             return o;
         }
 
@@ -601,7 +621,7 @@ namespace GlutSvrWeb.Services
                            select new LineChartDto
                            {
                                SeriesString = $"Run-{x.GlutProjectRunId}",
-                               TimeSeries = new DateTime(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
+                               TimeSeries = TimeSpan.FromTicks(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
                                Value = x.Count
                            }).Take(5);
 

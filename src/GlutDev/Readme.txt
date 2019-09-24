@@ -5,6 +5,8 @@ Ensure that request contains 'User-Agent' glut if missing, possible other also
 count chart does not work
 charts should start by second 1,3,4
 complete line charts
+results no scroll, no search
+align search to right
 
 
 

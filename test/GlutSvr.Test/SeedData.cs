@@ -230,7 +230,7 @@ namespace GlutSvr
                 return this;   // DB has been seeded
             }
 
-            var start = new DateTime(2000, 01, 01, 1, 0, 0);
+            var start = new DateTime(2019, 09, 24, 1, 0, 0);
 
             context.Results.AddRange(
                 new GlutResultItem
@@ -294,7 +294,7 @@ namespace GlutSvr
                       GlutProjectName = "Test",
                       GlutProjectRunId = 1,
                       StartDateTimeUtc = start,
-                      EndDateTimeUtc = start.AddMilliseconds(500),
+                      EndDateTimeUtc = start.AddMilliseconds(1500),
                       Url = "/redirection01",
                       IsSuccessStatusCode = true,
                       StatusCode = 300,
