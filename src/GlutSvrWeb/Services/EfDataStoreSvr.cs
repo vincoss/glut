@@ -525,7 +525,7 @@ namespace GlutSvrWeb.Services
             return results;
         }
 
-        public async Task<IEnumerable<LineChartDto>> GetLineChartRequests(string projectName, int runId)
+        public async Task<LineChartDto> GetLineChartRequests(string projectName, int runId)
         {
             if (string.IsNullOrWhiteSpace(projectName))
             {
@@ -536,7 +536,14 @@ namespace GlutSvrWeb.Services
                 throw new ArgumentException(nameof(runId));
             }
 
-            var query = _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
+            var query =  _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
+
+            var min = query.Min(x => x.EndDateTimeUtc);
+            var max = query.Max(x => x.EndDateTimeUtc);
+            var diff = TimeSpan.FromTicks(max.Ticks - min.Ticks);
+            Math.Round(0.0M, MidpointRounding.)
+            var model = new LineChartDto();
+            model.Labels = Enumerable.Range(0, Convert.ToInt32(diff.TotalSeconds)).Select(x => TimeSpan.FromSeconds(x));
 
             var groups = await (from x in query
                                 let sec = (x.EndDateTimeUtc.Ticks / TimeSpan.FromSeconds(1).Ticks) // Per second
@@ -549,83 +556,86 @@ namespace GlutSvrWeb.Services
                                     Count = g.Count()
                                 }).ToListAsync();
 
-            var secn = (from x in groups
-                       group x by x.Ticks into g
-                       select g).Select((row, index) =>
-                       new
-                       {
+            return model;
 
-                       });
+            //var secn = (from x in groups
+            //           group x by x.Ticks into g
+            //           select g).Select((row, index) =>
+            //           new
+            //           {
 
-            var items = new List<LineChartDto>();
+            //           });
 
-            var total = from x in groups
-                        group x by x.Ticks into g
-                        select new LineChartDto
-                        {
-                            SeriesString = AppResources.TotalRequests,
-                            TimeSeries = TimeSpan.FromTicks(g.Key * TimeSpan.FromSeconds(1).Ticks),
-                            Value = g.Sum(c => c.Count)
-                        };
+            //var items = new List<LineChartDto>();
 
-            items.AddRange(total);
+            //var total = from x in groups
+            //            group x by x.Ticks into g
+            //            select new LineChartDto
+            //            {
+            //                SeriesString = AppResources.TotalRequests,
+            //                TimeSeries = TimeSpan.FromTicks(g.Key * TimeSpan.FromSeconds(1).Ticks),
+            //                Value = g.Sum(c => c.Count)
+            //            };
 
-            var statusCodes = from x in groups
-                              orderby x.Ticks
-                              orderby x.StatusCode
-                              select new LineChartDto
-                              {
-                                  SeriesString = StatusCodeHelper.GetStatusCodeString(x.StatusCode),
-                                  TimeSeries = TimeSpan.FromTicks(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
-                                  Value = x.Count
-                              };
+            //items.AddRange(total);
 
-            items.AddRange(statusCodes);
+            //var statusCodes = from x in groups
+            //                  orderby x.Ticks
+            //                  orderby x.StatusCode
+            //                  select new LineChartDto
+            //                  {
+            //                      SeriesString = StatusCodeHelper.GetStatusCodeString(x.StatusCode),
+            //                      TimeSeries = TimeSpan.FromTicks(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
+            //                      Value = x.Count
+            //                  };
 
-            var r = (from x in items
-                     orderby x.TimeSeries
-                     group x by new { x.TimeSeries, x.SeriesString } into g
-                     select g).Select((v, index) => new LineChartDto
-                     {
-                         SeriesString = v.Key.SeriesString,
-                         TimeSeries = TimeSpan.FromSeconds(index),
-                         Value = v.Count()
-                     }).ToArray();
+            //items.AddRange(statusCodes);
 
-            var o = r.OrderBy(x => x.TimeSeries);
-            return o;
+            //var r = (from x in items
+            //         orderby x.TimeSeries
+            //         group x by new { x.TimeSeries, x.SeriesString } into g
+            //         select g).Select((v, index) => new LineChartDto
+            //         {
+            //             SeriesString = v.Key.SeriesString,
+            //             TimeSeries = TimeSpan.FromSeconds(index),
+            //             Value = v.Count()
+            //         }).ToArray();
+
+            //var o = r.OrderBy(x => x.TimeSeries);
+            //return o;
         }
 
-        public async Task<IEnumerable<LineChartDto>> GetLineChartRuns(string projectName)
+        public Task<IEnumerable<LineChartDto>> GetLineChartRuns(string projectName)
         {
-            if (string.IsNullOrWhiteSpace(projectName))
-            {
-                throw new ArgumentNullException(nameof(projectName));
-            }
+            throw new NotImplementedException();
+            //if (string.IsNullOrWhiteSpace(projectName))
+            //{
+            //    throw new ArgumentNullException(nameof(projectName));
+            //}
 
-            var query = _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName);
+            //var query = _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName);
 
-            var groups = await (from x in query
-                                let sec = (x.EndDateTimeUtc.Ticks / TimeSpan.FromSeconds(1).Ticks) // Per second
-                                where x.StatusCode >= 200 && x.StatusCode <= 299
-                                group x by new { Ticks = sec, x.GlutProjectRunId } into g
-                                select new
-                                {
-                                    g.Key.Ticks,
-                                    g.Key.GlutProjectRunId,
-                                    Count = g.Count()
-                                }).ToListAsync();
+            //var groups = await (from x in query
+            //                    let sec = (x.EndDateTimeUtc.Ticks / TimeSpan.FromSeconds(1).Ticks) // Per second
+            //                    where x.StatusCode >= 200 && x.StatusCode <= 299
+            //                    group x by new { Ticks = sec, x.GlutProjectRunId } into g
+            //                    select new
+            //                    {
+            //                        g.Key.Ticks,
+            //                        g.Key.GlutProjectRunId,
+            //                        Count = g.Count()
+            //                    }).ToListAsync();
 
-            var results = (from x in groups
-                           orderby x.GlutProjectRunId descending
-                           select new LineChartDto
-                           {
-                               SeriesString = $"Run-{x.GlutProjectRunId}",
-                               TimeSeries = TimeSpan.FromTicks(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
-                               Value = x.Count
-                           }).Take(5);
+            //var results = (from x in groups
+            //               orderby x.GlutProjectRunId descending
+            //               select new LineChartDto
+            //               {
+            //                   SeriesString = $"Run-{x.GlutProjectRunId}",
+            //                   TimeSeries = TimeSpan.FromTicks(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
+            //                   Value = x.Count
+            //               }).Take(5);
 
-            return results.OrderBy(x => x.TimeSeries).ThenBy(x => x.SeriesString).ToArray();
+            //return results.OrderBy(x => x.TimeSeries).ThenBy(x => x.SeriesString).ToArray();
         }
 
         #endregion

@@ -175,16 +175,18 @@ namespace Default_WebApplication_API_V3.Controllers
             }
 
             var results = await _dataStoreSvr.GetLineChartRequests(id, run);
-
-            var json = new
-            {
-                Labels = results.Select(x => x.TimeSeries.ToString()).Distinct().ToArray(),
-                TotalRequests = results.Where(x => x.SeriesString == AppResources.TotalRequests).Select(x => x.Value).ToArray(),
-                Successful = results.Where(x => x.SeriesString == AppResources.Successful).Select(x => x.Value).ToArray(),
-                ClientError = results.Where(x => x.SeriesString == AppResources.ClientError).Select(x => x.Value).ToArray(),
-                ServerError = results.Where(x => x.SeriesString == AppResources.ServerError).Select(x => x.Value).ToArray(),
-            };
-            return json;
+           return  results;
+            //var json = new
+            //{
+            //    Labels = results.Select(x => x.TimeSeries.ToString()).Distinct().ToArray(),
+            //    TotalRequests = results.Where(x => x.SeriesString == AppResources.TotalRequests).Select(x => x.Value).ToArray(),
+            //    Information = results.Where(x => x.SeriesString == AppResources.Information).Select(x => x.Value).ToArray(),
+            //    Successful = results.Where(x => x.SeriesString == AppResources.Successful).Select(x => x.Value).ToArray(),
+            //    Redirection = results.Where(x => x.SeriesString == AppResources.Redirection).Select(x => x.Value).ToArray(),
+            //    ClientError = results.Where(x => x.SeriesString == AppResources.ClientError).Select(x => x.Value).ToArray(),
+            //    ServerError = results.Where(x => x.SeriesString == AppResources.ServerError).Select(x => x.Value).ToArray(),
+            //};
+            //return json;
         }
 
 
@@ -206,29 +208,29 @@ namespace Default_WebApplication_API_V3.Controllers
         /// </summary>
         [HttpPost("totalRequestsPerRunLineBox/{id}/{run?}")]
         [ValidateAntiForgeryToken]
-        public async Task<dynamic> GetTotalRequestsPerRunLineBox(string id)
+        public Task<dynamic> GetTotalRequestsPerRunLineBox(string id)
         {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                return NotFound();
-            }
+            throw new NotImplementedException();
+            //if (string.IsNullOrWhiteSpace(id))
+            //{
+            //    return NotFound();
+            //}
+            //var results = await _dataStoreSvr.GetLineChartRuns(id);
 
-            var results = await _dataStoreSvr.GetLineChartRuns(id);
+            //var r = from x in results
+            //        group x by x.SeriesString into g
+            //        select new
+            //        {
+            //            g.Key,
+            //            Data = results.Where(x => x.SeriesString == g.Key).OrderBy(x => x.TimeSeries)
+            //        };
 
-            var r = from x in results
-                    group x by x.SeriesString into g
-                    select new
-                    {
-                        g.Key,
-                        Data = results.Where(x => x.SeriesString == g.Key).OrderBy(x => x.TimeSeries)
-                    };
-
-            var json = new
-            {
-                Labels = results.Select(x => x.TimeSeries.ToString("hh.mm.ss.fff")).ToArray(),
-                Run1 = new { Label = "Hi", Data = results.Select(x => x.Value).ToArray() },
-            };
-            return json;
+            //var json = new
+            //{
+            //    Labels = results.Select(x => x.TimeSeries.ToString("hh.mm.ss.fff")).ToArray(),
+            //    Run1 = new { Label = "Hi", Data = results.Select(x => x.Value).ToArray() },
+            //};
+            //return json;
         }
     }
 }

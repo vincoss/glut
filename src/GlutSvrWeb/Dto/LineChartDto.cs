@@ -8,13 +8,13 @@ namespace GlutSvrWeb.Dto
 {
     public class LineChartDto
     {
-        public string SeriesString { get; set; }
-        public TimeSpan TimeSeries { get; set; }
-        public decimal Value { get; set; }
+        public IEnumerable<TimeSpan> Labels { get; set; }
 
-        public override string ToString()
-        {
-            return $"{SeriesString}-{TimeSeries}-{Value}";
-        }
+        public IEnumerable<int> TotalRequests { get; set; }
+        public IEnumerable<decimal> Information { get; set; }
+        public IEnumerable<decimal> Successful { get; set; }
+        public IEnumerable<decimal> Redirection { get; set; }
+        public IEnumerable<decimal> ClientError { get; set; }
+        public IEnumerable<decimal> ServerError { get; set; }
     }
 }
