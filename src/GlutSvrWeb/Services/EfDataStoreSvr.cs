@@ -539,16 +539,11 @@ namespace GlutSvrWeb.Services
             var query =  _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
 
             var min = query.Min(x => x.EndDateTimeUtc);
-            var max = query.Max(x => x.EndDateTimeUtc);
-            var diff = TimeSpan.FromTicks(max.Ticks - min.Ticks);
-            Math.Round(0.0M, MidpointRounding.)
-            var model = new LineChartDto();
-            model.Labels = Enumerable.Range(0, Convert.ToInt32(diff.TotalSeconds)).Select(x => TimeSpan.FromSeconds(x));
-
+         
             var groups = await (from x in query
-                                let sec = (x.EndDateTimeUtc.Ticks / TimeSpan.FromSeconds(1).Ticks) // Per second
+                                let res = (x.EndDateTimeUtc.Ticks - min.Ticks)
                                 orderby x.EndDateTimeUtc
-                                group x by new { Ticks = sec, StatusCode = (x.StatusCode / 100) } into g
+                                group x by new { Ticks = res, StatusCode = (x.StatusCode / 100) } into g
                                 select new
                                 {
                                     g.Key.Ticks,
@@ -556,53 +551,62 @@ namespace GlutSvrWeb.Services
                                     Count = g.Count()
                                 }).ToListAsync();
 
+            var groupg = (from x in groups
+                         select new
+                         {
+                             Seconds = TimeSpan.FromSeconds(Math.Round(TimeSpan.FromTicks(x.Ticks).TotalSeconds)),
+                             x.StatusCode,
+                             x.Count
+                         }).ToArray();
+
+            var model = new LineChartDto();
+            model.Labels = groupg.Select(x => x.Seconds).Distinct().ToArray();
+
+            // Total
+            model.TotalRequests = (from x in groupg
+                                  group x by x.Seconds into g
+                                  select g.Sum(c => c.Count)).ToArray();
+
+            var codeGroups = (from x in groupg
+                                   group x by new { x.Seconds, x.StatusCode  } into g
+                                   select new
+                                   {
+                                       g.Key.Seconds,
+                                       g.Key.StatusCode,
+                                       Count = g.Sum(c => c.Count)
+                                   }).ToArray();
+
+            model.Information = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
+            model.Successful = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
+            model.Redirection = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
+            model.ClientError = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
+            model.ServerError = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
+
+            foreach (var item in codeGroups)
+            {
+                if(item.StatusCode == 1)
+                {
+                    model.Information[(int)item.Seconds.TotalSeconds] = item.Count;
+                }
+                if (item.StatusCode == 2)
+                {
+                    model.Successful[(int)item.Seconds.TotalSeconds] = item.Count;
+                }
+                if (item.StatusCode == 3)
+                {
+                    model.Redirection[(int)item.Seconds.TotalSeconds] = item.Count;
+                }
+                if (item.StatusCode == 4)
+                {
+                    model.ClientError[(int)item.Seconds.TotalSeconds] = item.Count;
+                }
+                if (item.StatusCode == 5)
+                {
+                    model.ServerError[(int)item.Seconds.TotalSeconds] = item.Count;
+                }
+            }
+
             return model;
-
-            //var secn = (from x in groups
-            //           group x by x.Ticks into g
-            //           select g).Select((row, index) =>
-            //           new
-            //           {
-
-            //           });
-
-            //var items = new List<LineChartDto>();
-
-            //var total = from x in groups
-            //            group x by x.Ticks into g
-            //            select new LineChartDto
-            //            {
-            //                SeriesString = AppResources.TotalRequests,
-            //                TimeSeries = TimeSpan.FromTicks(g.Key * TimeSpan.FromSeconds(1).Ticks),
-            //                Value = g.Sum(c => c.Count)
-            //            };
-
-            //items.AddRange(total);
-
-            //var statusCodes = from x in groups
-            //                  orderby x.Ticks
-            //                  orderby x.StatusCode
-            //                  select new LineChartDto
-            //                  {
-            //                      SeriesString = StatusCodeHelper.GetStatusCodeString(x.StatusCode),
-            //                      TimeSeries = TimeSpan.FromTicks(x.Ticks * TimeSpan.FromSeconds(1).Ticks),
-            //                      Value = x.Count
-            //                  };
-
-            //items.AddRange(statusCodes);
-
-            //var r = (from x in items
-            //         orderby x.TimeSeries
-            //         group x by new { x.TimeSeries, x.SeriesString } into g
-            //         select g).Select((v, index) => new LineChartDto
-            //         {
-            //             SeriesString = v.Key.SeriesString,
-            //             TimeSeries = TimeSpan.FromSeconds(index),
-            //             Value = v.Count()
-            //         }).ToArray();
-
-            //var o = r.OrderBy(x => x.TimeSeries);
-            //return o;
         }
 
         public Task<IEnumerable<LineChartDto>> GetLineChartRuns(string projectName)

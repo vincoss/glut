@@ -10,11 +10,11 @@ namespace GlutSvrWeb.Dto
     {
         public IEnumerable<TimeSpan> Labels { get; set; }
 
-        public IEnumerable<int> TotalRequests { get; set; }
-        public IEnumerable<decimal> Information { get; set; }
-        public IEnumerable<decimal> Successful { get; set; }
-        public IEnumerable<decimal> Redirection { get; set; }
-        public IEnumerable<decimal> ClientError { get; set; }
-        public IEnumerable<decimal> ServerError { get; set; }
+        public int[] TotalRequests { get; set; }
+        public int[] Information { get; set; }
+        public int[] Successful { get; set; }
+        public int[] Redirection { get; set; }
+        public int[] ClientError { get; set; }
+        public int[] ServerError { get; set; }
     }
 }

@@ -711,13 +711,14 @@ namespace GlutSvr.Services
                     var result = await service.GetLineChartRequests("Test", 1);
 
                     Assert.Equal(2, result.Labels.Count());
-                    //Assert.Equal(AppResources.TotalRequests, results.ElementAt(0).SeriesString);
-                    //Assert.Equal(new TimeSpan(0, 0, 0), results.ElementAt(0).TimeSeries);
-                    //Assert.Equal(1, results.ElementAt(0).Value);
-
-                    //Assert.Equal(AppResources.Information, results.ElementAt(1).SeriesString);
-                    //Assert.Equal(new TimeSpan(0, 0, 0), results.ElementAt(1).TimeSeries);
-                    //Assert.Equal(1, results.ElementAt(0).Value);
+                    Assert.Equal(4, result.TotalRequests.ElementAt(0));
+                    Assert.Equal(3, result.TotalRequests.ElementAt(1));
+                    Assert.Equal(1, result.Information.ElementAt(0));
+                    Assert.Equal(2, result.Successful.ElementAt(0));
+                    Assert.Equal(1, result.Successful.ElementAt(1));
+                    Assert.Equal(1, result.Redirection.ElementAt(1));
+                    Assert.Equal(1, result.ClientError.ElementAt(0));
+                    Assert.Equal(1, result.ServerError.ElementAt(1));
                 }
             }
             finally
