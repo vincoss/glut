@@ -560,7 +560,7 @@ namespace GlutSvrWeb.Services
                          }).ToArray();
 
             var model = new LineChartDto();
-            model.Labels = groupg.Select(x => x.Seconds).Distinct().ToArray();
+            model.Labels = groupg.Select(x => x.Seconds.ToString()).Distinct().ToArray();
 
             // Total
             model.TotalRequests = (from x in groupg
@@ -576,11 +576,11 @@ namespace GlutSvrWeb.Services
                                        Count = g.Sum(c => c.Count)
                                    }).ToArray();
 
-            model.Information = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
-            model.Successful = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
-            model.Redirection = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
-            model.ClientError = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
-            model.ServerError = Enumerable.Repeat(0, model.Labels.Count()).ToArray();
+            model.Information = Enumerable.Repeat<int?>(null, model.Labels.Count()).ToArray();
+            model.Successful = Enumerable.Repeat<int?>(null, model.Labels.Count()).ToArray();
+            model.Redirection = Enumerable.Repeat<int?>(null, model.Labels.Count()).ToArray();
+            model.ClientError = Enumerable.Repeat<int?>(null, model.Labels.Count()).ToArray();
+            model.ServerError = Enumerable.Repeat<int?>(null, model.Labels.Count()).ToArray();
 
             foreach (var item in codeGroups)
             {
