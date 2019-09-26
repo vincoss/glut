@@ -96,7 +96,7 @@ Accept-Language: en-US,en;q=0.9
 /home/LongRunningTest
 ```
 
-### Run load test with GlutCli.exe
+## Run load test with GlutCli.exe
 
 * dotnet GlutCli.dll
 * GlutCli.exe
