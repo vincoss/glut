@@ -26,12 +26,15 @@ ProjectName 			| Test project name.
 ProjectRunId 			| Test project run id. Set only if you want to run multiple CLI runers and save results against same project and runID.
 PersistResults 			| Persist changes into the database. Results can be viewed through GlutSvr project web site.
 
-appsettings.json example:
-
 ```json
+
 {
-  "AppConfig": 
-  {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AppConfig": {
     "BaseAddress": "http://localhost:5000",
     "ListSubpath": "list",
     "SingleSubpath": "single",
@@ -44,11 +47,52 @@ appsettings.json example:
     "ProjectRunId": 0,
     "PersistResults": true
   },
-  "ConnectionStrings": 
-  {
+  "ConnectionStrings": {
     "EfDbContext": "Data Source=C:\\Temp\\Glut\\Glut.db"
   }
 }
+
+```
+### Test request data files.
+
+* The test files are orderd by name before running the test.
+* Single request test file can be used only for single request, but can sepecify HTTP attributes for the request.
+* List request test file can specify number of GET requests with relative or full URL (use full URL if BaseAddress in AppConfig not set).
+
+#### Single test file example. NOTE: not implemented
+
+```txt
+
+GET http://localhost:5000/home/index HTTP/1.1
+Host: localhost:5000
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+
+```
+
+#### List test file example.
+
+```txt
+
+/home
+/home/NoContentTest
+/home/LargeRequest
+/home/LargeRequest/1000
+/home/LargeRequest/100000
+/home/LargeRequest/10000000
+/home/NotModifiedTest
+/home/TestBadRequest
+/home/TestForbid
+/home/TestUnauthorized
+/home/Timeout
+/home/Error
+/home/LongRunningTest
+
 ```
 
 ### Run load test with GlutCli.exe
