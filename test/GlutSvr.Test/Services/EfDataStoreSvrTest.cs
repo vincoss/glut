@@ -758,8 +758,8 @@ namespace GlutSvr.Services
                     Assert.Equal(1, result.DataSets[0].Data[1]);
 
                     Assert.Equal("Run-1", result.DataSets[1].Label);
-                    Assert.Equal(StatusCodeHelper.Successful, result.DataSets[0].BorderColor);
-                    Assert.Equal(1, result.DataSets[1].Data[0]);
+                    Assert.Equal(StatusCodeHelper.Successful, result.DataSets[1].BorderColor);
+                    Assert.Equal(2, result.DataSets[1].Data[0]);
                     Assert.Equal(1, result.DataSets[1].Data[1]);
                 }
             }
