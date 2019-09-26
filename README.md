@@ -1,4 +1,4 @@
-# glut
+# Glut
 HTTP load testing tool and library.
 
 Glut
@@ -12,8 +12,9 @@ TODO:
 
 ## How to Engage, Contribute, and Give Feedback
 
-TODO:
+Some of the best ways to contribute are to try things out, file issues, join in design conversations, and make pull-requests.
 
 ## Reporting bugs
 
-TODO:
+https://github.com/vincoss/glut/issues
+

@@ -6,6 +6,14 @@
     <AssemblyName>GlutSvr</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Glut.snk</AssemblyOriginatorKeyFile>
+    <Authors>Ferdinand Lukasak and contributors</Authors>
+    <Company>Ferdinand Lukasak</Company>
+    <Copyright>Copyright © Ferdinand Lukasak 2019</Copyright>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/vincoss/glut</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/vincoss/glut/blob/master/src/GlutSvrWeb/wwwroot/lib/img/favicon-96x96.png</PackageIconUrl>
+    <PackageTags>web;load;test;</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
