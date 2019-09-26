@@ -14,7 +14,7 @@ Configure load setting for the test project.
 
 Key| Value        
 ------------------------|--------------------------------------------------------
-BaseAddress 			| Base URL to run load test. If not specified then list and single file must spefify full URL instead of relative URL.
+BaseAddress 			| Base URL to run load test. If not specified then list and single file must specify full URL instead of relative URL.
 ListSubpath 			| Folder name for multi request test files.
 SingleSubpath 			| Folder name for single request test files.
 ContentRootPath 		| Root path for test files. ListSubpath and SingleSubpath must be in this folder.
@@ -28,6 +28,7 @@ PersistResults 			| Persist changes into the database. Results can be viewed thr
 
 appsettings.json example:
 
+```json
 {
   "AppConfig": 
   {
@@ -48,6 +49,7 @@ appsettings.json example:
     "EfDbContext": "Data Source=C:\\Temp\\Glut\\Glut.db"
   }
 }
+```
 
 ### Run load test with GlutCli.exe
 
