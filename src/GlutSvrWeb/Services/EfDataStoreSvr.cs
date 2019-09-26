@@ -539,7 +539,9 @@ namespace GlutSvrWeb.Services
             var query =  _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName && x.GlutProjectRunId == runId);
 
             var min = query.Min(x => x.EndDateTimeUtc);
-         
+            var max = query.Max(x => x.EndDateTimeUtc);
+            var diff = TimeSpan.FromTicks(max.Ticks - min.Ticks);
+
             var groups = await (from x in query
                                 let res = (x.EndDateTimeUtc.Ticks - min.Ticks)
                                 orderby x.EndDateTimeUtc
@@ -560,10 +562,12 @@ namespace GlutSvrWeb.Services
                          }).ToArray();
 
             var model = new LineChartDto();
-            model.Labels = groupg.Select(x => x.Seconds.ToString()).Distinct().ToArray();
+            model.Labels = Enumerable.Range(0, (int)Math.Round(diff.TotalSeconds) + 1).Select(x => new DateTime(TimeSpan.FromSeconds(x).Ticks).ToString("mm:ss")).ToArray();
+
+            var labels = groupg.Select(x => x.Seconds.ToString()).Distinct().ToArray();
 
             // Total
-            model.TotalRequests = (from x in groupg
+             model.TotalRequests = (from x in groupg
                                   group x by x.Seconds into g
                                   select g.Sum(c => c.Count)).ToArray();
 
@@ -675,7 +679,7 @@ namespace GlutSvrWeb.Services
 
                 foreach (var item in runGroups.Where(x => x.GlutProjectRunId == run))
                 {
-                    data.Data[(int)item.Seconds.TotalSeconds] = item.Count;
+                    //Bdata.Data[(int)item.Seconds.TotalSeconds] = item.Count;
                 }
             }
 
