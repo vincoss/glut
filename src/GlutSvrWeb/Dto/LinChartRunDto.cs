@@ -7,8 +7,13 @@ namespace GlutSvrWeb.Dto
 {
     public class LinChartRunDto
     {
+        public LinChartRunDto()
+        {
+            DataSets = new List<DataInfo>();
+        }
+
         public IEnumerable<string> Labels { get; set; }
-        public IEnumerable<DataInfo> DataSets { get; set; }
+        public IList<DataInfo> DataSets { get; set; }
 
         public class DataInfo
         {

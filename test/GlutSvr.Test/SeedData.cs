@@ -327,7 +327,35 @@ namespace GlutSvr
                     Exception = new Exception("some error").ToString(),
                     CreatedDateTimeUtc = DateTime.UtcNow,
                     CreatedByUserName = Environment.UserName
-                }
+                },
+                 new GlutResultItem
+                 {
+                     GlutProjectName = "Test",
+                     GlutProjectRunId = 2,
+                     StartDateTimeUtc = start,
+                     EndDateTimeUtc = start.AddMilliseconds(500),
+                     Url = "/successful01",
+                     IsSuccessStatusCode = true,
+                     StatusCode = 200,
+                     TotalTicks = 10000,
+                     TotalLength = 1000,
+                     CreatedDateTimeUtc = DateTime.UtcNow,
+                     CreatedByUserName = Environment.UserName
+                 },
+                 new GlutResultItem
+                 {
+                     GlutProjectName = "Test",
+                     GlutProjectRunId = 2,
+                     StartDateTimeUtc = start,
+                     EndDateTimeUtc = start.AddMilliseconds(1000),
+                     Url = "/successful02",
+                     IsSuccessStatusCode = true,
+                     StatusCode = 200,
+                     TotalTicks = 10000,
+                     TotalLength = 1000,
+                     CreatedDateTimeUtc = DateTime.UtcNow,
+                     CreatedByUserName = Environment.UserName
+                 }
             );
             context.SaveChanges();
 

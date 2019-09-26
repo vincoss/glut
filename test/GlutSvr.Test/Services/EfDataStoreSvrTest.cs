@@ -1,4 +1,5 @@
 ﻿using Glut.Data;
+using Glut.Services;
 using GlutSvrWeb.Dto;
 using GlutSvrWeb.Properties;
 using GlutSvrWeb.Services;
@@ -719,6 +720,47 @@ namespace GlutSvr.Services
                     Assert.Equal(1, result.Redirection.ElementAt(1));
                     Assert.Equal(1, result.ClientError.ElementAt(0));
                     Assert.Equal(1, result.ServerError.ElementAt(1));
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        [Fact]
+        public async Task GetLineChartRuns()
+        {
+            // In-memory database only exists while the connection is open
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<EfDbContext>()
+                    .UseSqlite(connection)
+                    .Options;
+
+                // Create the schema in the database
+                using (var context = new EfDbContext(options))
+                {
+                    context.Database.EnsureCreated();
+                    new SeedData().WithLineChartData(context);
+                    var service = new EfDataStoreSvr(context);
+
+                    var result = await service.GetLineChartRuns("Test");
+
+                    Assert.Equal(2, result.Labels.Count());
+
+                    Assert.Equal("Run-2", result.DataSets[0].Label);
+                    Assert.Equal(StatusCodeHelper.Information, result.DataSets[0].BorderColor);
+                    Assert.Equal(1, result.DataSets[0].Data[0]);
+                    Assert.Equal(1, result.DataSets[0].Data[1]);
+
+                    Assert.Equal("Run-1", result.DataSets[1].Label);
+                    Assert.Equal(StatusCodeHelper.Successful, result.DataSets[0].BorderColor);
+                    Assert.Equal(1, result.DataSets[1].Data[0]);
+                    Assert.Equal(1, result.DataSets[1].Data[1]);
                 }
             }
             finally
