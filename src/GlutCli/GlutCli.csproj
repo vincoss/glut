@@ -6,6 +6,20 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Glut.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Ferdinand Lukasak and contributors</Authors>
+    <Company>Ferdinand Lukasak</Company>
+    <Product />
+    <Copyright>Copyright © Ferdinand Lukasak 2019</Copyright>
+    <PackageProjectUrl>https://github.com/vincoss/glut</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/vincoss/glut/blob/master/src/GlutSvrWeb/wwwroot/lib/img/favicon-96x96.png</PackageIconUrl>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageTags>web;load;test;</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.0|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>

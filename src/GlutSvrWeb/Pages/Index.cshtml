@@ -301,48 +301,7 @@
             var dataPoints =
             {
                 labels: [],
-                datasets: [{
-                    data: [],
-                    label: '@AppResources.TotalRequests',
-                    borderColor: '@StatusCodeHelper.TotalRequests',
-                    fill: false,
-					lineTension: 0
-                },
-                {
-                    data: [],
-                    label: '@AppResources.Information',
-                    borderColor: '@StatusCodeHelper.Information',
-                    fill: false,
-					lineTension: 0
-                    },
-                {
-                    data: [],
-                    label: '@AppResources.Successful',
-                    borderColor: '@StatusCodeHelper.Successful',
-                    fill: false,
-					lineTension: 0
-                    },
-                {
-                    data: [],
-                    label: '@AppResources.Redirection',
-                    borderColor: '@StatusCodeHelper.Redirection',
-                    fill: false,
-					lineTension: 0
-                    },
-                {
-                    data: [],
-                    label: '@AppResources.ClientError',
-                    borderColor: '@StatusCodeHelper.ClientError',
-                    fill: false,
-					lineTension: 0
-                    },
-                {
-                    data: [],
-                    label: '@AppResources.ServerError',
-                    borderColor: '@StatusCodeHelper.ServerError',
-                    fill: false,
-					lineTension: 0
-                }]
+                datasets: []
             };
 
             var ctx1 = $("#_totalRequestPerRunLineChartBox");
@@ -360,12 +319,7 @@
            $.post(url, formData, function (data)
            {
                dataPoints.labels = data.labels;
-               dataPoints.datasets[0].data = data.totalRequests;
-               dataPoints.datasets[1].data = data.information;
-               dataPoints.datasets[2].data = data.successful;
-               dataPoints.datasets[3].data = data.redirection;
-               dataPoints.datasets[4].data = data.clientError;
-               dataPoints.datasets[5].data = data.serverError;
+               dataPoints.datasets = data.dataSets;
 
                 chart1.update();
 

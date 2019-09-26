@@ -1,10 +1,6 @@
 ﻿
 # Tasks
 Search for TODO
-Ensure that request contains 'User-Agent' glut if missing, possible other also
-count chart does not work
-charts should start by second 1,3,4
-complete line charts
 results no scroll, no search
 align search to right
 
@@ -27,6 +23,7 @@ Create Blazor project for the server (GlutSvrWeb_Blazor)
 Capture repsonse headers to .txt file parser should be able to parse if required
 ResponseContentPath Save the response content into specified directory, must not delete on close the stream. Nice to have
 Request timeout not implemented
+Ensure that request contains 'User-Agent' glut if missing, possible other also
 SocketService will be required
 interval option this can be used with duration
 	interval make request every specified interval
