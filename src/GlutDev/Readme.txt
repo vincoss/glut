@@ -3,6 +3,7 @@
 Search for TODO
 results no scroll, no search
 align search to right
+use full version
 
 
 
