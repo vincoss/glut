@@ -33,7 +33,7 @@ namespace Glut.Services
             {
                 client.BaseAddress = new Uri(_appConfig.BaseAddress);
             }
-            client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json"); // TODO:
+            client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3"); // TODO:
             client.DefaultRequestHeaders.Add("User-Agent", GlutConstants.FullApplicationName);
         }
 

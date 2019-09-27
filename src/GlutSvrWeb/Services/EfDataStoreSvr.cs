@@ -564,8 +564,6 @@ namespace GlutSvrWeb.Services
             var model = new LineChartDto();
             model.Labels = Enumerable.Range(0, (int)Math.Round(diff.TotalSeconds) + 1).Select(x => new DateTime(TimeSpan.FromSeconds(x).Ticks).ToString("mm:ss")).ToArray();
 
-            var labels = groupg.Select(x => x.Seconds.ToString()).Distinct().ToArray();
-
             // Total
              model.TotalRequests = (from x in groupg
                                   group x by x.Seconds into g
@@ -622,7 +620,10 @@ namespace GlutSvrWeb.Services
 
             var query = _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName);
             var lastRuns = query.Select(x => x.GlutProjectRunId).Distinct().Take(5).OrderByDescending(x => x).ToArray();
+
             var min = query.Min(x => x.EndDateTimeUtc);
+            var max = query.Max(x => x.EndDateTimeUtc);
+            var diff = TimeSpan.FromTicks(max.Ticks - min.Ticks);
 
             var groups = await (from x in query
                                 let res = (x.EndDateTimeUtc.Ticks - min.Ticks)
@@ -657,7 +658,7 @@ namespace GlutSvrWeb.Services
                              }).ToArray();
 
             var model = new LinChartRunDto();
-            model.Labels = groupg.Select(x => x.Seconds.ToString()).OrderBy(x => x).Distinct().ToArray();
+            model.Labels = Enumerable.Range(0, (int)Math.Round(diff.TotalSeconds) + 1).Select(x => new DateTime(TimeSpan.FromSeconds(x).Ticks).ToString("mm:ss")).ToArray();
 
             var colours = new[]
             {
@@ -679,7 +680,7 @@ namespace GlutSvrWeb.Services
 
                 foreach (var item in runGroups.Where(x => x.GlutProjectRunId == run))
                 {
-                    //Bdata.Data[(int)item.Seconds.TotalSeconds] = item.Count;
+                    data.Data[(int)item.Seconds.TotalSeconds] = item.Count;
                 }
             }
 
