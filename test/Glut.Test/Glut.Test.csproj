@@ -43,6 +43,9 @@
     <None Update="TestData\Sample\List\Glut0003_LST_Test.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\Sample\Single\Glut0003_POST_Test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\Sample\Single\Glut0002_GET_Test.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

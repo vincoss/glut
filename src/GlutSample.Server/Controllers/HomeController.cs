@@ -118,5 +118,19 @@ namespace GlutSample.Server.Controllers
 
         #endregion
 
+        #region 200 - Successful - Post
+
+        [HttpPost]
+        public int Add(int? id)
+        {
+            if(id == null)
+            {
+                return 0;
+            }
+            return id.Value;
+        }
+
+        #endregion
+
     }
 }

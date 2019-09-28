@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using Http = System.Net.Http;
 
@@ -9,12 +8,7 @@ namespace Glut.Providers
 {
     public class RawHttpParser : IHttpRequestLineHandler, IHttpHeadersHandler
     {
-        private readonly Http.HttpRequestMessage _message;
-
-        public RawHttpParser(Http.HttpRequestMessage message)
-        {
-            _message = message;
-        }
+        private Http.HttpRequestMessage _message;
 
         public void OnHeader(Span<byte> name, Span<byte> value)
         {
@@ -25,9 +19,13 @@ namespace Glut.Providers
 
         public void OnStartLine(HttpMethod method, HttpVersion version, Span<byte> target, Span<byte> path, Span<byte> query, Span<byte> customMethod, bool pathEncoded)
         {
-            _message.Method = new Http.HttpMethod(method.ToString());
+            _message = new Http.HttpRequestMessage(new Http.HttpMethod(method.ToString()), Encoding.UTF8.GetString(target));
             _message.Version = GetHttpVersion(version);
-            _message.RequestUri = new Uri(Encoding.UTF8.GetString(target));
+        }
+
+        public Http.HttpRequestMessage Get()
+        {
+            return _message;
         }
 
         // TODO: refactor

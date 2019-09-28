@@ -60,11 +60,18 @@ PersistResults 			| Persist changes into the database. Results can be viewed thr
 ### Test request data files.
 
 * The test files are orderd by name before running the test.
-* Single request test file can be used only for single request, and can sepecify HTTP attributes for the request.
+* Single request test file can be used only for single request, and can sepecify HTTP attributes for the request.GET, POST and many other.
 * List request test file can specify number of GET requests with relative or full URL (use full URL if BaseAddress in AppConfig not set).
 * List requests are executed in order defined the the file.
 
-#### Single test file example. NOTE: not implemented
+#### Single test file example.
+
+```txt
+POST home/add/1 HTTP/1.1
+User-Agent: GlutCli
+Host: localhost:5000
+Content-Length: 0
+```
 
 ```txt
 GET http://localhost:5000/home/index HTTP/1.1
