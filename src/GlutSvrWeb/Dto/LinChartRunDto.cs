@@ -19,6 +19,8 @@ namespace GlutSvrWeb.Dto
         {
             public string Label { get; set; }
             public string BorderColor { get; set; }
+            public bool Fill { get; set; }
+            public decimal LineTension { get; set; }
             public int?[] Data { get; set; }
         }
 

@@ -382,11 +382,10 @@ namespace GlutSvrWeb.Services
             var total = await query.CountAsync();
 
             var results = await (from x in query
-                                 orderby x.StatusCode
                                  group x by x.Url into g
                                  select new TopSuccessOrErrorResquestDto
                                  {
-                                     Url = g.Key,
+                                     Url = "aaa",
                                      Count = g.Count(),
                                      Frequency = ((decimal)g.Count() * 100) / total,
                                      TotalItems = total
@@ -618,19 +617,26 @@ namespace GlutSvrWeb.Services
                 throw new ArgumentNullException(nameof(projectName));
             }
 
-            var query = _context.Results.AsNoTracking().Where(x => x.GlutProjectName == projectName);
-            var lastRuns = query.Select(x => x.GlutProjectRunId).Distinct().Take(5).OrderByDescending(x => x).ToArray();
+            var query = from x in _context.Results.AsNoTracking()
+                        where x.GlutProjectName == projectName && x.StatusCode >= 200 && x.StatusCode <= 299
+                        select x;
 
-            var min = query.Min(x => x.EndDateTimeUtc);
-            var max = query.Max(x => x.EndDateTimeUtc);
-            var diff = TimeSpan.FromTicks(max.Ticks - min.Ticks);
+            var lastRuns = (from x in query
+                            group x by x.GlutProjectRunId into g
+                            select new
+                            {
+                                RunId = g.Key,
+                                MinDateTicks = g.Min(x => x.EndDateTimeUtc).Ticks,
+                                MaxDateTicks = g.Max(x => x.EndDateTimeUtc).Ticks,
+                                Diff = g.Max(x => x.EndDateTimeUtc).Ticks - g.Min(x => x.EndDateTimeUtc).Ticks
+                            }).Distinct().OrderByDescending(x=> x.RunId).Take(5).ToArray();
+
+            var diff = TimeSpan.FromTicks(lastRuns.OrderByDescending(x => x.Diff).First().Diff);
 
             var groups = await (from x in query
-                                let res = (x.EndDateTimeUtc.Ticks - min.Ticks)
-                                where x.StatusCode >= 200 && x.StatusCode <= 299 &&
-                                      lastRuns.Contains(x.GlutProjectRunId)
+                                where lastRuns.Select(s => s.RunId).Contains(x.GlutProjectRunId)
                                 orderby x.EndDateTimeUtc
-                                group x by new { Ticks = res, x.GlutProjectRunId } into g
+                                group x by new { Ticks = x.EndDateTimeUtc.Ticks, x.GlutProjectRunId } into g
                                 select new
                                 {
                                     g.Key.Ticks,
@@ -639,9 +645,11 @@ namespace GlutSvrWeb.Services
                                 }).ToListAsync();
 
             var groupg = (from x in groups
+                          from y in lastRuns
+                          where x.GlutProjectRunId == y.RunId
                           select new
                           {
-                              Seconds = TimeSpan.FromSeconds(Math.Round(TimeSpan.FromTicks(x.Ticks).TotalSeconds)),
+                              Seconds = TimeSpan.FromSeconds(Math.Round(TimeSpan.FromTicks(x.Ticks - y.MinDateTicks).TotalSeconds)),
                               x.GlutProjectRunId,
                               x.Count
                           }).ToArray();
@@ -673,12 +681,14 @@ namespace GlutSvrWeb.Services
             {
                 var run = lastRuns[i];
                 var data = new LinChartRunDto.DataInfo();
-                data.Label = $"Run-{run}";
+                data.Label = $"Run-{run.RunId}";
                 data.BorderColor = colours[i];
+                data.Fill = false;
+                data.LineTension = 0;
                 data.Data = Enumerable.Repeat<int?>(null, model.Labels.Count()).ToArray();
                 model.DataSets.Add(data);
 
-                foreach (var item in runGroups.Where(x => x.GlutProjectRunId == run))
+                foreach (var item in runGroups.Where(x => x.GlutProjectRunId == run.RunId))
                 {
                     data.Data[(int)item.Seconds.TotalSeconds] = item.Count;
                 }

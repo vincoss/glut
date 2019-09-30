@@ -24,7 +24,7 @@ namespace Glut.Providers
 
             var messages = provider.Get();
 
-            Assert.True(messages.Count() == 2, "The messages count is not right");
+            Assert.Equal(3, messages.Count());
 
             var message = messages.ElementAt(0);
 
@@ -35,6 +35,11 @@ namespace Glut.Providers
 
             Assert.Equal(message.Method, HttpMethod.Get);
             Assert.Equal("/home", message.RequestUri.ToString());
+
+            message = messages.ElementAt(2);
+
+            Assert.Equal(message.Method, HttpMethod.Post);
+            Assert.Equal("/home/add/1", message.RequestUri.ToString());
         }
     }
 }

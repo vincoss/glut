@@ -13,6 +13,19 @@ namespace HttpParseSample
     {
         static void Main(string[] args)
         {
+            var a = new DateTime(2019, 9, 30, 23, 1, 1);
+            var b = new DateTime(2015, 9, 29, 23, 1, 1);
+
+            var ta = TimeSpan.FromTicks(a.Ticks / TimeSpan.FromSeconds(1).Ticks);
+            var tb = TimeSpan.FromTicks(b.Ticks / TimeSpan.FromSeconds(1).Ticks);
+
+            Console.WriteLine(ta);
+            Console.WriteLine(tb);
+
+        }
+
+        public void Sample()
+        {
             var request = @"GET https://raw.githubusercontent.com/AlonAm/NLoad/master/.gitattributes HTTP/1.1
 Host: raw.githubusercontent.com
 Connection: keep-alive
@@ -35,7 +48,7 @@ Accept-Language: en-US,en;q=0.9,fr;q=0.8
             Run(message).Wait();
 
             Console.WriteLine("Done...");
-           Console.ReadKey();
+            Console.ReadKey();
         }
 
         public async static Task Run(HttpRequestMessage message)
@@ -52,7 +65,7 @@ Accept-Language: en-US,en;q=0.9,fr;q=0.8
             }
         }
 
-        public  async Task Sample()
+        public  async Task SampleTwo()
         {
             var client = new HttpClient() { BaseAddress = new Uri("https://auth0.com/blog/exploring-dotnet-core-3-whats-new/") };
 

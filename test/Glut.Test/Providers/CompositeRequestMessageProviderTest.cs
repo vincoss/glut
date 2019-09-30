@@ -26,7 +26,7 @@ namespace Glut.Providers
 
             var results = compositeProvider.Get();
 
-            Assert.Equal(20, results.Count());
+            Assert.Equal(21, results.Count());
         }
     }
 }

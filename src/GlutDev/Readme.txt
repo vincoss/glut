@@ -1,9 +1,10 @@
 ﻿
 # Tasks
 Search for TODO
-results no scroll, no search
-align search to right
-use full version
+search for StatusCode on results page
+top  sum to results for post
+top errors no results for post.
+https://stackoverflow.com/questions/35854244/how-can-i-create-a-horizontal-scrolling-chart-js-line-chart-with-a-locked-y-axis
 
 
 
@@ -19,6 +20,7 @@ Validate AppConfig values
 navigation the item is not selected see CSS or JS script
 use latest bootstrap if not too much work
 Create Blazor project for the server (GlutSvrWeb_Blazor)
+align search to right
 
 # Glut
 Capture repsonse headers to .txt file parser should be able to parse if required
