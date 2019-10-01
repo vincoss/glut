@@ -348,17 +348,26 @@ namespace GlutSvrWeb.Services
 
             var total = await query.CountAsync();
 
-            var results = await (from x in query
+            var data = (from x in _context.Results.AsNoTracking()
+                        where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
+                              x.StatusCode >= 200 && x.StatusCode <= 299
+                        group x by x.Url into g
+                        select new
+                        {
+                            Url = g.Key,
+                            Count = g.Count(),
+                        }).ToArray(); ;
+
+            var results = (from x in data
                                  orderby x.Url
-                                 group x by x.Url into g
                                  select new TopSuccessOrErrorResquestDto
                                  {
-                                     Url = g.Key,
-                                     Count = g.Count(),
-                                     Frequency = ((decimal)g.Count() * 100) / total,
+                                     Url = x.Url,
+                                     Count = x.Count,
+                                     Frequency = ((decimal)x.Count * 100) / total,
                                      TotalItems = total
 
-                                 }).OrderByDescending(o => o.Count).Take(10).ToListAsync();
+                                 }).OrderByDescending(o => o.Count).Take(10).ToList();
 
             return results;
         }
@@ -381,16 +390,25 @@ namespace GlutSvrWeb.Services
 
             var total = await query.CountAsync();
 
-            var results = await (from x in query
-                                 group x by x.Url into g
+            var data = (from x in _context.Results.AsNoTracking()
+                     where x.GlutProjectName == projectName && x.GlutProjectRunId == runId &&
+                           x.StatusCode >= 400
+                     group x by x.Url into g
+                     select new
+                     {
+                         Url = g.Key,
+                         Count = g.Count(),
+                     }).ToArray(); ;
+
+            var results = (from x in data
                                  select new TopSuccessOrErrorResquestDto
                                  {
-                                     Url = "aaa",
-                                     Count = g.Count(),
-                                     Frequency = ((decimal)g.Count() * 100) / total,
+                                     Url = x.Url,
+                                     Count = x.Count,
+                                     Frequency = ((decimal)x.Count * 100) / total,
                                      TotalItems = total
 
-                                 }).OrderByDescending(o => o.Count).ToListAsync();
+                                 }).OrderByDescending(o => o.Count).ToList();
 
             return results;
         }
