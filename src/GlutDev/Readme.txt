@@ -2,10 +2,6 @@
 # Tasks
 Search for TODO
 search for StatusCode on results page
-top  sum to results for post
-top errors no results for post.
-https://stackoverflow.com/questions/35854244/how-can-i-create-a-horizontal-scrolling-chart-js-line-chart-with-a-locked-y-axis
-
 
 
 ### Nice to have
