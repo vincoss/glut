@@ -7,7 +7,6 @@ top errors no results for post.
 https://stackoverflow.com/questions/35854244/how-can-i-create-a-horizontal-scrolling-chart-js-line-chart-with-a-locked-y-axis
 
 
-
 ### Nice to have
 buy me a coffee
 

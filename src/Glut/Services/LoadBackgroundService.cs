@@ -54,6 +54,13 @@ namespace Glut.Services
             _logger.LogDebug($"Begin {nameof(ExecuteAsync)}");
 
             _startDateTime = _environment.SystemDateTimeUtc;
+
+            // NOTE: Make interval run duration infinite if duration is zero or less.
+            if(_appConfig.IntervalMilliseconds > 0 && _appConfig.DurationMilliseconds <= 0)
+            {
+                _appConfig.DurationMilliseconds = long.MaxValue;
+            }
+
             _runner.CreateWorkerThreads(_appConfig.Threads, TimeSpan.FromMilliseconds(_appConfig.DurationMilliseconds), _appConfig.Count, _appConfig.IntervalMilliseconds, _messages, cancellationToken);
 
             DisplayResultInformation();

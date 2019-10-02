@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 namespace Glut
 {
     // TODO: Refactor this
-    public class Runner
+    public class Runner : IDisposable
     {
         private readonly IWorker _worker;
         private readonly ThreadResult _threadResult;
@@ -128,9 +128,7 @@ namespace Glut
                         break;
                     }
                     var clone = CloneMessage(message);
-                    _logger.LogDebug($"{nameof(CountWork)} - Start: {message.RequestUri}");
                     await _worker.Run(clone, _threadResult, cancellationToken);
-                    _logger.LogDebug($"{nameof(CountWork)} - End: {message.RequestUri}");
                 }
             }
             _logger.LogDebug($"{nameof(CountWork)} - End");
@@ -156,6 +154,7 @@ namespace Glut
                 throw new ArgumentNullException(nameof(resetEvent));
             }
 
+            _logger.LogDebug($"{nameof(DurationWork)} - Start");
             while (cancellationToken.IsCancellationRequested == false && duration.TotalMilliseconds > stopWatch.Elapsed.TotalMilliseconds)
             {
                 foreach (var message in messages)
@@ -169,18 +168,65 @@ namespace Glut
                     await _worker.Run(clone, _threadResult, cancellationToken);
                 }
             }
+            _logger.LogDebug($"{nameof(DurationWork)} - End");
             resetEvent.Set();
         }
 
         public void IntervalWork(IEnumerable<HttpRequestMessage> messages, TimeSpan duration, long interval, Stopwatch stopWatch, ManualResetEventSlim resetEvent, CancellationToken cancellationToken)
         {
-            throw new NotSupportedException("TODO: nice to have...");
+            if (messages == null)
+            {
+                throw new ArgumentNullException(nameof(messages));
+            }
+            if (duration.TotalMilliseconds <= 0)
+            {
+                throw new ArgumentException(nameof(duration));
+            }
+            if (interval <= 0)
+            {
+                throw new ArgumentException(nameof(interval));
+            }
+            if (stopWatch == null)
+            {
+                throw new ArgumentNullException(nameof(stopWatch));
+            }
+            if (resetEvent == null)
+            {
+                throw new ArgumentNullException(nameof(resetEvent));
+            }
+
+            _logger.LogDebug($"{nameof(IntervalWork)} - Start");
+            var heartbeat = new System.Timers.Timer(interval);
+            heartbeat.Start();
+            heartbeat.Elapsed += async (s, e) =>
+            {
+                foreach (var message in messages)
+                {
+                    if (cancellationToken.IsCancellationRequested || duration.TotalMilliseconds <= stopWatch.Elapsed.TotalMilliseconds)
+                    {
+                        break;
+                    }
+                    var clone = CloneMessage(message);
+                    await _worker.Run(clone, _threadResult, cancellationToken);
+                }
+            };
+
+            while (cancellationToken.IsCancellationRequested == false && duration.TotalMilliseconds > stopWatch.Elapsed.TotalMilliseconds)
+            {
+            }
+            _logger.LogDebug($"{nameof(IntervalWork)} - End");
+            resetEvent.Set();
         }
 
         // TODO: temp only
         public static HttpRequestMessage CloneMessage(HttpRequestMessage message)
         {
             return new HttpRequestMessage(message.Method, message.RequestUri);
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
