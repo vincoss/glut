@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 namespace Glut
 {
     // TODO: Refactor this
-    public class Runner : IDisposable
+    public class Runner
     {
         private readonly IWorker _worker;
         private readonly ThreadResult _threadResult;
@@ -222,11 +222,6 @@ namespace Glut
         public static HttpRequestMessage CloneMessage(HttpRequestMessage message)
         {
             return new HttpRequestMessage(message.Method, message.RequestUri);
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }
