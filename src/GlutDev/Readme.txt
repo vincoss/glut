@@ -2,6 +2,7 @@
 # Tasks
 Search for TODO
 search for StatusCode on results page
+progress indicator
 
 ### Nice to have
 buy me a coffee
