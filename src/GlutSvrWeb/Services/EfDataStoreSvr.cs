@@ -181,7 +181,7 @@ namespace GlutSvrWeb.Services
             {
                 query = query.Where(x => 
                 (x.Url != null && EF.Functions.Like(x.Url, $"%{args.Search}%")) ||
-               // (EF.Functions.Like((string)x.StatusCode), $"%{args.Search}%")) || // TODO:
+                // (EF.Functions.Like((string)x.StatusCode), $"%{args.Search}%")) || // TODO: https://github.com/aspnet/EntityFrameworkCore/issues/10227
                 (x.ResponseHeaders != null && EF.Functions.Like(x.ResponseHeaders, $"%{args.Search}%")));
             }
 
