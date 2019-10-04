@@ -10,7 +10,7 @@ Glut is an open-source and cross-platform framework for load testing web applica
 ### Installation
 To install GlutCli via [NuGet](http://www.nuget.org/packages/GlutCli), run the following command in the Package Manager Console
 ```
-Install-Package Glut
+Install-Package GlutCli
 ```
 
 ## Screenshots
