@@ -1,7 +1,7 @@
-# Glut
-# ![Logo](/src/GlutDev/Img/Logo.jpg) Glut
-HTTP load testing tool and library.
+# ![Logo](/src/GlutDev/Img/Logo.png?raw=true) Glut
 
+HTTP load testing tool and library.
+glut/src/GlutDev/Img/Logo.png
 Glut
 ============
 
@@ -15,12 +15,12 @@ Install-Package Glut
 
 ## Screenshots
 
-# ![GlutSvrWeb](/src/GlutDev/Img/GlutCli.jpg) Glut Web Dashboard
+# ![GlutSvrWeb](/src/GlutDev/Img/GlutCli.png) Glut Web Dashboard
 
-# ![GlutCli](/src/GlutDev/Img/GlutCli.jpg) GlutCli
+# ![GlutCli](/src/GlutDev/Img/GlutCli.png) GlutCli
 
 
-<img src="/src/GlutDev/Img/GlutCli.jpg"  /> 
+<img src="/src/GlutDev/Img/GlutCli.png"  /> 
 
 ## Get Started
 
