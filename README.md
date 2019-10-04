@@ -15,12 +15,12 @@ Install-Package Glut
 
 ## Screenshots
 
-# ![GlutSvrWeb](/src/GlutDev/Img/GlutCli.png)
+# ![GlutSvrWeb](/src/GlutDev/Img/GlutDashboard.png?raw=true)
 
-# ![GlutCli](/src/GlutDev/Img/GlutCli.png)
+# ![GlutCli](/src/GlutDev/Img/GlutCli.png?raw=true)
 
 
-<img src="/src/GlutDev/Img/GlutCli.png"  /> 
+<img src="/src/GlutDev/Img/GlutCli.png?raw=true"  /> 
 
 ## Get Started
 
