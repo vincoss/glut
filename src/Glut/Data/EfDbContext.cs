@@ -32,9 +32,5 @@ namespace Glut.Data
             modelBuilder.ApplyConfiguration(new GlutResultItemConfiguration());
             modelBuilder.ApplyConfiguration(new GlutRunAttributeConfiguration());
         }
-
-        [DbFunction("SOUNDEX")]
-        public static string Soundex(string s) => throw new NotSupportedException();
-
     }
 }

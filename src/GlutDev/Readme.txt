@@ -1,8 +1,10 @@
 ﻿
 # Tasks
 Search for TODO
-search for StatusCode on results page
-progress indicator
+search for StatusCode on results page EF issue
+progress indicator on run change
+chart horizontall scroll or slider
+if persist then save when finish if not then store???
 
 ### Nice to have
 buy me a coffee

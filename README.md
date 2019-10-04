@@ -1,4 +1,5 @@
 # Glut
+# ![Logo](/src/GlutDev/Img/Logo.jpg) Glut
 HTTP load testing tool and library.
 
 Glut
@@ -11,6 +12,15 @@ To install GlutCli via [NuGet](http://www.nuget.org/packages/GlutCli), run the f
 ```
 Install-Package Glut
 ```
+
+## Screenshots
+
+# ![GlutSvrWeb](/src/GlutDev/Img/GlutCli.jpg) Glut Web Dashboard
+
+# ![GlutCli](/src/GlutDev/Img/GlutCli.jpg) GlutCli
+
+
+<img src="/src/GlutDev/Img/GlutCli.jpg"  /> 
 
 ## Get Started
 
