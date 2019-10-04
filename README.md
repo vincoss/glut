@@ -23,7 +23,7 @@ Install-Package GlutCli
 
 ## Get Started
 
-### AppConfig (appsettings.json)
+### GlutCli - AppConfig (appsettings.json)
 
 Configure load setting for the test project.
 
