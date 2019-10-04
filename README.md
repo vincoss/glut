@@ -15,12 +15,11 @@ Install-Package Glut
 
 ## Screenshots
 
+#### Glut Web Dashboard
 # ![GlutSvrWeb](/src/GlutDev/Img/Dashboard.png?raw=true)
 
+#### GlutCli output
 # ![GlutCli](/src/GlutDev/Img/Cli.png?raw=true)
-
-
-<img src="/src/GlutDev/Img/Cli.png?raw=true"  /> 
 
 ## Get Started
 
@@ -37,7 +36,7 @@ ContentRootPath 		| Root path for test files. ListSubpath and SingleSubpath must
 Threads 				| Number of threads to run the test.
 Count 					| Number of test interations. Count takes predence over DurationMilliseconds.
 DurationMilliseconds 	| Run test for number of milliseconds.
-IntervalMilliseconds 	| Run request every milliseconds. (NOT Implemented).
+IntervalMilliseconds 	| Run request every milliseconds.
 ProjectName 			| Test project name.
 ProjectRunId 			| Test project run id. Set only if you want to run multiple GlutCli runers and save results against same project and runID. Keep default to '0' will automatically increament during data persistence.
 PersistResults 			| Persist changes into the database. Results can be viewed through GlutSvr project web site.
