@@ -45,6 +45,10 @@
     {
       "library": "fastclick@1.0.6",
       "destination": "wwwroot/lib/fastclick/"
+    },
+    {
+      "library": "jquery-loading-overlay@2.1.6",
+      "destination": "wwwroot/lib/jquery-loading-overlay/"
     }
   ]
 }

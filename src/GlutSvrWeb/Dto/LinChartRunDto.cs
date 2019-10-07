@@ -10,6 +10,7 @@ namespace GlutSvrWeb.Dto
         public LinChartRunDto()
         {
             DataSets = new List<DataInfo>();
+            Labels = new List<string>();
         }
 
         public IEnumerable<string> Labels { get; set; }
