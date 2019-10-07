@@ -39,7 +39,7 @@ namespace Glut.Services
 
         public async ValueTask Run(HttpRequestMessage request, ThreadResult result, CancellationToken cancellationToken)
         {
-            if(request == null)
+            if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
@@ -71,17 +71,32 @@ namespace Glut.Services
                     headerLength = responseHeaders.Length;
                     sw.Restart();
 
-                    using (var sourceStream = await response.Content.ReadAsStreamAsync())
+                    // Read content to get response length.
+                    using (var responseStream = await response.Content.ReadAsStreamAsync())
                     {
-                        // TODO: Saving result does make is much slover.
-                        //string fileToWriteTo = Path.GetTempFileName();
-                        //using (var destinationStream = new FileStream(fileToWriteTo, FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.DeleteOnClose))
-                        //{
-                        //    await sourceStream.CopyToAsync(destinationStream);
-                        //    responseLength = destinationStream.Length;
-                        //}
-                        responseLength = sourceStream.Length;
+                        int read;
+                        int offset = 0;
+                        var responseBuffer = new byte[500];
+                        do
+                        {
+                            read = await responseStream.ReadAsync(responseBuffer, 0, responseBuffer.Length);
+                            offset += read;
+
+                        } while (read != 0);
+                        responseLength = offset;
                     }
+
+                    ////TODO: Saving result does make is much slover.
+                    //using (var sourceStream = await response.Content.ReadAsStreamAsync())
+                    //{
+                    //    string fileToWriteTo = Path.GetTempFileName();
+                    //    using (var destinationStream = new FileStream(fileToWriteTo, FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.DeleteOnClose))
+                    //    {
+                    //        await sourceStream.CopyToAsync(destinationStream);
+                    //        responseLength = destinationStream.Length;
+                    //    }
+                    //}
+
                     sw.Stop();
                     responseTicks = sw.ElapsedTicks;
                 }
