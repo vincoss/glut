@@ -638,6 +638,10 @@ namespace GlutSvrWeb.Services
             var query = from x in _context.Results.AsNoTracking()
                         where x.GlutProjectName == projectName && x.StatusCode >= 200 && x.StatusCode <= 299
                         select x;
+            if (query.Any() == false)
+            {
+                return new LinChartRunDto();
+            }
 
             var lastRuns = (from x in query
                             group x by x.GlutProjectRunId into g

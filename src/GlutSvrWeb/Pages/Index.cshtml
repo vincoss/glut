@@ -16,7 +16,7 @@
 </section>
 
 <!-- Main content -->
-<section class="content">
+<section id="dashboard" class="content">
 
     <div class="row">
         <div class="col-lg-12">
@@ -512,20 +512,30 @@
             var p = $("#projects").val();
             var r = $("#runs").val();
 
-            headerStatusCodes(p, r);
+            if (p === null || p.length <= 0 || r === null || r <= 0) {
+                return;
+            }
 
-            statusCodeLines(p, r);
-            totalRequestsPerRun(p);
+            $("#dashboard").LoadingOverlay("show");
 
-            onRunAttributeBox(p, r);
-            statusCodePie(p, r);
+            $.when(
+                headerStatusCodes(p, r),
 
-            onTopSuccessfulRequestBox(p, r);
-            onTopErrorRequestBox(p, r);
-            onTopFastestMinMaxAvgSuccessfulRequestBox(p, r);
-            onTopSlowestMinMaxAvgSuccessfulRequestBox(p, r);
-            onTopAverageMinMaxAvgSuccessRequestBox(p, r);
-            onTopLargestSuccessfulRequestBox(p, r);
+                statusCodeLines(p, r),
+                totalRequestsPerRun(p),
+
+                onRunAttributeBox(p, r),
+                statusCodePie(p, r),
+
+                onTopSuccessfulRequestBox(p, r),
+                onTopErrorRequestBox(p, r),
+                onTopFastestMinMaxAvgSuccessfulRequestBox(p, r),
+                onTopSlowestMinMaxAvgSuccessfulRequestBox(p, r),
+                onTopAverageMinMaxAvgSuccessRequestBox(p, r),
+                onTopLargestSuccessfulRequestBox(p, r)).then(function()
+                {
+                     $("#dashboard").LoadingOverlay("hide");
+                });
         }
 
         $(function ()
