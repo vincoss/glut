@@ -1,5 +1,15 @@
 ﻿
 # Tasks
+
+Read below and publish docker image into the docker-hub
+	create docker-hub readme
+	update github readme
+https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+https://engineering.bitnami.com/articles/best-practices-writing-a-dockerfile.html
+https://docs.docker.com/docker-hub/publish/publish/
+https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/
+
+
 Search for TODO
 search for StatusCode on results page EF issue
 progress indicator on run change
