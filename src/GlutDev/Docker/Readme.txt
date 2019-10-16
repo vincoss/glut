@@ -13,8 +13,10 @@ docker image tag vincoss/glutsvr:1.0.0 vincoss/glutsvr:1.0.1
 docker image push vincoss/glutsvr:1.0.1
 
 ## Run
-docker run -it --rm -p 8000:80 --name glut -h glut -v glutData:C:/Glut/Data fl/glut:latest
-docker container run -it --rm -p 8000:80 --name glut -h glut -v glutData:C:/Glut/Data fl/glut:latest
+docker run -it --rm -p 8000:80 --name glutsvr -h glut -v glutData:C:/Glut/Data vincoss/glutsvr:1.0.0
+
+## Error logs
+docker logs --tail 50 --follow --timestamps glutsvr
 
 ## Browse
 http://glut
