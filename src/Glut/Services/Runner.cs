@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-
+using System.IO;
 
 namespace Glut
 {
@@ -218,10 +218,33 @@ namespace Glut
             resetEvent.Set();
         }
 
-        // TODO: temp only
-        public static HttpRequestMessage CloneMessage(HttpRequestMessage message)
+        public static HttpRequestMessage CloneMessage(HttpRequestMessage message) // TODO: async
         {
-            return new HttpRequestMessage(message.Method, message.RequestUri);
+            HttpRequestMessage clone = new HttpRequestMessage(message.Method, message.RequestUri);
+
+            var ms = new MemoryStream();
+            if (message.Content != null)
+            {
+                message.Content.CopyToAsync(ms).Wait();// TODO: async
+                ms.Position = 0;
+                clone.Content = new StreamContent(ms);
+
+                // Copy the content headers
+                if (message.Content.Headers != null)
+                    foreach (var h in message.Content.Headers)
+                        clone.Content.Headers.Add(h.Key, h.Value);
+            }
+
+
+            clone.Version = message.Version;
+
+            foreach (KeyValuePair<string, object> prop in message.Properties)
+                clone.Properties.Add(prop);
+
+            foreach (KeyValuePair<string, IEnumerable<string>> header in message.Headers)
+                clone.Headers.TryAddWithoutValidation(header.Key, header.Value);
+
+            return clone;
         }
     }
 }
