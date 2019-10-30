@@ -127,7 +127,7 @@ namespace Glut.Services
                 var information = to.Where(x => x.Key == 1).Sum(x => x.Count);
                 var successful = to.Where(x => x.Key == 2).Sum(x => x.Count);
                 var redirection = to.Where(x => x.Key == 3).Sum(x => x.Count);
-                var clientError = to.Where(x => x.Key == 3).Sum(x => x.Count);
+                var clientError = to.Where(x => x.Key == 4).Sum(x => x.Count);
                 var serverError = to.Where(x => x.Key == 5).Sum(x => x.Count);
 
                 var str = _threadResult.ToString();
