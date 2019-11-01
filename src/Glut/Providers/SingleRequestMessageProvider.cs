@@ -44,10 +44,19 @@ namespace Glut.Providers
             buffer = buffer.Slice(consumed);
             string body = Encoding.UTF8.GetString(buffer.ToArray());
             var message = app.Get();
-
+            
             if (string.IsNullOrWhiteSpace(body) == false)
             {
                 message.Content = new StringContent(body, Encoding.UTF8);
+            }
+
+            foreach (var pair in app.ContentHeaders)
+            {
+                if(message.Content.Headers.Contains(pair.Key))
+                {
+                    message.Content.Headers.Remove(pair.Key);
+                }
+                message.Content.Headers.Add(pair.Key, pair.Value);
             }
 
             return message;
