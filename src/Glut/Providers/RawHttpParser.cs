@@ -12,10 +12,19 @@ namespace Glut.Providers
     {
         private Http.HttpRequestMessage _message;
         public readonly IDictionary<string, string> ContentHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        private static readonly string[] ContentReaders = new[]
+        private static readonly string[] _httpContentHeaders = new[]
         {
+            "Allow",
+            "Content-Disposition",
+            "Content-Encoding",
+            "Content-Language ",
             "Content-Length",
-            "Content-Type"
+            "Content-Location",
+            "Content-MD5",
+            "Content-Range",
+            "Content-Type",
+            "Expires",
+            "Last-Modified"
         };
 
 
@@ -26,7 +35,7 @@ namespace Glut.Providers
 
             // NOTE: Content headers
 
-            if(ContentReaders.Any(x => string.Equals(x, strName, StringComparison.OrdinalIgnoreCase)))
+            if(_httpContentHeaders.Any(x => string.Equals(x, strName, StringComparison.OrdinalIgnoreCase)))
             {
                 if(ContentHeaders.ContainsKey(strName) == false)
                 {
