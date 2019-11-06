@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>GlutCli</id>
+    <title>GlutCli Console Runner</title>
+    <version>1.0.1</version>
+    <authors>Ferdinand Lukasak and contributors</authors>
+    <owners>Ferdinand Lukasak and contributors</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0</license>
+    <licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
+    <projectUrl>https://github.com/vincoss/glut</projectUrl>
+    <repository type="git" url="https://github.com/vincoss/glut"/>
+    <icon>images\glut.png</icon>
+	<summary>Console runner for the Glut web load-testing framework.</summary>
+    <description>This package includes the GlutCli runner of the Glut web load-testing framework.</description>
+    <releaseNotes>Initial release</releaseNotes>
+	<language>en-US</language>
+    <tags>web load test</tags>
+    <copyright>Copyright © Ferdinand Lukasak 2019</copyright>
+  </metadata>
+<files>
+    <file src="../scr/GlutDev/Img/glut.png" target="images" />
+    <file src="scr/GlutCli/bin/Release/netcoreapp3.0/Glut.dll" target="tools" />
+    <file src="scr/GlutCli/bin/Release/netcoreapp3.0/GlutCli.dll" target="tools" />
+    <file src="scr/GlutCli/bin/Release/netcoreapp3.0/GlutCli.exe" target="tools" />
+    <file src="scr/GlutCli/bin/Release/netcoreapp3.0/appsettings.json" target="tools" />
+    <file src="scr/GlutCli/bin/Release/netcoreapp3.0/hostsettings.json" target="tools" />
+  </files>
+</package>
