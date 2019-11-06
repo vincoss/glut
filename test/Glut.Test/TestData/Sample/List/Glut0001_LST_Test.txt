@@ -1,0 +1,6 @@
+﻿/ 
+/home 
+/home/index 
+/home/index/5 
+
+

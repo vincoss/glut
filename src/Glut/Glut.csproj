@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Ferdinand Lukasak</Authors>
+    <Company />
+    <PackageProjectUrl>http://glut.github.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/vincoss/glut</RepositoryUrl>
+    <PackageIconUrl>https://raw.github.com/vincoss/glut/master/logo/glut-icon.png</PackageIconUrl>
+    <Copyright>Copyright © 2006-2019 Ferdinand Lukasak and Contributors</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Description>A library for http load testing. Flexible and easy to use.</Description>
+    <PackageReleaseNotes>https://github.com/vincoss/glut/releases</PackageReleaseNotes>
+    <PackageTags>http;get;post;put;load;test;socket;</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Glut.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Core" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.0.0" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="echo &quot;App Offline&quot; /a &gt; &quot;$(ProjectDir)app_offline.htm&quot;" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del &quot;$(ProjectDir)app_offline.htm&quot;" />
+  </Target>
+
+</Project>

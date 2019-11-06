@@ -1,0 +1,2 @@
+﻿GET /home HTTP/1.1
+

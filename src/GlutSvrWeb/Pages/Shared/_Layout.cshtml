@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+   <partial name="_head" />
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    @Html.AntiForgeryToken()
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+    <partial name="_header"/>
+
+        <!-- =============================================== -->
+        <!-- Left side column. contains the sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">@AppResources.MainNavigation</li>
+                    <li><a asp-page="/"><i class="fa fa-dashboard text-red"></i> <span>@AppResources.Dashboard</span></a></li>
+                    <li><a asp-page="/Projects"><i class="fa fa-navicon text-yellow"></i> <span>@AppResources.Projects</span></a></li>
+                    <li><a asp-page="/Results"><i class="fa fa-cubes text-aqua"></i> <span>@AppResources.Results</span></a></li>
+                    <li><a asp-page="/About"><i class="fa fa-info text-green"></i> <span>@AppResources.About</span></a></li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- =============================================== -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>@AppResources.Version</b> @GlutConstants.GlutVersion
+            </div>
+            <strong>@AppResources.Copyright &copy; @DateTime.Now.Year <a href="https://github.com/vincoss/glut">@GlutConstants.ApplicationName</a></strong> @AppResources.AllRights
+        </footer>
+
+    </div>
+
+    <partial name="_footerScripts" />
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+wmiprvse.exe
+openvpnserv2.exe
+vpnkit.exe
+lsalso.exe
+csrss.exe
+Host: clientnotification-userprodeau1-4.servicebus.windows.net
+Host: qit-nas04
+
+#
+OPTIONS http://bnesbs/somedir HTTP/1.1
+Proxy-Connection: Keep-Alive
+User-Agent: Microsoft-WebDAV-MiniRedir/10.0.17134
+translate: f
+Host: bnesbs
+
+#
+OPTIONS http://qit-nas04/transfer HTTP/1.1
+Proxy-Connection: Keep-Alive
+User-Agent: Microsoft-WebDAV-MiniRedir/10.0.17134
+translate: f
+Host: qit-nas04
+
+#
+POST http://clientnotification-userprodeau1-4.servicebus.windows.net/ HTTP/1.1
+Content-Type: text/plain
+X-WSCREATE: messaging
+X-PROCESS-AT: http://schemas.microsoft.com/netservices/2009/05/servicebus/connect/roles/relay
+Host: clientnotification-userprodeau1-4.servicebus.windows.net
+Content-Length: 3
+Expect: 100-continue
+Proxy-Connection: Close
+
+#
+GET http://localhost:5000/hello/fero HTTP/1.1
+Host: localhost:5000
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+
+#
+GET http://localhost:5000/this%20is%20a%20test HTTP/1.1
+Host: localhost:5000
+Proxy-Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+
+
+#
+POST http://clientnotification-userprodeau1-4.servicebus.windows.net/ HTTP/1.1
+Content-Type: text/plain
+X-WSCREATE: messaging
+X-PROCESS-AT: http://schemas.microsoft.com/netservices/2009/05/servicebus/connect/roles/relay
+Host: clientnotification-userprodeau1-4.servicebus.windows.net
+Content-Length: 3
+Expect: 100-continue
+Proxy-Connection: Close
+
+#
+GET https://localhost:44371/ HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134
+Accept-Language: en-AU
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Upgrade-Insecure-Requests: 1
+Accept-Encoding: gzip, deflate, br
+Host: localhost:44371
+Connection: Keep-Alive
+Cookie: clientCertificate=MIIDNjCCAh6gAwIBAgIQFznsIuD1ZY1MfqjrgeTrUTANBgkqhkiG9w0BAQsFADAfMR0wGwYDVQQDDBRXaW5kb3dzIEFkbWluIENlbnRlcjAeFw0xOTAyMDYwMzQ0MzBaFw0yOTAyMDYwMzQ0MzBaMCYxJDAiBgNVBAMMG1dpbmRvd3MgQWRtaW4gQ2VudGVyIENsaWVudDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOWbHAOA6wvWguqwcwJVC9w%2FAlUhKuLJYaL8iUHfK2AgAR5SorvjeL%2FZiLGe8RI2Mg12Ikuid3YkMMTS2c6SoNuga2ctCxEvvAR9bUCtheivfy6RWAtBZMRBUCF69OOe%2B6de4c%2Buj9w%2B2M5IBnnxuYhwi7nVTjS3cAlrbadKsFCBy8yUwjeuFfjge6uf36DbZyDEDQIGoj2Prval707J4s0FMy0fUnyWsXpe00zgkuxeiXNT4IyzcG75Oq%2FgbFGF9Qqcp5Mv%2F6v5yWuxHqGACvCTfkjt9nz7eQjJwBABOIvAVMwF61UjPr4mI6gzXCcJAuKKtuIfNRnCmdzOiigAHdUCAwEAAaNnMGUwDgYDVR0PAQH%2FBAQDAgOIMBMGA1UdJQQMMAoGCCsGAQUFBwMCMB8GA1UdIwQYMBaAFMH291nth7UwQynm7PNDR7saTdZ1MB0GA1UdDgQWBBTTpp%2BOG2lmMq1JgUXlZq59s87wxDANBgkqhkiG9w0BAQsFAAOCAQEAq283ihoYjptsGBy3LlLEX9pRSsP6bS24%2B2JxTHhgldOHa7IHSRSWPA%2FBt%2F5aR%2FRlESHIgvbLC7i9noLyGIRPdq4%2B%2BvMtcEZYAdgU3IIcCV4zTKagn05uMGnIaWS2g2rHo4zkNDF%2BVw21oY1LsPNR3dByS1PGQq%2BLh89oNlScEXqav%2FvpLNFrkcVTTHrupUTu7%2F4adjsMKhL332LWmnOBySQQBT9UdThjhdNyqBrX90OQavA15H0uukXRcnIewYnA%2BJegKlVmJ%2BWWWHF43iBWQ81BUhgHmD1P4igHdXvg2VDwfnlI%2FXd7eGh6jjD%2Fl1Rvk1eB9wQuCaJPu%2FYioTqRig%3D%3D; .AspNet.Consent=yes
+
+
+
