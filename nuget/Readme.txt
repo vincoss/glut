@@ -1,1 +1,1 @@
-nuget pack nuget\GlutCli.nuspec
+nuget pack GlutCli.nuspec

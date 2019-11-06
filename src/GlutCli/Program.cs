@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Glut.Data;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace GlutCli
 {
     /// <summary>
@@ -40,7 +41,7 @@ namespace GlutCli
                 {
                     hostingContext.HostingEnvironment.ApplicationName = GlutConstants.ApplicationName;
                     config.AddJsonFile("appsettings.json", optional: false);
-                    config.AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true);
+                    config.AddJsonFile($"appsettings.{Environments.Development}.json", optional: true);
                     config.AddCommandLine(args);
                 })
                 .ConfigureServices((hostContext, services) =>
