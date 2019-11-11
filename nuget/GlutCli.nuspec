@@ -21,11 +21,8 @@
   </metadata>
 <files>
     <file src="..\src\GlutDev\Img\logo.png" target="images" />
-    <file src="..\src\GlutCli\bin\Release\netcoreapp3.0\Glut.dll" target="tools" />
-    <file src="..\src\GlutCli\bin\Release\netcoreapp3.0\GlutCli.dll" target="tools" />
-    <file src="..\src\GlutCli\bin\Release\netcoreapp3.0\GlutCli.exe" target="tools" />
-    <file src="..\src\GlutCli\bin\Release\netcoreapp3.0\appsettings.json" target="tools" />
-    <file src="..\src\GlutCli\bin\Release\netcoreapp3.0\hostsettings.json" target="tools" />
-    <file src="..\src\GlutCli\bin\Release\netcoreapp3.0\GlutCli.runtimeconfig.json" target="tools" />
+    <file src="..\src\GlutCli\bin\Release\netcoreapp3.0\win-x64\publish\GlutCli.exe" target="tools" />
+    <file src="..\src\GlutCli\bin\Release\netcoreapp3.0\win-x64\appsettings.json" target="tools" />
+    <file src="..\src\GlutCli\bin\Release\netcoreapp3.0\win-x64\hostsettings.json" target="tools" />
   </files>
 </package>

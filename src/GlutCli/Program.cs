@@ -31,14 +31,15 @@ namespace GlutCli
             IHostBuilder builder = new HostBuilder()
                 .ConfigureHostConfiguration(config =>
                  {
+                     config.SetBasePath(Path.Combine(Directory.GetCurrentDirectory()));
                      config.Properties.Add(HostDefaults.ApplicationKey, GlutConstants.ApplicationName);
-                     config.SetBasePath(Path.Combine(AppContext.BaseDirectory));
 
                      config.AddJsonFile("hostsettings.json", optional: false);
                      config.AddEnvironmentVariables();
                  })
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
+                    config.SetBasePath(Path.Combine(Directory.GetCurrentDirectory()));
                     hostingContext.HostingEnvironment.ApplicationName = GlutConstants.ApplicationName;
                     config.AddJsonFile("appsettings.json", optional: false);
                     config.AddJsonFile($"appsettings.{Environments.Development}.json", optional: true);
