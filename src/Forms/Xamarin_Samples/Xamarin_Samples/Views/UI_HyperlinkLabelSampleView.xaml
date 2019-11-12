@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.UI_HyperlinkLabelSampleView"
+             Title="UI_HyperlinkLabelSampleView">
+    
+    <!--
+        ## Resources
+        https://xamarinhelp.com/hyperlink-in-xamarin-forms-label/
+        
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Hello " />
+                        <Span Text="Click Me!"
+                  TextColor="Blue"
+                  TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ClickCommand}"
+                                          CommandParameter="https://xamarin.com" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                        <Span Text=" Some more text." />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

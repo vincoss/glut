@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.UI_FontsSampleView"
+             Title="UI_FontsSampleView">
+    
+    <!-- 
+    https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/text/fonts
+    
+    https://ionicons.com/v2/
+    -->
+
+    <ContentPage.Resources>
+        <x:String x:Key="Play">&#xf10b;</x:String>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <ScrollView Margin="5">
+            <StackLayout>
+                <!--Set the font in XAML-->
+                <Label Text="Set the font in XAML"/>
+                <Label Text="Login" FontSize="Large"/>
+                <Label Text="Instructions" FontSize="Small"/>
+                <Label Text="Italics are supported" FontAttributes="Italic" />
+                <Label Text="Biggest NamedSize" FontSize="Large" />
+                <Label Text="Use size 72" FontSize="72" />
+                <Label Text="Hello Forms with XAML">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="MarkerFelt-Thin" />
+                            <On Platform="Android" Value="Lobster-Regular.ttf#Lobster-Regular" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <!--Named font sizes-->
+                <Label Text="Named font sizes"/>
+                <Label Text="Default" FontSize="Default" />
+                <Label Text="Micro" FontSize="Micro" />
+                <Label Text="Small" FontSize="Small" />
+                <Label Text="Medium" FontSize="Medium" />
+                <Label Text="Large" FontSize="Large" />
+                <Label Text="Body" FontSize="Body" />
+                <Label Text="Header" FontSize="Header" />
+                <Label Text="Title" FontSize="Title" />
+                <Label Text="Subtitle" FontSize="Subtitle" />
+                <Label Text="Caption" FontSize="Caption" />
+                <!--Use a custom font-->
+                <Label Text="Use a custom font"/>
+                <Label Text="Hello Forms with XAML">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Lobster-Regular" />
+                            <On Platform="Android" Value="Lobster-Regular.ttf#Lobster-Regular" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <!--Display font icons-->
+                <Label Text="Display font icons"/>
+                <Image BackgroundColor="Orange">
+                    <Image.Source>
+                        <FontImageSource Glyph="&#xf30c;"
+                         FontFamily="{OnPlatform iOS=Ionicons, Android=ionicons.ttf#}"
+                         Size="44" />
+                    </Image.Source>
+                </Image>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Navigation.Views.SettingOneView"
+             Title="Setting One - Title">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Setting One" />
+            <Button x:Name="btnClose" Text="Close" Clicked="btnClose_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

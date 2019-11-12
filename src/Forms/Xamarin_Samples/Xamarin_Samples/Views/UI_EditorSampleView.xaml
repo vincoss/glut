@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.UI_EditorSampleView"
+             Title="UI_EditorSampleView">
+    
+    <!-- 
+    ## Resources
+    https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/text/editor
+
+    
+    -->
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <!--Setting and Reading Text-->
+                <Label Text="Setting and Reading Text"/>
+                <Editor Text="I am an Editor" />
+                <!--Setting Placeholder text-->
+                <Label Text="Setting Placeholder text"/>
+                <Editor Placeholder="Enter text here" PlaceholderColor="Olive" />
+                <!--Preventing Text Entry-->
+                <Label Text="Preventing Text Entry"/>
+                <Editor Text="This is a read-only Editor" IsReadOnly="true" />
+                <!--Disabled-->
+                <Label Text="Disabled"/>
+                <Editor IsEnabled="false" Text="This is a disabled editor" />
+                <!--Limiting Input Length-->
+                <Label Text="Limiting Input Length"/>
+                <Editor Text="Long text, text, text, text, text, text, text, text, text, text, text, text, text, text, text" MaxLength="10" />
+                <!--Auto-Sizing an Editor-->
+                <Label Text="Auto-Sizing an Editor"/>
+                <Editor Text="Enter text here" AutoSize="TextChanges" BackgroundColor="Orange" />
+                <!--Customizing the Keyboard-->
+                <Label Text="Customizing the Keyboard"/>
+                <Editor Keyboard="Chat" />
+                <Label Text="Customizing the Keyboard - Capitalize all"/>
+                <Editor>
+                    <Editor.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>Suggestions,CapitalizeCharacter</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Editor.Keyboard>
+                </Editor>
+                <!--Enabling and Disabling Spell Checking-->
+                <Label Text="Enabling and Disabling Spell Checking"/>
+                <Editor Text="Documant iz bilow thet" IsSpellCheckEnabled="false" />
+                <!--Enabling and Disabling Text Prediction-->
+                <Label Text="Enabling and Disabling Text Prediction"/>
+                <Editor IsTextPredictionEnabled="True" />
+                <!--Colours-->
+                <Label Text="Colors"/>
+                <Editor>
+                    <Editor.BackgroundColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="#a4eaff" />
+                            <On Platform="Android, UWP" Value="#2c3e50" />
+                        </OnPlatform>
+                    </Editor.BackgroundColor>
+                </Editor>
+                <!--Interactivity-->
+                <Label Text="Interactivity - EditorCompleted"/>
+                <Editor Completed="EditorCompleted" />
+                <Label Text="Interactivity - TextChanged"/>
+                <Editor TextChanged="EditorTextChanged" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.Essentials_EmailView"
+             Title="Essentials_EmailView">
+    
+    <!-- 
+    https://docs.microsoft.com/en-us/xamarin/essentials/email?context=xamarin%2Fxamarin-forms&tabs=android
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Email Sample" />
+            <Button x:Name="btnOpen" Text="Open" Clicked="btnOpen_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

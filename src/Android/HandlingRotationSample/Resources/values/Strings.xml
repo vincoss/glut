@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="Hello">Hello World, Click Me!</string>
+  <string name="ApplicationName">HandlingRotationSample</string>
+  <string name="PreventRestart">Prevent Activity Restart</string>
+  <string name="ProgramaticLayout">Programatic Layout</string>
+  <string name="ProgramaticOrientation">Programatic Orientation</string>
+  <string name="NonConfigurationState">Non Configuration State</string>
+</resources>

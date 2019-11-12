@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontawesome="clr-namespace:FontAwesome"
+             x:Class="Xamarin_Samples.Views.UI_UseFontAwesomeSampleView"
+             Title="&#xe800; UI_UseFontAwesomeSampleView"
+             BackgroundColor="#698071">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="&#xe800;"  Order="Primary" Priority="1"/>
+        <ToolbarItem Text="&#xe803;"  Order="Primary" Priority="1" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="Icons" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource CustomFontFontello}" />
+                <Setter Property="FontSize" Value="30" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="WidthRequest" Value="40" />
+            </Style>
+
+            <Style x:Key="LikeIcon" BasedOn="{StaticResource Icons}" TargetType="Label">
+                <Setter Property="Text" Value="&#xe801;" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <!--
+    https://fontawesome.com/icons
+    http://fontello.com/
+    
+    https://medium.com/@tsjdevapps/use-fontawesome-in-a-xamarin-forms-app-2edf25311db4
+    https://trailheadtechnology.com/simple-way-to-use-icon-fonts-in-xamarin-forms-projects/
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <!--Use FontAwesome-->
+            <Label Text="Use FontAwesome"/>
+            <Label Text="&#xf26e;" FontFamily="{StaticResource FontAwesomeBrands}" FontSize="Header" />
+            <Label Text="&#xf17b;" FontFamily="{StaticResource FontAwesomeBrands}" TextColor="Green" FontSize="Large" />
+
+            <Label Text="{x:Static fontawesome:FontAwesomeIcons.Angellist}"
+                   FontFamily="{StaticResource FontAwesomeBrands}" TextColor="Red" FontSize="Header" />
+
+            <FlexLayout 
+                AlignItems="Center"
+                JustifyContent="SpaceEvenly"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Center">
+                <RelativeLayout>
+                    <Label Text="&#xe803;" x:Name="Heart" FontFamily="{StaticResource CustomFontFontello}" FontSize="30" TextColor="Orange"/>
+                    <Label Text="&#xe802;" Opacity="0" x:Name="HeartFilled"  FontFamily="{StaticResource CustomFontFontello}" FontSize="30" TextColor="White" />
+                </RelativeLayout>
+                <Label Text="&#xe800;" Style="{StaticResource Icons}" TextColor="Red" />
+                <Label Style="{StaticResource LikeIcon}" />
+                <Label x:Name="HandIcon" Style="{StaticResource Icons}" />
+            </FlexLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

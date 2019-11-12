@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.Essentials_GeolocationView"
+             Title="Essentials_GeolocationView">
+    
+    <!--
+    https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?context=xamarin%2Fxamarin-forms&tabs=uwp
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Geolocation - LastLocation and Location Information"/>
+            <ListView x:Name="lstLocation"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

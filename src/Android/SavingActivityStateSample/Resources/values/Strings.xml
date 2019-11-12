@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="MyButton">Open B Activity</string>
+  <string name="ApplicationName">SavingActivityStateSample</string>
+  <string name="CounterButton">Increment</string>
+</resources>

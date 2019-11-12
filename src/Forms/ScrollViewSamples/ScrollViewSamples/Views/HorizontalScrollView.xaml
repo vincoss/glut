@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ScrollViewSamples.Views.HorizontalScrollView">
+
+  <Grid BackgroundColor="Pink">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0" BackgroundColor="Red">
+      <Label Text="Horizontal scrool sample"/>
+    </Grid>
+
+    <ScrollView Orientation="Horizontal" HeightRequest="50" Grid.Row="1" BackgroundColor="Blue">
+      <StackLayout Orientation="Horizontal">
+        <BoxView WidthRequest="50" HeightRequest="50" Color="Red"/>
+        <Label Text="abstract"/>
+        <BoxView WidthRequest="50" HeightRequest="50" Color="Blue"/>
+        <Label Text="as"/>
+        <BoxView WidthRequest="50" HeightRequest="50" Color="Pink"/>
+        <Label Text="base"/>
+        <BoxView WidthRequest="50" HeightRequest="50" Color="Green"/>
+        <Label Text="bool"/>
+        <Label Text="break"/>
+        <Label Text="byte"/>
+        <Label Text="case"/>
+        <Label Text="catch"/>
+        <Button Image="camera.png"/>
+        <Label Text="char"/>
+        <Label Text="checked"/>
+        <Button Text="Hola" BorderColor="Yellow" BorderRadius="5" BorderWidth="2"/>
+        <Label Text="class"/>
+        <Label Text="const"/>
+        <Label Text="continue"/>
+        <Label Text="decimal"/>
+        <Label Text="default"/>
+        <Label Text="delegate"/>
+      </StackLayout>
+    </ScrollView>
+
+  </Grid>
+
+</ContentPage>

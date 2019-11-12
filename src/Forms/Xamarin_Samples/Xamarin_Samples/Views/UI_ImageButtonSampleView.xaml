@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.UI_ImageButtonSampleView"
+             Title="UI_ImageButtonSampleView">
+    <!--
+    https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/imagebutton
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <!--Setting the image source-->
+            <Label Text="Setting the image source"/>
+            <ImageButton Source="xamarinlogo.png"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand" />
+            <!--Handling ImageButton clicks-->
+            <Label Text="Handling ImageButton clicks"/>
+            <ImageButton Source="xamarinlogo.png"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
+                    Clicked="OnImageButtonClicked" />
+
+            <Label x:Name="label"
+               Text="0 ImageButton clicks"
+               FontSize="Large"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

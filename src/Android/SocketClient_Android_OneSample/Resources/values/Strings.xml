@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="SocketsButton">Say hello with Sockets</string>
+    <string name="ApplicationName">Socket_Samples</string>
+</resources>

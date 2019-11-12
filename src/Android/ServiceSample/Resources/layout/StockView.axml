@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*">
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView
+            android:id="@+id/DetailTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FF6A00" />
+    </TableRow>
+    <View
+        android:layout_height="2dip"
+        android:background="#FF0000" />
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <ListView
+            android:id="@+id/StocksListView"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0094FF" />
+    </TableRow>
+</TableLayout>

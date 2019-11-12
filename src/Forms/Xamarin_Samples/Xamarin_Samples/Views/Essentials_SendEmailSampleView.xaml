@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.Essentials_SendEmailSampleView"
+             Title="Essentials_SendEmailSampleView">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry x:Name="eEmail"/>
+            <Button x:Name="btnSendEmail" Text="Send Email" Clicked="btnSendEmail_Clicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

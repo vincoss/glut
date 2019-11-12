@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.Essentials_BrowserView"
+             Title="Essentials_BrowserView">
+    
+    <!--
+    https://docs.microsoft.com/en-us/xamarin/essentials/open-browser?context=xamarin%2Fxamarin-forms&tabs=ios
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Browser - Open"/>
+            <Button x:Name="btnOpen" Text="Open Browser" Clicked="btnOpen_Clicked"/>
+            <Label Text="Browser - Open"/>
+            <Button x:Name="btnOpenCustom" Text="Open Browser - Customization" Clicked="btnOpenCustom_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

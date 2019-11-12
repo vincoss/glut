@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Validation.Views.UserRegistrationView">
+    
+    <!--
+    http://bsubramanyamraju.blogspot.com/2018/03/fluent-validation-how-to-validate.html
+    -->
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="40,60,40,0" VerticalOptions="FillAndExpand" Spacing="70">
+                <Label Text="Fluent Validation" TextColor="Blue" HorizontalOptions="CenterAndExpand" FontSize="30"/>
+                <StackLayout Spacing="20">
+                    <Entry Placeholder="User Name" Text="{Binding UserName}" HeightRequest="40" HorizontalOptions="FillAndExpand"  TextColor="Gray" BackgroundColor="White"/>
+                    <Entry Placeholder="Phone Number" Text="{Binding PhoneNumber}" Keyboard="Telephone" HeightRequest="40" HorizontalOptions="FillAndExpand"  TextColor="Gray" BackgroundColor="White"/>
+                    <Entry Placeholder="Email" Text="{Binding Email}" HeightRequest="40" Keyboard="Email" HorizontalOptions="FillAndExpand"  TextColor="Gray" BackgroundColor="White"/>
+                    <Entry Placeholder="Password" IsPassword="true" Text="{Binding Password}" HeightRequest="40" HorizontalOptions="FillAndExpand"  TextColor="Gray" BackgroundColor="White"/>
+                    <Entry Placeholder="ConfirmPassword" IsPassword="true" Text="{Binding ConfirmPassword}" HeightRequest="40" HorizontalOptions="FillAndExpand"  TextColor="Gray" BackgroundColor="White"/>
+                    <Button Text="Register" HorizontalOptions="FillAndExpand" TextColor="Blue" Command="{Binding RegisterCommand}" HeightRequest="40"  BackgroundColor="White"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

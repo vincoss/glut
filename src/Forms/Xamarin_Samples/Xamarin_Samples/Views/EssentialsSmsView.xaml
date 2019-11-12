@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.EssentialsSmsView"
+             Title="EssentialsSmsView">
+    
+    <!--
+    https://docs.microsoft.com/en-us/xamarin/essentials/sms?context=xamarin/xamarin-forms
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Essentials - SMS" />
+            <Button x:Name="btnSend" Text="Send" Clicked="btnSend_Clicked"/>
+            <Label x:Name="lblTitle" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

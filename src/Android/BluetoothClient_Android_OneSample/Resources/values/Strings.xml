@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ConnectBluetoothButton">Connect Bluetooth</string>
+  <string name="DisconnectBluetoothButton">Disconnect Bluetooth</string>
+  <string name="SendButton">Send</string>
+    <string name="ApplicationName">BluetoothClient_Android_OneSample</string>
+</resources>

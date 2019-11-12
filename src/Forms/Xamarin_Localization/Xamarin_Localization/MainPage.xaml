@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ex="clr-namespace:Xamarin_Localization.Extensions;assembly=Xamarin_Localization"
+             x:Class="Xamarin_Localization.MainPage">
+
+    <StackLayout x:Name="localizationSample">
+        <Label Text="Localization Samples"/>
+
+        <!--Localizing XAML-->
+        <Label Text="Localizing XAML"/>
+        <Label Text="{ex:Translate MondayKey}" />
+        <Entry Placeholder="{ex:Translate TuesdayKey}" />
+        <Button Text="{ex:Translate WeekDayKey}" />
+        <!--Localizing XAML more verbose-->
+        <Button Text="{ex:TranslateExtension Text=TuesdayKey}" />
+
+        <Label Text="Code behind"/>
+        <!--Code behind-->
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PopupsSamples.Views.SampleOneView">
+
+  <StackLayout>
+
+    <Label Text="DisplayAlert"/>
+    
+    <Button x:Name="AlertOneButton" Text="Basic alert"/>
+
+    <Button x:Name="AlertTwoButton" Text="Yes No alert"/>
+
+    <Label Text="DisplayActionSheet"/>
+
+    <Button x:Name="ActionOneButton" Text="Action Sheet"/>
+
+  </StackLayout>
+  
+</ContentPage>

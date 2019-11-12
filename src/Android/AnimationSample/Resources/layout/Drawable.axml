@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/SCROLLER_ID"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical"
+    android:fillViewport="true">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <!--ShapeDrawable-->
+        <TextView
+            android:background="@drawable/gradient_box"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Shape Drawable sample"
+            android:layout_margin="10dp" />
+        <TextView
+            android:id="@+id/TextViewShapeDrawableProgramatically"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Shape Drawable programatically"
+            android:layout_margin="10dp" />
+    <!--StateListDrawable-->
+        <Button
+            android:background="@drawable/button"
+            android:text="Click Me!!!"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp" />
+    <!--LayerDrawable-->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Layer Drawable sample"
+            android:layout_margin="10dp" />
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/layers"
+            android:layout_margin="10dp" />
+    <!--TransitionDrawable-->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Transition Drawable sample. Click Me!!!"
+            android:layout_margin="10dp" />
+        <ImageButton
+            android:id="@+id/ImageTransitionDrawable"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/transition"
+            android:layout_margin="10dp" />
+    <!--LevelListDrawable-->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="LevelList Drawable sample. Click Me!!!"
+            android:layout_margin="10dp" />
+        <ImageButton
+            android:id="@+id/ImageLevelListDrawable"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/LevelList"
+            android:layout_margin="10dp" />
+    <!--ScaleDrawable-->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Scale Drawable sample."
+            android:layout_margin="10dp" />
+        <ImageView
+            android:id="@+id/ScaleImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/scale"
+            android:layout_margin="10dp" />
+    <!--ClipDrawable-->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Clip Drawable sample."
+            android:layout_margin="10dp" />
+        <ImageView
+            android:id="@+id/ClipImageView"
+            android:src="@drawable/Clip"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    <!--InsetDrawable-->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Insert Drawable sample."
+            android:layout_margin="10dp" />
+        <Button
+            android:text="Sample Inset Drawable"
+            android:id="@+id/InsertButton"
+            android:src="@drawable/inset"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+    </LinearLayout>
+</ScrollView>

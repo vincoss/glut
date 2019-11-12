@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#00FF00"
+        android:typeface="monospace"
+        android:text="@string/hello" />
+    <TextView
+        style="@style/CodeFont"
+        android:text="@string/hello" />
+    <TextView
+        style="@style/CodeFont.Red"
+        android:text="@string/hello" />
+    <TextView
+        style="@style/CodeFont.Red.Big"
+        android:text="@string/hello" />
+    <TextView
+        android:id="@+id/text_id"
+        style="@style/CustomFontStyle"
+        android:text="@string/hello" />
+    <EditText
+        style="@style/Numbers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText1" />
+</LinearLayout>

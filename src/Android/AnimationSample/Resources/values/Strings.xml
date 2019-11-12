@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="ShapeDrawable">Drawable</string>
+  <string name="DrawingActivity">Karma</string>
+  <string name="ViewAnimation">View Animation</string>
+  <string name="PropertyAnimation">Property Animation</string>
+  <string name="AnimationDrawable">Animation Drawable</string>
+  <string name="ValueAnimation">Value Animation</string>
+  <string name="ZoomActivity">Zoom Activity</string>
+
+  <string name="message_zoom_touch_expand" >Touch a photo to expand it.</string>
+  <string name="description_image_1" >Image 1</string>
+  <string name="description_image_2" >Image 2</string>
+  <string name="description_zoom_touch_close" >Expanded image (touch to close)</string>
+</resources>

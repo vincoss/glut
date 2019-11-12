@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GesturesSamples.Views.TapMainView">
+
+  <StackLayout x:Name="LayoutRoot">
+
+    <Label x:Name="DetailLabel"/>
+    
+    <!-- Event handler -->
+    <Label Text="Tap two times"/>
+    <BoxView HeightRequest="50" WidthRequest="50" BackgroundColor="Pink">
+      <BoxView.GestureRecognizers>
+        <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped" NumberOfTapsRequired="1" />
+      </BoxView.GestureRecognizers>
+    </BoxView>
+
+    <!-- Event handler NOTE: Does not working -->
+    <Button HeightRequest="50" WidthRequest="50" BackgroundColor="Green">
+      <Button.GestureRecognizers>
+        <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped" NumberOfTapsRequired="1" />
+      </Button.GestureRecognizers>
+    </Button>
+
+    <Grid BackgroundColor="Red">
+      <Frame BackgroundColor="Pink" Padding="5">
+        <Frame.GestureRecognizers>
+          <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped" NumberOfTapsRequired="1" />
+        </Frame.GestureRecognizers>
+        <Button Text="Tap"/>
+      </Frame>
+    </Grid>
+
+    <Label Text="Mvvm command sample"/>
+    <BoxView HeightRequest="50" WidthRequest="50" BackgroundColor="Blue">
+      <BoxView.GestureRecognizers>
+        <TapGestureRecognizer
+            Command="{Binding TapCommand}"
+            CommandParameter="LOL" />
+      </BoxView.GestureRecognizers>
+    </BoxView>
+
+    <BoxView x:Name="MvvmCommandCodeBindingBoxView" HeightRequest="50" WidthRequest="50" BackgroundColor="Olive">
+      <BoxView.GestureRecognizers>
+        <TapGestureRecognizer
+            Command="{Binding TapCommand}"
+            CommandParameter="LOL" />
+      </BoxView.GestureRecognizers>
+    </BoxView>
+    
+  </StackLayout>
+  
+</ContentPage>

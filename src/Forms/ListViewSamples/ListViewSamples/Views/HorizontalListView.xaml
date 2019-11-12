@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListViewSamples.Views.HorizontalListView">
+
+
+  <Grid BackgroundColor="Pink">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0" BackgroundColor="Red">
+      
+    </Grid>
+  
+    <ScrollView Orientation="Horizontal" HeightRequest="50" Grid.Row="1" BackgroundColor="Blue">
+      <StackLayout Orientation="Horizontal">
+        <Label Text="abstract"/>
+        <Label Text="as"/>
+        <Label Text="base"/>
+        <Label Text="bool"/>
+        <Label Text="break"/>
+        <Label Text="byte"/>
+        <Label Text="case"/>
+        <Label Text="catch"/>
+        <Label Text="char"/>
+        <Label Text="checked"/>
+        <Label Text="class"/>
+        <Label Text="const"/>
+        <Label Text="continue"/>
+        <Label Text="decimal"/>
+        <Label Text="default"/>
+        <Label Text="delegate"/>
+      </StackLayout>
+    </ScrollView>
+    
+  </Grid>
+  
+  
+  <!--<ListView x:Name="MessagesListView" ItemsSource="{Binding ItemsSource}">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <ViewCell.View>
+            <BoxView WidthRequest="50" HeightRequest="50" Color="{Binding}"/>
+          </ViewCell.View>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <ViewCell.View>
+            <StackLayout>
+              <BoxView WidthRequest="50" HeightRequest="50" Color="{Binding}"/>
+            </StackLayout>
+          </ViewCell.View>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>-->
+  
+  
+</ContentPage>

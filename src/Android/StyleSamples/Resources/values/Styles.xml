@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <!--NOTE: See here is full definition sample 
+  
+  https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/styles.xml
+  https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/themes.xml
+  -->
+  <style name="AppTheme" parent="android:Theme.Light" />
+
+  <color name="blue">#0000FF</color>
+  <color name="white">#FFFFFF</color>
+  <color name="red">#FF0000</color>
+  <color name="yellow">#FFF200</color>
+  <color name="green">#00FF00</color>
+  <color name="black">#000000</color>
+
+  <style name="CodeFont" parent="@android:style/TextAppearance.Medium">
+    <item name="android:layout_width">fill_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">#00FFF1</item>
+    <item name="android:typeface">monospace</item>
+  </style>
+
+  <!-- Style inheritance by name. See the .Red and .Big-->
+  <style name="CodeFont.Red">
+    <item name="android:textColor">#FF0000</item>
+  </style>
+  <style name="CodeFont.Red.Big">
+    <item name="android:textSize">30sp</item>
+  </style>
+
+  <style name="CustomFontStyle">
+    <item name="android:layout_width">fill_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:capitalize">characters</item>
+    <item name="android:typeface">monospace</item>
+    <item name="android:textSize">12pt</item>
+    <item name="android:textColor">#00CA00</item>/>
+  </style>
+
+  <style name="Numbers">
+    <item name="android:inputType">number</item>
+  </style>
+
+  <!-- Apply theme globaly for all activities in AndroidManifest.xml
+  <application android:theme="@style/CustomTheme"></application>
+  -->
+  <color name="custom_theme_color">#b0b0ff</color>
+  <style name="CustomTheme" parent="android:Theme.Light">
+    <item name="android:windowBackground">@color/custom_theme_color</item>
+    <item name="android:colorBackground">@color/custom_theme_color</item>
+  </style>
+
+
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/dateDisplay"
+        android:layout_width="250dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="wrap_content"
+        android:editable="false" />
+    <ImageButton
+        android:src="@drawable/calendar_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/dateDisplay"
+        android:layout_toRightOf="@+id/dateDisplay"
+        android:contentDescription="Select Date"
+        android:cropToPadding="true"
+        android:id="@+id/ShowPickerImageButton" />
+</LinearLayout>

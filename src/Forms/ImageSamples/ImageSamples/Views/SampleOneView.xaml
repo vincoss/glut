@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ImageSamples.Views.SampleOneView">
+
+  <StackLayout x:Name="LayoutRoot">
+
+    <!-- Throws if more images are displayed -->
+    <!--
+    <Image x:Name="OneImage" Source="/storage/emulated/0/Pictures/CorePhoto/WAR_180001_0_10.jpg"/>
+    <Image x:Name="TwoImage" Source="/storage/emulated/0/Pictures/CorePhoto/WAR_180001_1_11.jpg"/>
+    -->
+
+    <Image x:Name="OneImage"/>
+    <Image x:Name="TwoImage"/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+
+    <!-- In case need to test more images. Will take some time to display -->
+    <!--<Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>
+    <Image/>-->
+
+  </StackLayout>
+
+</ContentPage>

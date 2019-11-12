@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.Essentials_MapView"
+             Title="Essentials_MapView">
+    
+    <!--
+    https://docs.microsoft.com/en-us/xamarin/essentials/maps?context=xamarin%2Fxamarin-forms&tabs=android
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Using Map - Location" />
+            <Button x:Name="btnLocation" Text="Show Location" Clicked="btnLocation_Clicked"/>
+            <Label Text="Using Map - Placemark" />
+            <Button x:Name="tbnPlacemark" Text="Show Placemark" Clicked="tbnPlacemark_Clicked"/>
+            <Label Text="Using Map - Direction Mode" />
+            <Button x:Name="btnDirection" Text="Show Direction" Clicked="btnDirection_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D27D735E-40E9-472D-9848-0E4B0CD59076}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AnimationSample</RootNamespace>
+    <AssemblyName>AnimationSample</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidApplication>true</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>
+    </AndroidUseLatestPlatformSdk>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <TargetFrameworkVersion>v4.1</TargetFrameworkVersion>
+    <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <JavaMaximumHeapSize />
+    <JavaOptions />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkSkip />
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnimationDrawableActivity.cs" />
+    <Compile Include="Controls\TouchHighlightImageButton.cs" />
+    <Compile Include="DrawingActivity.cs" />
+    <Compile Include="Controls\KarmaMeter.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="PropertyAnimationActivity.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DrawableActivity.cs" />
+    <Compile Include="ValueAnimatorActivity.cs" />
+    <Compile Include="ViewAnimationActivity.cs" />
+    <Compile Include="ZoomActivity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\Drawable.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Drawing.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ViewAnimation.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PropertyAnimation.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\AnimationDrawable.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ValueAnimator.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Zoom.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\drawable\gradient_box.xml" />
+    <AndroidResource Include="Resources\drawable\button.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\button_pressed.xml" />
+    <AndroidResource Include="Resources\drawable\button_focused.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\button_hovered.xml" />
+    <AndroidResource Include="Resources\drawable\button_normal.xml" />
+    <AndroidResource Include="Resources\drawable\layers.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\android_red.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\drawable\android_blue.png" />
+    <AndroidResource Include="Resources\drawable\android_red.png" />
+    <AndroidResource Include="Resources\drawable\android_green.png" />
+    <AndroidResource Include="Resources\drawable\transition.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\on.xml" />
+    <AndroidResource Include="Resources\drawable\off.xml" />
+    <AndroidResource Include="Resources\drawable\LevelList.xml" />
+    <AndroidResource Include="Resources\drawable\Scale.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\Clip.xml" />
+    <AndroidResource Include="Resources\drawable\Signal1.png" />
+    <AndroidResource Include="Resources\drawable\Signal2.png" />
+    <AndroidResource Include="Resources\drawable\Signal3.png" />
+    <AndroidResource Include="Resources\drawable\Signal4.png" />
+    <AndroidResource Include="Resources\drawable\inset.xml" />
+    <AndroidResource Include="Resources\drawable\background.png" />
+    <AndroidResource Include="Resources\drawable\Ship.png" />
+    <AndroidResource Include="Resources\animator\hyperspace.xml" />
+    <AndroidResource Include="Resources\drawable\asteroid01.png" />
+    <AndroidResource Include="Resources\drawable\asteroid02.png" />
+    <AndroidResource Include="Resources\drawable\asteroid03.png" />
+    <AndroidResource Include="Resources\drawable\asteroid04.png" />
+    <AndroidResource Include="Resources\drawable\asteroid05.png" />
+    <AndroidResource Include="Resources\drawable\asteroid06.png" />
+    <AndroidResource Include="Resources\drawable\spinning_asteroid.xml" />
+    <AndroidResource Include="Resources\drawable-nodpi\image2.png" />
+    <AndroidResource Include="Resources\drawable-nodpi\image1.png" />
+    <AndroidResource Include="Resources\drawable-nodpi\thumb2.png" />
+    <AndroidResource Include="Resources\drawable-nodpi\thumb1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Android.Framework\Android.Framework.csproj">
+      <Project>{8816de71-371f-42cb-aebf-835bd9379577}</Project>
+      <Name>Android.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+     Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

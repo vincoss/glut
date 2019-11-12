@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.EssentialsTextToSpeechView"
+             Title="EssentialsTextToSpeechView">
+    
+    <!--
+    https://docs.microsoft.com/en-us/xamarin/essentials/text-to-speech?context=xamarin/xamarin-forms
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="TextToSpeech" />
+            <Button x:Name="btnSpeak" Text="Speak Now" Clicked="btnSpeak_Clicked"/>
+            <Label Text="Speech Settings" />
+            <Button x:Name="btnSpeechSetting" Text="Speech Settings" Clicked="btnSpeechSetting_Clicked"/>
+            
+            <Label Text="Speech Cancel" />
+            <Button x:Name="btnSpeechCancel" Text="Speech Cancel" Clicked="btnSpeechCancel_Clicked"/>
+            
+            <Label Text="Speech Multiple" />
+            <Button x:Name="btnSpeechMultiple" Text="Speech Multiple" Clicked="btnSpeechMultiple_Clicked"/>
+            
+            <Label Text="Speech Locales" />
+            <Button x:Name="btnSpeechLocales" Text="Speech Locales" Clicked="btnSpeechLocales_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

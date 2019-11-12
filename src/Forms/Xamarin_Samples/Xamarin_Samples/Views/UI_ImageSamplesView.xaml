@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Xamarin_Samples.Extensions;assembly=Xamarin_Samples"
+             x:Class="Xamarin_Samples.Views.UI_ImageSamplesView"
+             Title="UI_ImageSamplesView">
+    
+    <!--
+        ## Resources
+        https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/images?tabs=windows
+        https://docs.microsoft.com/en-us/xamarin/ios/app-fundamentals/images-icons/
+        https://docs.microsoft.com/en-us/windows/uwp/design/style/app-icons-and-logos
+        https://forums.xamarin.com/discussion/17729/image-placeholder
+        https://docs.microsoft.com/en-us/windows/uwp/design/style/app-icons-and-logos
+    
+        #Page, ToolbarItem, ImageCell contains property
+             BackgroundImageSource="{StaticResource TempImage}"
+             IconImageSource="{StaticResource TempImage}"
+    
+    -->
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout x:Name="images">
+            <!-- Local Images -->
+            <Image Source="temp.png" />
+            
+            <!-- From resources -->
+            <Image Style="{StaticResource TempImage}" />
+            
+            <!-- From Embedded resources 
+                Use only if same size of the image is shared on every platform
+            -->
+            <Label Text="This image is an embedded resource, referenced in XAML. The same image file is used, regardless of the pixel density of the device (eg. iOS Retina)." />
+            <Image Source="{local:ImageResource Xamarin_Samples.Resources.embeddedtemp.png}" />
+
+            <!-- Downloading Images -->
+            <Label Text="Downloading Images"/>
+                <Image Source="https://aka.ms/campus.jpg" />
+
+            <Label Text="Downloading Images and caching"/>
+                <Image IsVisible="True">
+                    <Image.Source>
+                        <UriImageSource Uri="https://aka.ms/campus.jpg"
+                                        CacheValidity="10:00:00.0" />
+                    </Image.Source>
+                </Image>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

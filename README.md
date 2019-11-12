@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# Xamarin Samples
+=======
 # ![Logo](/src/GlutDev/Img/Logo.png?raw=true)  Glut
 
 HTTP load testing tool and library.
@@ -124,4 +127,5 @@ Some of the best ways to contribute are to try things out, file issues, join in 
 ## Reporting bugs
 
 https://github.com/vincoss/glut/issues
+>>>>>>> a14f9e05313f1bbf3e3086d22bca2fa064ce2be1
 

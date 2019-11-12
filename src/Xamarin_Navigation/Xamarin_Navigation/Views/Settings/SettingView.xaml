@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Navigation.Views.SettingView"
+             Title="Settings">
+    <ContentPage.Content>
+        <ListView ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <BoxView Grid.Column="0" Color="{Binding Icon}" Margin="0"/>
+                            <StackLayout Grid.Column="1" Margin="0" Padding="0" BackgroundColor="OldLace" HorizontalOptions="Fill">
+                                <Label Text="{Binding Title}" />
+                                <Label Text="{Binding Detail}" />
+                                <BoxView Color="Red" HorizontalOptions="Fill" HeightRequest=".5" />
+                            </StackLayout>
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

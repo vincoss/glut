@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PickerSamples.MainPage"
+             xmlns:controls="clr-namespace:PickerSamples.Controls;assembly=PickerSamples"
+             Title="Picker Samples">
+
+  <StackLayout>
+
+    <Label Text="Sample Three" />
+    <controls:BindablePicker x:Name="SampleThree" ItemsSource="{Binding Projects}" />
+    
+    <!-- Basic strings-->
+
+    <Label Text="Sample One" />
+    <Picker x:Name="SampleOne" SelectedIndex="0" HorizontalOptions="FillAndExpand"
+            Title="Projects">
+      <Picker.Items>
+        <x:String>BEE</x:String>
+        <x:String>NEW</x:String>
+        <x:String>POI</x:String>
+        <x:String>REG</x:String>
+        <x:String>SWC</x:String>
+        <x:String>WAR</x:String>
+      </Picker.Items>
+    </Picker>
+
+    <!-- Code behind -->
+
+    <Label Text="Sample One" />
+    <Picker x:Name="SampleTwo" Title="Projects"/>
+    <BoxView x:Name="SampleTwoBoxView" WidthRequest="150" HeightRequest="150" HorizontalOptions="LayoutOptions.Center" VerticalOptions="LayoutOptions.CenterAndExpand"/>
+
+    <!-- Bindable -->
+
+
+  </StackLayout>
+  
+</ContentPage>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.UI_ListViewInfiniteScrollView"
+             xmlns:local="clr-namespace:Xamarin_Samples.Extensions;assembly=Xamarin_Samples"
+             Title="UI_ListViewInfiniteScrollView">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="searchResults"
+                      HorizontalOptions="Fill"
+                      VerticalOptions="CenterAndExpand"
+                      CachingStrategy="RecycleElement"
+                      IsPullToRefreshEnabled="True"
+                      RefreshControlColor="Orange"
+                      IsRefreshing="{Binding IsBusy}"
+                      ItemsSource="{Binding SearchResults}"
+                      RefreshCommand="{Binding RefreshCommand}"
+                      local:ListViewInfiniteScrollAttached.LoadMoreCommand="{Binding LoadMoreCommand}">
+                <ListView.Footer>
+                    <Grid IsVisible="{Binding IsBusy}">
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible"  Value="False">
+                                <Setter Property="HeightRequest" Value="0"/>
+                            </Trigger>
+                        </Grid.Triggers>
+                        <Label Text="Loading..."
+                           TextColor="Green"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           FontAttributes="Bold"
+                           FontSize="Medium"/>
+                    </Grid>
+                </ListView.Footer>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

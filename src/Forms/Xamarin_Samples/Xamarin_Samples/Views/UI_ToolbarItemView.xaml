@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.UI_ToolbarItemView"
+             Title="ToolbarItem - Title - UI_ToolbarItemView">
+    
+    <!--
+    https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/toolbaritem
+    -->
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            x:Name="toolSave"    
+            Clicked="toolSave_Clicked"
+            Text="Save"
+                IconImageSource="save.png"
+                Order="Primary"
+                Priority="0" />
+        <ToolbarItem 
+            x:Name="toolInsert"    
+            Clicked="toolSave_Clicked"
+            Text="Insert"
+                Order="Secondary"
+                Priority="0" />
+        <ToolbarItem 
+            x:Name="toolClose"    
+            Clicked="toolSave_Clicked"
+            Text="Close"
+                Order="Default"
+                Priority="0" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label  Text="ToolbarItem - Sample"/>
+            <Label x:Name="lblInfo" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

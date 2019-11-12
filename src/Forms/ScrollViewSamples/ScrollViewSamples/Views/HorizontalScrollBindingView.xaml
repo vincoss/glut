@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ScrollViewSamples.Views.HorizontalScrollBindingView"
+             xmlns:converters="clr-namespace:ScrollViewSamples.Converters;assembly=ScrollViewSamples"
+             xmlns:controls="clr-namespace:ScrollViewSamples.Controls;assembly=ScrollViewSamples">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:StringColorToColorConverter x:Key="StringColorToColorConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
+  <Grid BackgroundColor="Pink">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="0" BackgroundColor="Red">
+      <Label Text="Horizontal scrool sample"/>
+    </Grid>
+    <Grid HeightRequest="50" Grid.Row="1" BackgroundColor="Blue">
+      <controls:ItemsView ItemsSource="{Binding ItemsSource}">
+        <controls:ItemsView.ItemTemplate>
+          <DataTemplate>
+            <Button Text="{Binding Luminosity}" BackgroundColor="Olive" BorderWidth="2" BorderRadius="5" BorderColor="{Binding Converter={StaticResource StringColorToColorConverter}}"/>
+          </DataTemplate>
+        </controls:ItemsView.ItemTemplate>
+      </controls:ItemsView>
+    </Grid>
+  </Grid>
+
+</ContentPage>

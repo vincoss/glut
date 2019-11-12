@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.UI_CheckBoxSampleView"
+             Title="UI_CheckBoxSampleView">
+    
+    <!--
+    https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/checkbox
+    -->
+    
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Orange">
+            <!--Create a CheckBox-->
+            <CheckBox BackgroundColor="Red" IsChecked="True" />
+            <!--Respond to a CheckBox changing state-->
+            <CheckBox CheckedChanged="OnCheckBoxCheckedChanged" />
+            <!--Data bind a CheckBox-->
+            <CheckBox x:Name="checkBox" Color="Red"/>
+            <Label Text="Lorem ipsum dolor sit amet, elit rutrum, enim hendrerit augue vitae praesent sed non, lorem aenean quis praesent pede.">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                     Binding="{Binding Source={x:Reference checkBox}, Path=IsChecked}"
+                     Value="true">
+                        <Setter Property="FontAttributes"
+                    Value="Italic, Bold" />
+                        <Setter Property="FontSize"
+                    Value="Large" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+            <!--Margin Issue-->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <CheckBox BackgroundColor="Silver"/>
+                <Label Text="CheckBox" VerticalOptions="Center" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

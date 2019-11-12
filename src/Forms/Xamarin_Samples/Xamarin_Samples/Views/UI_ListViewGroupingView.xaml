@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin_Samples.Views.UI_ListViewGroupingView"
+             Title="UI_ListViewGroupingView - Grouped">
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <!--Grouping-->
+                <BoxView BackgroundColor="#696969" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+                <Label Text="Grouping"/>
+                <Label Text="{Binding SelectedItem}"/>
+                <ListView GroupDisplayBinding="{Binding Title}"
+                      GroupShortNameBinding="{Binding ShortName}"
+                      IsGroupingEnabled="true"
+                      ItemsSource="{Binding FruitGroup}"
+                      SelectedItem="{Binding SelectedFruit}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell 
+                              Text="{Binding Title}"
+                              Detail="{Binding Subtitle}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!--Customizing grouping-->
+                <BoxView BackgroundColor="#696969" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+                <Label Text="Customizing grouping"/>
+                <ListView GroupDisplayBinding="{Binding Title}"
+                      GroupShortNameBinding="{Binding ShortName}"
+                      IsGroupingEnabled="true"
+                      ItemsSource="{Binding FruitGroup}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Title}" Detail="{Binding Subtitle}" TextColor="#f35e20" DetailColor="#503026" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Title}" Detail="{Binding ShortName}" TextColor="#f35e20" DetailColor="#503026" />
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                </ListView>
+
+                <!--Headers and footers-->
+                <BoxView BackgroundColor="#696969" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+                <Label Text="Headers and footers"/>
+                <ListView>
+                    <ListView.Header>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Header" TextColor="Olive" BackgroundColor="Red" />
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.Footer>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Footer" TextColor="Gray" BackgroundColor="Blue" />
+                        </StackLayout>
+                    </ListView.Footer>
+                    <ListView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>One</x:String>
+                            <x:String>Two</x:String>
+                            <x:String>Three</x:String>
+                        </x:Array>
+                    </ListView.ItemsSource>
+                </ListView>
+
+                <!--Scrollbar visibility-->
+                <BoxView BackgroundColor="#696969" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+                <Label Text="Scrollbar visibility"/>
+                <ListView VerticalScrollBarVisibility="Always">
+                    <ListView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>One</x:String>
+                            <x:String>Two</x:String>
+                            <x:String>Three</x:String>
+                        </x:Array>
+                    </ListView.ItemsSource>
+                </ListView>
+
+                <!--Row separators, Row height-->
+                <BoxView BackgroundColor="#696969" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+                <Label Text="Row separators, Row height"/>
+                <ListView SeparatorVisibility="Default" SeparatorColor="Red" RowHeight="100" HasUnevenRows="False">
+                    <ListView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>One</x:String>
+                            <x:String>Two</x:String>
+                            <x:String>Three</x:String>
+                        </x:Array>
+                    </ListView.ItemsSource>
+                </ListView>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
