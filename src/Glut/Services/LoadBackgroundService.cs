@@ -1,5 +1,6 @@
 ﻿using Glut.Interface;
 using Glut.Providers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -25,8 +26,9 @@ namespace Glut.Services
         private readonly IResultStore _resultStore;
         private readonly IEnvironment _environment;
         private DateTime _startDateTime;
+        private readonly IConfiguration _configuration;
 
-        public LoadBackgroundService(ThreadResult result, Runner runner, IHostApplicationLifetime applicationLifetime, IOptions<AppConfig> appConfig, ILogger<LoadBackgroundService> logger, CompositeRequestMessageProvider compositeMessageProvider, IResultStore resultStore, IEnvironment environment)
+        public LoadBackgroundService(ThreadResult result, Runner runner, IHostApplicationLifetime applicationLifetime, IOptions<AppConfig> appConfig, ILogger<LoadBackgroundService> logger, CompositeRequestMessageProvider compositeMessageProvider, IResultStore resultStore, IEnvironment environment, IConfiguration configuration)
         {
             _runner = runner;
             _applicationLifetime = applicationLifetime;
@@ -36,6 +38,7 @@ namespace Glut.Services
             _threadResult = result;
             _resultStore = resultStore;
             _environment = environment;
+            _configuration = configuration;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
@@ -60,6 +63,8 @@ namespace Glut.Services
             {
                 _appConfig.DurationMilliseconds = long.MaxValue;
             }
+
+            Extensions.PrintConfiguration(_configuration, Console.WriteLine, (x) => { return x.StartsWith(nameof(AppConfig)); });
 
             _runner.CreateWorkerThreads(_appConfig.Threads, TimeSpan.FromMilliseconds(_appConfig.DurationMilliseconds), _appConfig.Count, _appConfig.IntervalMilliseconds, _messages, cancellationToken);
 

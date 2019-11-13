@@ -8,7 +8,7 @@ namespace Glut
 {
     public static class Extensions
     {
-        public static void PrintConfiguration(this IConfiguration configuration, Action<string> print)
+        public static void PrintConfiguration(this IConfiguration configuration, Action<string> print, Func<string, bool> filter = null)
         {
             if(configuration == null)
             {
@@ -21,6 +21,11 @@ namespace Glut
 
             foreach (var pair in configuration.AsEnumerable())
             {
+                if(filter != null && filter(pair.Key) == false)
+                {
+                    continue;
+                }
+
                 print($"{pair.Key}: {pair.Value}");
             }
         }
