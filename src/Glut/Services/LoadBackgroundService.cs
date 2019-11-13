@@ -65,6 +65,7 @@ namespace Glut.Services
             }
 
             Extensions.PrintConfiguration(_configuration, Console.WriteLine, (x) => { return x.StartsWith(nameof(AppConfig)); });
+            Console.WriteLine("Running..."); // TODO: replace with spinner
 
             _runner.CreateWorkerThreads(_appConfig.Threads, TimeSpan.FromMilliseconds(_appConfig.DurationMilliseconds), _appConfig.Count, _appConfig.IntervalMilliseconds, _messages, cancellationToken);
 
