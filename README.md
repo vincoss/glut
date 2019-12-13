@@ -12,7 +12,7 @@ Install-Package GlutCli
 ### Docker Glut Server
 To pull GlutSrv via [Docker](https://hub.docker.com/repository/docker/vincoss/glutsvr), run the following command in the Command Line or Powershell
 ```
-docker pull vincoss/glutsvr:1.0.0
+docker pull vincoss/glutsvr:1.0.0-windows-nanoserver
 ```
 
 ## Screenshots

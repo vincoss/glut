@@ -13,7 +13,7 @@ docker image tag vincoss/glutsvr:1.0.0 vincoss/glutsvr:1.0.0-windows-nanoserver
 docker image push vincoss/glutsvr:1.0.0-windows-nanoserver
 
 ## Run
-docker run -it --rm -p 8000:80 --name glutsvr -h glut --ip 10.1.2.3 -v glutData:C:/Glut/Data vincoss/glutsvr:1.0.0
+docker run -it --rm -p 8000:80 --name glutsvr -h glut --ip 10.1.2.3 -v glutData:C:/Glut/Data vincoss/glutsvr:1.0.0-windows-nanoserver
 
 ## Error logs
 docker logs --tail 50 --follow --timestamps glutsvr
@@ -25,7 +25,7 @@ http://localhost:8000/
 ##------------------------------------------------ Test
 
 # grab image
-docker pull vincoss/glutsvr:1.0.0
+docker pull vincoss/glutsvr:1.0.0-windows-nanoserver
 
 # run
 docker run -it --rm -p 8000:80 --name glutsvr -h glut --ip 10.1.2.3 -v glutData:C:/Glut/Data vincoss/glutsvr:1.0.0
