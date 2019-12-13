@@ -7,10 +7,10 @@ https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/
 docker build --no-cache -t vincoss/glutsvr:1.0.0 .
 
 ## Tag image (before publish to docker hub)
-docker image tag vincoss/glutsvr:1.0.0 vincoss/glutsvr:1.0.0
+docker image tag vincoss/glutsvr:1.0.0 vincoss/glutsvr:1.0.0-windows-nanoserver
 
 ## Push to docker hub
-docker image push vincoss/glutsvr:1.0.1
+docker image push vincoss/glutsvr:1.0.0-windows-nanoserver
 
 ## Run
 docker run -it --rm -p 8000:80 --name glutsvr -h glut --ip 10.1.2.3 -v glutData:C:/Glut/Data vincoss/glutsvr:1.0.0

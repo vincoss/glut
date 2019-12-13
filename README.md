@@ -1,16 +1,18 @@
 # ![Logo](/src/GlutDev/Img/Logo.png?raw=true)  Glut
 
-HTTP load testing tool and library.
-
-Glut
-============
-
-Glut is an open-source and cross-platform framework for load testing web applications.
+GlutCli HTTP load testing tool and library.
+GlutSvr is an open-source and cross-platform framework for load testing web applications.
 
 ### Installation
 To install GlutCli via [NuGet](http://www.nuget.org/packages/GlutCli), run the following command in the Package Manager Console
 ```
 Install-Package GlutCli
+```
+
+### Docker Glut Server
+To pull GlutSrv via [Docker](https://hub.docker.com/repository/docker/vincoss/glutsvr), run the following command in the Command Line or Powershell
+```
+docker pull vincoss/glutsvr:1.0.0
 ```
 
 ## Screenshots
@@ -124,4 +126,3 @@ Some of the best ways to contribute are to try things out, file issues, join in 
 ## Reporting bugs
 
 https://github.com/vincoss/glut/issues
-
