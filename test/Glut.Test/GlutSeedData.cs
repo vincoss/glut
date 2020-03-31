@@ -19,7 +19,6 @@ namespace Glut
 
         public GlutSeedData WithProjects(EfDbContext context)
         {
-            // Look for any movies.
             if (context.Results.Any())
             {
                 return this;   // DB has been seeded
@@ -50,7 +49,6 @@ namespace Glut
 
         public GlutSeedData WithResults(EfDbContext context)
         {
-            // Look for any movies.
             if (context.Results.Any())
             {
                 return this;   // DB has been seeded
